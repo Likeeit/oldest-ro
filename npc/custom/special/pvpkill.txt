@@ -9,7 +9,7 @@ getmapxy .@map$, .@x, .@y, 0;
 if (@map$ == $pvpmap$[.@]) {
 
 	set @killstreak, @killstreak + 1;
-	if (@killstreak <= 3) {announce ""+strcharinfo(0)+" had just killed "+rid2name(killedrid)+" at "+strcharinfo(3)+".",bc_map;}
+	if (@killstreak < 3) {announce ""+strcharinfo(0)+" had just killed "+rid2name(killedrid)+" at "+strcharinfo(3)+".",bc_all;}
 	if (@killstreak >= 3) {announce ""+strcharinfo(0)+" had just killed "+rid2name(killedrid)+" at "+strcharinfo(3)+".["+@killstreak+"]",bc_all;}
 
 }

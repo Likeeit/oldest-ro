@@ -7,7 +7,7 @@ invek,141,57,5	script	Beta Leveler	922,{
 		mes "Just say the password and I will use my awesome powers!"; next;
 		switch(select("The server and admin is SO AWESOME!!:Give me a break!")) {
 			case 1:
-				jobchange = 4001
+				jobchange 4001;
 				BaseLevel = 10;
 				JobLevel = 10;
 				StatusPoint = 132;

@@ -1,7 +1,15 @@
 job_knt,45,45,5	script	Oldest Guardian	403,{
 	mes "This is the Beta Shop Only"; next;
-	mes "You can buy anything here";
-	close;
+	mes "You can buy anything here"; next;
+	mes "Do you want to exit?"
+	switch(select("Yes:No")) {
+		case 1:
+			warp "invek",146,164;
+			end;
+		case 2:
+			mes "Okay";
+			close;
+	}
 OnInit:
 	.@interval = 5;
 	.@step = 5;

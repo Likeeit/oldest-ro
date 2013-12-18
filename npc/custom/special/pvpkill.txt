@@ -1,74 +1,23 @@
--	script	pvpkill	-1,{
-
+-	script	C_login	-1,{
 
 OnInit:
-
-//For set map used
 setarray $pvpmap$[0],"guild_vs3","guild_vs2-2";
 
-
-OnPCDieEvent:
-
-getmapxy @map$,@x,@y,0;
-
-//For PvP maps
-		for( set .@i, 0; .@i < getarraysize($pvpmap$); set .@i, .@i +1 )
-	if (@map$ == $pvpmap$[.@i]) {
-	
-		set .@p,getcharid(0); //Char ID
-		set .@q,strcharinfo(0); //Char ID
-
-//For killstreak, you can add more lines - Change announce.
-
-		set @killstreak,0;
-		set @deathstreak,@deathstreak+1;
-		if (@deathstreak == 5) {mapannounce ""+@map$+"",""+.@q+" : ["+@deathstreak+"] Kills without be killed !",bc_map;}
-		if (@deathstreak == 10) {mapannounce ""+@map$+"",""+.@q+" : ["+@deathstreak+"] Kills without be killed !",bc_map;}
-		if (@deathstreak == 15) {mapannounce ""+@map$+"",""+.@q+" : ["+@deathstreak+"] Kills without be killed !",bc_map;}
-		if (@deathstreak == 20) {mapannounce ""+@map$+"",""+.@q+" : ["+@deathstreak+"] Kills without be killed !",bc_map;}
-
-//Par Joueur
-		query_sql("SELECT `pvp_Death` FROM `char` WHERE `char_id` = '"+.@p+"'",.@countL); //Check name
-		setarray .@countL[0],.@countL[0]+1;
-		query_sql "UPDATE `char` SET `pvp_Death` = '"+.@countL[0]+"' WHERE `char_id` ='"+.@p+"'";
-	}
- 
-//============================= Bottom
-
-		if(killerrid==0) {dispbottom "You just killed yourself.";end;}
-		set @killer$, rid2name(killerrid);
-		dispbottom "You have been killed by "+@killer$+"!";
-		end;
-
-//=================================================================================
-
 OnPCKillEvent:
-
-getmapxy @map$,@x,@y,0;
-
+getmapxy .@map$, .@x, .@y, 0;
 	for( set .@i, 0; .@i < getarraysize($pvpmap$); set .@i, .@i +1 )
-	if (@map$ == $pvpmap$[.@i]) {
+if (@map$ == $pvpmap$[.@]) {
 
-	set .@x,getcharid(0); //Char ID
-	set .@y,strcharinfo(0);
+	set @killstreak, @killstreak + 1;
+	if (@killstreak <= 3) {announce ""+strcharinfo(0)+" had just killed "+rid2name(killedrid)+" at "+strcharinfo(3)+".",bc_map;}
+	if (@killstreak >= 3) {announce ""+strcharinfo(0)+" had just killed "+rid2name(killedrid)+" at "+strcharinfo(3)+".["+@killstreak+"]",bc_all;}
 
-	set @deathstreak,0;
-	set @killstreak,@killstreak+1;
-	if (@killstreak == 5) {mapannounce ""+@map$+"",""+.@y+" : ["+@killstreak+"] died without kill !",bc_map;}
-	if (@killstreak == 10) {mapannounce ""+@map$+"",""+.@y+" : ["+@killstreak+"] died without kill !",bc_map;}
-	if (@killstreak == 15) {mapannounce ""+@map$+"",""+.@y+" : ["+@killstreak+"] died without kill !",bc_map;}
-	if (@killstreak == 20) {mapannounce ""+@map$+"",""+.@y+" : ["+@killstreak+"] died without kill !",bc_map;}
-
-	//Par Joueur
-	query_sql("SELECT `pvp_Kill` FROM `char` WHERE `char_id` = '"+.@x+"'",.@countX); //Verif le nom
-	setarray .@countX[0],.@countX[0]+1;
-	query_sql "UPDATE `char` SET `pvp_Kill` = '"+.@countX[0]+"' WHERE `char_id` ='"+.@x+"'";
+}
+OnPCDieEvent: 
+getmapxy @map$,@x,@y,0;
+	for( set .@i, 0; .@i < getarraysize($pvpmap$); set .@i, .@i +1 )
+if (@map$ == $pvpmap$[.@i]) {
+	if (@killstreak >= 3) {announce ""+rid2name(killedrid)+" had just ended "+strcharinfo(0)+"'s ["+@killstreak+"] streak at "+strcharinfo(3)+".",bc_all;}
+	set @killstreak,0;
 	}
-
-//============================= Bottom
-
-	set @killed$, rid2name(killedrid);
-	if(strcharinfo(0)==@killed$) {end;}
-	dispbottom "You have kill "+@killed$+"!";
-	end;
 }

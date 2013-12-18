@@ -12,7 +12,7 @@
 
 	OnInit:
 		.time_interval = 1; // n day(s)
-		setarray .Items[0],6242,10; // <item id>,<item amount>
+		setarray .Items[0],6242,100; // <item id>,<item amount>
 		.Size = getarraysize(.Items);
 		end;
 }

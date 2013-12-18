@@ -11,16 +11,16 @@
 			if (lkcount >= 5){
 				dispbottom "You have Lose";
 			} else {
-				set #CASHPOINTS, #CASHPOINTS + 1;
+				set #CASHPOINTS, #CASHPOINTS + 200;
 				message strcharinfo(0),"Your current Cash Points is:"+#CASHPOINTS;
-				dispbottom "You have gained 1 cash point";
+				dispbottom "You have gained 200 cash point";
 			}
 		} else {
 			set lastkilled,killedrid;
 			set lkcount, 1;
-			set #CASHPOINTS, #CASHPOINTS + 1;
+			set #CASHPOINTS, #CASHPOINTS + 200;
 			message strcharinfo(0),"Your current Cash Points is:"+#CASHPOINTS;
-			dispbottom "You have gained 1 cash point";
+			dispbottom "You have gained 200 cash point";
 		}
 		
 		end;

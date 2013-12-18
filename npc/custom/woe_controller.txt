@@ -67,7 +67,7 @@ OnInit:
 	// Rewards per castle.
 	// -- when given directly: <itemID>,<amount>{,<itemID>,<amount>,...}
 	// -- via mail (option 2): <itemID>,<amount>,<Zeny>
-	setarray .Reward[0],32719,1,7720,1,675,2;
+	setarray .Reward[0],32719,1,7720,50,675,2;
 
 // -----------------------------------------------------------
 //  Constants (leave this section alone).

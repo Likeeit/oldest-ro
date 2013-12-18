@@ -12,8 +12,8 @@ announce "There are ["+getmapusers("guild_vs3")+"/30] players inside the PvP roo
 	end;
 
 L3:
-if ((getmapusers("guild_vs2-2.gat") > 30)||(#CASHPOINTS < 1)||(getgroupid() > 1)&&(getgroupid() < 99)) goto Lsorry2;
-set #CASHPOINTS, #CASHPOINTS - 1;
+if ((getmapusers("guild_vs2-2.gat") > 30)||(#CASHPOINTS < 200)||(getgroupid() > 1)&&(getgroupid() < 99)) goto Lsorry2;
+set #CASHPOINTS, #CASHPOINTS - 200;
 warp	"guild_vs2-2",0,0;
 announce strcharinfo(0) + " : Need cash? get it from me inside the ElitePvPers room.",0;
 announce "There are ["+getmapusers("guild_vs2-2")+"/30] players inside the elitepvpers room.",0;
@@ -26,7 +26,7 @@ mes "Sorry, Its either the arena is full or WoE is still ongoing.";
 
 Lsorry2:
 mes "[PvP with Cash]";
-mes "Sorry, Its either the arena is full, WoE is still ongoing, or you dont have atleast 1 cash points";
+mes "Sorry, Its either the arena is full, WoE is still ongoing, or you dont have atleast 200 cash points";
 	close;
 	
 OnInit:

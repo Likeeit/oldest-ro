@@ -16,7 +16,7 @@
 
 OnInit:
 	disablenpc "poringevent";
-	hideonnpc "Poring Catcher#evnt2";
+	disablenpc "Poring Catcher#evnt2";
 	end;
 
 OnMinute50: // SET THE 30 TO THE MINUTE YOU WANT THE EVENT TO START EACH HOUR.
@@ -121,9 +121,9 @@ L_PORING:
 	getitem 7539,10; // SET THE 20085 TO THE ITEM ID OF YOUR PRIZE
 	set Zeny,Zeny+25000;
 
-	set PORING,0;
+	set PORING, 0;
 	warp "invek",146,164;
-	hideonnpc "Poring Catcher#evnt2";
+	disablenpc "Poring Catcher#evnt2";
 	end;
 	
 OnEnable:
@@ -155,10 +155,10 @@ L_Start:
 	mapannounce "poring_w01","Poring Catcher : Lets Do This!",0;
 	areamonster "poring_w01",84,119,121,90,"Poring",1002,1,"poringwin::OnMobKilled";
 	areamonster "poring_w01",84,119,121,90,"Pouring",1002,10,"poringlose::OnMobKilled";
-	areamonster "poring_w01",84,119,121,90,"Proing",1002,10,"poringlose::OnMobKilled";
+	areamonster "poring_w01",84,119,121,90,"Powring",1002,10,"poringlose::OnMobKilled";
 	areamonster "poring_w01",84,119,121,90,"Poiring",1002,10,"poringlose::OnMobKilled";
 	areamonster "poring_w01",84,119,121,90,"Poing",1002,10,"poringlose::OnMobKilled";
-	areamonster "poring_w01",84,119,121,90,"I am not Poring",1002,5,"poringlose::OnMobKilled";
+	areamonster "poring_w01",84,119,121,90,"Poporing",1002,5,"poringlose::OnMobKilled";
 	areamonster "poring_w01",84,119,121,90,"Gniriop",1002,1,"poringlose::OnMobKilled";
 	areamonster "poring_w01",84,119,121,90,"Porring",1113,1,"poringlose::OnMobKilled";
 	areamonster "poring_w01",84,119,121,90,"Porinng",1062,1,"poringlose::OnMobKilled";
@@ -175,13 +175,12 @@ L_Start:
 
 OnMobKilled:
 	dispbottom "Poring : Congratulations. You've got me.";
-	set PORING,1;
+	set PORING, 1;
 	atcommand "@doommap";
 	killmonster "poring_w01","All";
 	mapannounce "poring_w01","Poring Catcher : Come to me and tell me your name.",0;
-	hideoffnpc "Poring Catcher#evnt2";
+	enablenpc "Poring Catcher#evnt2";
 	end;
-
 }
 
 -	script	poringlose	-1,{
@@ -190,7 +189,6 @@ OnMobKilled:
 	dispbottom "Poring Catcher : Wahaha, your a loser! - I wasnt the correct Poring.";
 	warp "invek",146,164;
 	end;
-
 }
 
 // -- Mapflags

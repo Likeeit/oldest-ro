@@ -30,4 +30,4 @@
 // - This file is reloaded by @reloadmobdb.
 
 616,100 //OCA
-969,10000,1110 //Gold
+969,1000 //Gold

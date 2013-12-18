@@ -374,7 +374,7 @@ bat_room,1,151,3	script	Switch#batgnd	4_DOG01,{
 
 // Badges Exchange
 //============================================================
-bat_room,160,150,3	script	Erundek	4_M_MANAGER,{
+-	script	::Erundek	-1,{
 	if (checkweight(1201,1) == 0) {
 		mes "- Wait a minute !! -";
 		mes "- Currently you're carrying -";
@@ -560,3 +560,5 @@ bat_room,160,150,3	script	Erundek	4_M_MANAGER,{
 	}
 	close;
 }
+moc_para01,17,35,4	duplicate(Erundek)	Erundek#mol	4_M_MANAGER
+bat_room,160,150,3	duplicate(Erundek)	Erundek#bgr	4_M_MANAGER

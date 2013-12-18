@@ -128,57 +128,57 @@ function Job_Menu {
 			mes "You are now "+A_An(jobname(.@i))+"!";
 			if (.@i==4001 && .LastJob) set lastJob, Class;
 			jobchange .@i;
-			if (.@i==4060 || .@i==4096 || .@i==4054){
+			if (.@i==4008 || .@i==4060 || .@i==4096 || .@i==4054){
 					getitem 2795,1;
-					getitem 5746,1;
+					atcommand "@itembound 5746 1 4";
 				}
-			if (.@i==4061 || .@i==4097 || .@i==4055){
+			if (.@i==4010 || .@i==4061 || .@i==4097 || .@i==4055){
 					getitem 2795,1;
-					getitem 5753,1;
+					atcommand "@itembound 5753 1 4";
 				}
-			if (.@i==4062 || .@i==4098 || .@i==4056){
+			if (.@i==4012 || .@i==4062 || .@i==4098 || .@i==4056){
 					getitem 2795,1;
-					getitem 5748,1;
+					atcommand "@itembound 5748 1 4";
 				}
-			if (.@i==4063 || .@i==4099 || .@i==4057){
+			if (.@i==4009 || .@i==4063 || .@i==4099 || .@i==4057){
 					getitem 2795,1;
-					getitem 5747,1;
+					atcommand "@itembound 5747 1 4";
 				}
-			if (.@i==4064 || .@i==4100 || .@i==4058){
+			if (.@i==4011 || .@i==4064 || .@i==4100 || .@i==4058){
 					getitem 2795,1;
-					getitem 5749,1;
+					atcommand "@itembound 5749 1 4";
 				}
-			if (.@i==4065 || .@i==4101 || .@i==4059){
+			if (.@i==4013 || .@i==4065 || .@i==4101 || .@i==4059){
 					getitem 2795,1;
-					getitem 5755,1;
+					atcommand "@itembound 5755 1 4";
 				}
-			if (.@i==4073 || .@i==4102 || .@i==4066){
+			if (.@i==4015 || .@i==4073 || .@i==4102 || .@i==4066){
 					getitem 2795,1;
-					getitem 5757,1;
+					atcommand "@itembound 5757 1 4";
 				}
-			if (.@i==4074 || .@i==4103 || .@i==4067){
+			if (.@i==4017 || .@i==4074 || .@i==4103 || .@i==4067){
 					getitem 2795,1;
-					getitem 5756,1;
+					atcommand "@itembound 5756 1 4";
 				}
-			if (.@i==4075 || .@i==4104 || .@i==4068){
+			if (.@i==4020 || .@i==4075 || .@i==4104 || .@i==4068){
 					getitem 2795,1;
-					getitem 5751,1;
+					atcommand "@itembound 5751 1 4";
 				}
-			if (.@i==4076 || .@i==4105 || .@i==4069){
+			if (.@i==4021 || .@i==4076 || .@i==4105 || .@i==4069){
 					getitem 2795,1;
-					getitem 5758,1;
+					atcommand "@itembound 5758 1 4";
 				}
-			if (.@i==4077 || .@i==4106 || .@i==4070){
+			if (.@i==4016 || .@i==4077 || .@i==4106 || .@i==4070){
 					getitem 2795,1;
-					getitem 5754,1;
+					atcommand "@itembound 5754 1 4";
 				}
-			if (.@i==4078 || .@i==4107 || .@i==4071){
+			if (.@i==4019 || .@i==4078 || .@i==4107 || .@i==4071){
 					getitem 2795,1;
-					getitem 5752,1;
+					atcommand "@itembound 5752 1 4";
 				}
-			if (.@i==4079 || .@i==4108 || .@i==4072){
+			if (.@i==4018 || .@i==4079 || .@i==4108 || .@i==4072){
 					getitem 2795,1;
-					getitem 5750,1;
+					atcommand "@itembound 5750 1 4";
 				}
 			if (.@i==4001 || .@i==4023) resetlvl(1);
 			specialeffect2 338; specialeffect2 432;

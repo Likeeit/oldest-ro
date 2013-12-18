@@ -1,5 +1,5 @@
 invek,141,57,5	script	Beta Leveler	922,{
-	if ( Class <= 21 ) && ( BaseLevel == 1 ) {
+	if ( Class <= 21 ) {
 		mes "Hello!"; next;
 		mes "Oh, a newbie?"; next;
 		mes "The Administrator of this server is very awesome!";

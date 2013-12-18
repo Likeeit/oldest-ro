@@ -114,7 +114,7 @@ OnStartGame:
 	for( set .@x,.Coordinate[0]; .@x <= .Coordinate[2]; set .@x,.@x + 1 )
 		for( set .@y,.Coordinate[1]; .@y <= .Coordinate[3]; set .@y,.@y + 1 ){
 			set .@Summon,rand( getarraysize( .MonsterList ) );
-			summon .Map$,.@x,.@y,"Count Me",.MonsterList[.@Summon],1,strnpcinfo(0)+"::OnKilled";
+			monster .Map$,.@x,.@y,"Count Me",.MonsterList[.@Summon],1,strnpcinfo(0)+"::OnKilled";
 			set .MobCount[.@Summon],.MobCount[.@Summon] + 1;
 			sleep2 1;
 		}

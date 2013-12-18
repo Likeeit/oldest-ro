@@ -36,6 +36,7 @@ guild_vs2-1	mapflag	nowarpto
 
 // No Knockback
 job_knt	mapflag	noknockback
+izlude	mapflag	noknockback
 
 //
 guild_vs2-1	mapflag	gvg
@@ -125,5 +126,6 @@ guild_vs2	mapflag	partylock
 guild_vs2-1	mapflag	partylock
 invek	mapflag	town
 invek	mapflag	noloot
+izlude	mapflag	noloot
 invek	mapflag	nobranch
 moc_para01	mapflag	nobranch

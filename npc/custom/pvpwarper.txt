@@ -30,7 +30,7 @@ mes "Sorry, Its either the arena is full, WoE is still ongoing, or you dont have
 	close;
 	
 OnInit:
-waitingroom "PvP[" + getmapusers("guild_vs3.gat") + "/30]&[" + getmapusers("guild_vs2-2.gat") + "/30]",0;
+waitingroom "PvP[" + getmapusers("guild_vs3") + "/30]&[" + getmapusers("guild_vs2-2") + "/30]",0;
 end;
 }
 

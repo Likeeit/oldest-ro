@@ -96,7 +96,7 @@ OnGMStart:
 	announce "(Poring Manager) : If you want to join, come at the middle of Invek, enter the warp portal.",0;
 	enablenpc "PoringCatcher";
 	sleep 2000;
-	announce "(Poring Manager) : Prize: will be TCG and Gold Coins",0;
+	announce "(Poring Manager) : Prize: will be Poring Coin",0;
 	sleep 2000;
 	announce "(Poring Manager) : The portal is going to close in one minute.",0;  
 	sleep 60000;
@@ -130,7 +130,7 @@ OnMinute50: // SET THE 30 TO THE MINUTE YOU WANT THE EVENT TO START EACH HOUR.
 	announce "(Poring Manager) : If you want to join, come at the middle of Invek, enter the warp portal.",0;
 	enablenpc "PoringCatcher";
 	sleep 2000;
-	announce "(Poring Manager) : Prize: will be TCG and Gold Coins",0;
+	announce "(Poring Manager) : Prize: will be Poring Coin",0;
 	sleep 2000;
 	announce "(Poring Manager) : The portal is going to close in one minute.",0;  
 	sleep 60000;

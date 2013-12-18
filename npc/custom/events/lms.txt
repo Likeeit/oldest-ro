@@ -8,13 +8,7 @@ OnInit:
 
 -	script	LMS	-1,{
 
-OnClock0130:
-OnClock0430:
-OnClock0730:
-OnClock1030:
-OnClock1430:
-OnClock1730:
-OnClock2330:
+OnMinute00:
 
 goto startlmsevent;
 

@@ -7,13 +7,11 @@ OnPCKillEvent:
 getmapxy .@map$, .@x, .@y, 0;
 	for( set .@i, 0; .@i < getarraysize($pvpmap$); set .@i, .@i +1 )
 if (@map$ == $pvpmap$[.@]) {
-
 	set @killstreak, @killstreak + 1;
 	if (@killstreak < 3) {announce ""+strcharinfo(0)+" had just killed "+rid2name(killedrid)+" at "+strcharinfo(3)+".",bc_all;}
 	if (@killstreak >= 3) {announce ""+strcharinfo(0)+" had just killed "+rid2name(killedrid)+" at "+strcharinfo(3)+".["+@killstreak+"]",bc_all;}
-
 }
-OnPCDieEvent: 
+OnPCDieEvent:
 getmapxy @map$,@x,@y,0;
 	for( set .@i, 0; .@i < getarraysize($pvpmap$); set .@i, .@i +1 )
 if (@map$ == $pvpmap$[.@i]) {

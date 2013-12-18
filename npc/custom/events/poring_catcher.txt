@@ -93,7 +93,7 @@ OnGMStart:
 	killmonster "poring_w01.gat","All";
 	announce "(Poring Manager) : A Gamemaster started a Poring Catcher Event now.",0;
 	sleep 3000;
-	announce "(Poring Manager) : If you want to join, come at the middle of Prontera, enter the warp portal.",0;
+	announce "(Poring Manager) : If you want to join, come at the middle of Invek, enter the warp portal.",0;
 	enablenpc "PoringCatcher";
 	sleep 2000;
 	announce "(Poring Manager) : Prize: will be TCG and Gold Coins",0;
@@ -116,7 +116,7 @@ OnGMStop:
 
 	killmonster "poring_w01.gat","All";
 	announce "A Gamemaster has stopped the Poring Catcher Event",0;
-	mapwarp "poring_w01.gat","prontera.gat",155,173;
+	mapwarp "poring_w01.gat","invek.gat",146,164;
 	disablenpc "Poring Banker";
 	disablenpc "PoringCatcher";
 	end;
@@ -127,7 +127,7 @@ OnMinute50: // SET THE 30 TO THE MINUTE YOU WANT THE EVENT TO START EACH HOUR.
 	killmonster "poring_w01.gat","All";
 	announce "(Poring Manager) : Poring Catcher Event will start at the moment.",0;
 	sleep 3000;
-	announce "(Poring Manager) : If you want to join, come at the middle of Prontera, enter the warp portal.",0;
+	announce "(Poring Manager) : If you want to join, come at the middle of Invek, enter the warp portal.",0;
 	enablenpc "PoringCatcher";
 	sleep 2000;
 	announce "(Poring Manager) : Prize: will be TCG and Gold Coins",0;
@@ -151,7 +151,7 @@ OnInit:
 	disablenpc "PoringCatcher";
 }
 //---------All Job Registration----------------------------------------
-prontera,155,173,0	warp	PoringCatcher	2,2,poring_w01,105,128
+invek,147,160,0	warp	PoringCatcher	2,2,poring_w01,105,128
 
 //---------------------------------------------------------------------
 

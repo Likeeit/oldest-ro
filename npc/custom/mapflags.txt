@@ -1,0 +1,129 @@
+// No Commands
+2012rwc_01	mapflag	nocommand	1
+2012rwc_02	mapflag	nocommand	1
+2012rwc_03	mapflag	nocommand	1
+2012rwc_04	mapflag	nocommand	1
+2012rwc_05	mapflag	nocommand	1
+2012rwc_06	mapflag	nocommand	1
+2012rwc_07	mapflag	nocommand	1
+2012rwc_08	mapflag	nocommand	1
+guild_vs2	mapflag	nocommand	1
+guild_vs2-1	mapflag	nocommand	1
+guild_vs2-2	mapflag	nocommand	1
+guild_vs3	mapflag	nocommand	1
+guild_vs5	mapflag	nocommand	1
+job_knt	mapflag	nocommand	1
+
+// No Cash Shop, Banking
+job_knt	mapflag	nobanking
+job_knt	mapflag	nocashshop
+
+// No tele,warp
+moc_para01	mapflag	noteleport
+moc_para01	mapflag	nowarpto
+job_knt	mapflag	noteleport
+job_knt	mapflag	nowarpto
+guild_vs2	mapflag	nowarpto
+guild_vs2-1	mapflag	nowarpto
+2012rwc_01	mapflag	nowarpto
+2012rwc_02	mapflag	nowarpto
+2012rwc_03	mapflag	nowarpto
+2012rwc_04	mapflag	nowarpto
+2012rwc_05	mapflag	nowarpto
+2012rwc_06	mapflag	nowarpto
+2012rwc_07	mapflag	nowarpto
+2012rwc_08	mapflag	nowarpto
+
+// No Knockback
+job_knt	mapflag	noknockback
+
+//
+guild_vs2-1	mapflag	gvg
+guild_vs2-1	mapflag	partylock
+guild_vs2-1	mapflag	pvp_noguild
+
+// Zone
+moc_para01	mapflag	autotrade
+aru_gld	mapflag	zone	GvG2
+sch_gld	mapflag	zone	GvG2
+guild_vs5	mapflag	zone	rwc
+guild_vs2	mapflag	zone	rwc
+guild_vs2-1	mapflag	zone	rwc
+2012rwc_01	mapflag	zone	rwc
+2012rwc_02	mapflag	zone	rwc
+2012rwc_03	mapflag	zone	rwc
+2012rwc_04	mapflag	zone	rwc
+2012rwc_05	mapflag	zone	rwc
+2012rwc_06	mapflag	zone	rwc
+2012rwc_07	mapflag	zone	rwc
+2012rwc_08	mapflag	zone	rwc
+quiz_02	mapflag	zone	eventmap
+guild_vs2-2	mapflag	zone	rwc
+
+// Guild Castles ==========
+aldeg_cas01	mapflag	nocommand	1
+aldeg_cas02	mapflag	nocommand	1
+aldeg_cas03	mapflag	nocommand	1
+aldeg_cas04	mapflag	nocommand	1
+aldeg_cas05	mapflag	nocommand	1
+gefg_cas01	mapflag	nocommand	1
+gefg_cas02	mapflag	nocommand	1
+gefg_cas03	mapflag	nocommand	1
+gefg_cas04	mapflag	nocommand	1
+gefg_cas05	mapflag	nocommand	1
+payg_cas01	mapflag	nocommand	1
+payg_cas02	mapflag	nocommand	1
+payg_cas03	mapflag	nocommand	1
+payg_cas04	mapflag	nocommand	1
+payg_cas05	mapflag	nocommand	1
+prtg_cas01	mapflag	nocommand	1
+prtg_cas02	mapflag	nocommand	1
+prtg_cas03	mapflag	nocommand	1
+prtg_cas04	mapflag	nocommand	1
+prtg_cas05	mapflag	nocommand	1
+schg_cas01	mapflag	nocommand	1
+schg_cas02	mapflag	nocommand	1
+schg_cas03	mapflag	nocommand	1
+schg_cas04	mapflag	nocommand	1
+schg_cas05	mapflag	nocommand	1
+arug_cas01	mapflag	nocommand	1
+arug_cas02	mapflag	nocommand	1
+arug_cas03	mapflag	nocommand	1
+arug_cas04	mapflag	nocommand	1
+arug_cas05	mapflag	nocommand	1
+
+bossnia_01	mapflag	monster_noteleport
+bossnia_02	mapflag	monster_noteleport
+bossnia_03	mapflag	monster_noteleport
+bossnia_04	mapflag	monster_noteleport
+bossnia_01	mapflag	noicewall
+bossnia_02	mapflag	noicewall
+bossnia_03	mapflag	noicewall
+bossnia_04	mapflag	noicewall
+bossnia_01	mapflag	zone	bossnia
+bossnia_02	mapflag	zone	bossnia
+bossnia_03	mapflag	zone	bossnia
+bossnia_04	mapflag	zone	bossnia
+bossnia_01	mapflag	nomemo
+bossnia_02	mapflag	nomemo
+bossnia_03	mapflag	nomemo
+bossnia_04	mapflag	nomemo
+bossnia_01	mapflag	nowarpto
+bossnia_02	mapflag	nowarpto
+bossnia_03	mapflag	nowarpto
+bossnia_04	mapflag	nowarpto
+2012rwc_01	mapflag	partylock
+2012rwc_02	mapflag	partylock
+2012rwc_03	mapflag	partylock
+2012rwc_04	mapflag	partylock
+2012rwc_05	mapflag	partylock
+2012rwc_06	mapflag	partylock
+2012rwc_07	mapflag	partylock
+2012rwc_08	mapflag	partylock
+guild_vs5	mapflag	partylock
+guild_vs2	mapflag	partylock
+guild_vs2-1	mapflag	partylock
+invek	mapflag	town
+invek	mapflag	noloot
+invek	mapflag	nobranch
+moc_para01	mapflag	nobranch

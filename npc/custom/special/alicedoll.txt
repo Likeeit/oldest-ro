@@ -1,0 +1,310 @@
+//===== eAthena Script =======================================
+//= Rock Scissors Roulette Script
+//===== By: ==================================================
+//= acky (1.1)
+//===== Current Version: =====================================
+//= 1.2
+//===== Compatible With: =====================================
+//= Any eAthena Version
+//===== Description: =========================================
+//= Plays a hybrid Russian Roulette Rock Scissors Paper game.
+//===== Additional Comments: =================================
+//= Prizes customisable, Added emotions.
+//= 1.2 Fixes by Blackthunder and me [Poki#3]
+//============================================================
+
+invek,155,207,5	script	Rock Paper Scissor	85,{
+	if(AliceDoll == 1) goto L_Obtain;
+	if (Zeny > 9999) {
+	mes "Jack En Poy";
+	set @counter,1;
+	mes "Hey you! Up for Rock Scissors Roulette?";
+	mes "[NOTE: You may get Alice Doll [1] Once]";
+	next;
+	menu "Let me play.",PLAY,"Explain the rules.",RULES,"Leave",LEAVE;
+	SAME:
+	mes "Draw! Again!";
+	next;
+	set Zeny,Zeny-10000;
+	goto PLAY;
+	}
+	else {
+		mes "If by any chance, you would want to play with me, bring me 10,000 Zeny.";
+		close;
+	}
+L_Obtain:
+		mes "Hey I remember you!  I already told you that you may only obtain alice doll once.";
+		close;
+
+WIN:
+	mes "Damnit, You Win!";
+	emotion 19;
+	next;
+	goto OPPPULL;
+
+LOSE:
+	emotion 18;
+	mes "Boorah! You Lose!";
+	next;
+	set Zeny,Zeny-10000;
+	goto YOUPULL;
+
+PLAY:
+	mes "Rock... Paper...";
+	set @opp,rand (1,3);
+	menu "^0000FFROCK!",ROCK,"^FF0000SCISSORS!",SCISSORS,"^00FF00PAPER!^000000",PAPER;
+
+ROCK:
+  	if (@lastchoice == 1) set @opp,rand (1,3);
+  	if (@opp == 1) emotion 11;
+  	if (@opp == 2) emotion 10;
+  	if (@opp == 3) emotion 12;
+  	set @lastchoice,1;
+	if (@opp == 1) goto SAME;
+	if (@opp == 2) goto WIN;
+	if (@opp == 3) goto LOSE;
+
+SCISSORS:
+	if (@lastchoice == 2) set @opp,rand (1,2);
+  	if (@opp == 1) emotion 11;
+  	if (@opp == 2) emotion 10;
+  	if (@opp == 3) emotion 12;
+  	set @lastchoice,2;
+	if (@opp == 1) goto LOSE;
+	if (@opp == 2) goto SAME;
+	if (@opp == 3) goto WIN;
+
+PAPER:
+	if (@lastchoice == 3) set @opp,rand (2,3);
+  	if (@opp == 1) emotion 11;
+  	if (@opp == 2) emotion 10;
+  	if (@opp == 3) emotion 12;
+  	set @lastchoice,3;
+	if (@opp == 1) goto WIN;
+	if (@opp == 2) goto LOSE;
+	if (@opp == 3) goto SAME;
+
+YOUPULL:
+	if (@counter == 1) goto ONE;
+	if (@counter == 2) goto TWO;
+	if (@counter == 3) goto THREE;
+	if (@counter == 4) goto FOUR;
+	if (@counter == 5) goto FIVE;
+	if (@counter == 6) goto SIX;
+
+OPPPULL:
+	if (@counter == 1) goto ONEa;
+	if (@counter == 2) goto TWOa;
+	if (@counter == 3) goto THREEa;
+	if (@counter == 4) goto FOURa;
+	if (@counter == 5) goto FIVEa;
+	if (@counter == 6) goto SIXa;
+
+ONE:
+	set @counter,2;
+	mes "1 of 6";
+	set @pull,rand (1,6);
+	next;
+	if (@pull == 1) goto DIE;
+	if (@pull != 1) goto SAFE;
+
+TWO:
+	set @counter,3;
+	mes "2 of 6";
+	set @pull,rand (1,5);
+	next;
+	if (@pull == 1) goto DIE;
+	if (@pull != 1) goto SAFE;
+
+THREE:
+	set @counter,4;
+	mes "3 of 6";
+	set @pull,rand (1,4);
+	next;
+	if (@pull == 1) goto DIE;
+	if (@pull != 1) goto SAFE;
+
+FOUR:
+	set @counter,5;
+	mes "4 of 6";
+	set @pull,rand (1,3);
+	next;
+	if (@pull == 1) goto DIE;
+	if (@pull != 1) goto SAFE;
+
+FIVE:
+	set @counter,6;
+	mes "5 of 6";
+	set @pull,rand (1,2);
+	if (@pull == 1) set @pull,rand (1,2);
+	next;
+	if (@pull == 1) goto DIE;
+	if (@pull != 1) goto SAFE;
+
+SIX:
+	mes "6 of 6";
+	mes "Say your prayers";
+	set @pull,1;
+	next;
+	if (@pull == 1) goto DIE;
+	if (@pull != 1) goto SAFE;
+
+ONEa:
+	set @counter,2;
+	mes "1 of 6";
+	set @pull,rand (1,6);
+	next;
+	if (@pull == 1) goto KILL;
+	if (@pull != 1) goto SAFE;
+
+TWOa:
+	set @counter,3;
+	mes "2 of 6";
+	set @pull,rand (1,5);
+	next;
+	if (@pull == 1) goto KILL;
+	if (@pull != 1) goto SAFE;
+
+THREEa:
+	set @counter,4;
+	mes "3 of 6";
+	set @pull,rand (1,4);
+	next;
+	if (@pull == 1) goto KILL;
+	if (@pull != 1) goto SAFE;
+
+FOURa:
+	set @counter,5;
+	mes "4 of 6";
+	set @pull,rand (1,3);
+	next;
+	if (@pull == 1) goto KILL;
+	if (@pull != 1) goto SAFE;
+
+FIVEa:
+	set @counter,6;
+	mes "5 of 6";
+	set @pull,rand (1,2);
+	next;
+	if (@pull == 1) goto KILL;
+	if (@pull != 1) goto SAFE;
+
+SIXa:
+	mes "6 of 6";
+	mes "Say your prayers";
+	set @pull,1;
+	next;
+	if (@pull == 1) goto KILL;
+	if (@pull != 1) goto SAFE;
+
+SAFE:
+	emotion 32;
+	mes "*^0000FFClick^000000* whew...";
+	goto PLAY;
+
+DIE:
+	specialeffect2 183;
+	emotion 29;
+	mes "*^0000FFClick^000000* *^FF0000BANG^000000*";
+	mes "You're dead!";
+	next;
+	atcommand "@return";
+	close;
+
+KILL:
+	specialeffect 183;
+	emotion 23;
+	mes "*^0000FFClick^000000* *^FF0000BANG^000000*";
+	mes "OWWW @#$%^!! THAT HURT LIKE HELL!!";
+	next;
+	goto PRIZE;
+
+RULES:
+	mes "Ok here are the rules:";
+	mes "I have with me a ^FF00006^000000 chamber pistol with ^FF00001^000000 round. First we play ^FF0000Scissors ^00FF00Paper ^0000FFRock^000000. The loser pulls the trigger. The winner is whoever comes out best.";
+	mes "Beat me to win a prize.";
+	menu "Let me play.",CONT,"No thanks.",LEAVE;
+
+CONT:
+	mes "Ok here we go...";
+	next;
+	goto PLAY;
+
+PRIZE:
+	mes "Congratulations! You have won...";
+	set @prize,rand (1,1000);
+	if (@prize <= 100) goto P1;
+	if (@prize <= 250) goto P2;
+	if (@prize <= 253) goto P3;
+	if (@prize <= 400) goto P4;
+	if (@prize <= 500) goto P5;
+	if (@prize <= 600) goto P6;
+	if (@prize <= 700) goto P7;
+	if (@prize <= 800) goto P8;
+	if (@prize <= 900) goto P9;
+	if (@prize <= 1000) goto P10;
+
+P1:
+	mes "3x Oridicon!";
+	getitem 984,3;
+	announce "Congrats to "+strcharinfo(0)+", He just won 3x Oridicon, "+@prize,bc_all;
+	close;
+
+P2:
+	mes "3x Elunium!";
+	getitem 985,3;
+	announce "Congrats to "+strcharinfo(0)+", He just won 3x Elunium, "+@prize,bc_all;
+	close;
+
+P3:
+	mes "Alice Doll[1]!";
+	getitem 5137,1;
+	announce "Congrats to "+strcharinfo(0)+", He just won Alice Doll[1], "+@prize,bc_all;
+	close;
+
+P4:
+	mes "5x Old Blue Box!";
+	getitem 603,5;
+	announce "Congrats to "+strcharinfo(0)+", He just won 5x Old Blue Box, "+@prize,bc_all;
+	close;
+
+P5:
+	mes "3x Old Violet Box!";
+	getitem 617,3;
+	announce "Congrats to "+strcharinfo(0)+", He just won 3x Old Violet Box, "+@prize,bc_all;
+	close;
+
+P6:
+	mes "1x Old Card Album!";
+	getitem 616,1;
+	announce "Congrats to "+strcharinfo(0)+", He just won 1x Old Card Album, "+@prize,bc_all;
+	close;
+
+P7:
+	mes "1x Dead Branch!";
+	getitem 604,1;
+	announce "Congrats to "+strcharinfo(0)+", He just won 1x Dead Branch, "+@prize,bc_all;
+	close;
+
+P8:
+	mes "1x Large Jellopy!";
+	getitem 7126,1;
+	announce "Congrats to "+strcharinfo(0)+", He just won 1x Large Jellopy, "+@prize,bc_all;
+	close;
+
+P9:
+	mes "10x Clover!";
+	getitem 705,10;
+	announce "Congrats to "+strcharinfo(0)+", He just won 10x Clover, "+@prize,bc_all;
+	close;
+
+P10:
+	mes "20x Blue Potion!";
+	getitem 505,20;
+	announce "Congrats to "+strcharinfo(0)+", He just won 20x Blue Potion, "+@prize,bc_all;
+	close;
+
+LEAVE:
+	mes "Pansy.";
+	close;
+}

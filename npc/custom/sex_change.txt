@@ -1,0 +1,21 @@
+prontera,172,182,4	script	Sex Changer	725,{
+	mes "^f73fe4[ Sex Changer ]^000000";
+	
+	if(( BaseJob == 19 ) || ( BaseJob == 20 )) {
+		mes "Sorry, but you can't change your gender with your current Job.";
+		emotion 17;
+	} else {
+		mes "Are you sure you want a sex change?";
+		next;
+		if (select("Yes","No")==1) { 
+			changesex;
+		} else {
+			mes "Goodbye!";
+		}
+	}
+	close;
+	
+OnInit:
+waitingroom "Vicki Belo!",0;
+end;
+}

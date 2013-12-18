@@ -1,0 +1,13 @@
+invek,161,161,4	script	Kafra Employee::kaf_Invek	4_F_KAFRA1,{
+	cutin "kafra_01",2;
+	callfunc "F_KafSet";
+	mes "[Kafra Employee]";
+	mes "Welcome to the";
+	mes "Kafra Corporation.";
+	mes "The Kafra services";
+	mes "are always on your side.";
+	mes "How may I assist you?";
+	callfunc "F_Kafra",5,0,0,40,800;
+	savepoint "invek",146,164;
+	callfunc "F_KafEnd",0,1,"in the great city of Invek";
+}

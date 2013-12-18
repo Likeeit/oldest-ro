@@ -1,0 +1,32 @@
+prontera,107,158,0	script	Kill Monster for Zeny	81,{
+
+	OnNPCKillEvent:
+		//Get zeny if monster killed is listed
+		for (.@i = 0; .@i < getarraysize(.monster); .@i++)
+		{
+			if(killedrid == .monster[.@i])
+			{
+				.@mobzeny = rand(.min, .max);
+				Zeny += .@mobzeny;
+				
+				message strcharinfo(0), "You received "+ .@mobzeny +" for killing "+ getmonsterinfo(.monster[.@i], 0) +"!";
+			}
+		}
+		
+		end;
+	
+	OnWhisperGlobal:
+        // Whisper anything to initialize settings
+		message strcharinfo(0), strnpcinfo(1) +" : 'OnInit' label has been intialized.";
+    
+	OnInit:
+        // List of monster IDs
+		setarray .monster[0], 1002;
+        
+        // Set zeny range
+		.min = 1;        // Minimum
+		.max = 1000;        // Maximum
+		
+		end;
+        
+}

@@ -1,0 +1,59 @@
+-	script	Hourly Cash	-1,{
+
+//--Start of the Script
+OnPCLoginEvent:
+if (getgroupid() > 1) && (getgroupid() < 4) {
+	atcommand "@monsterignore";
+	atcommand "@costume Hanbok";
+	end;
+}
+
+attachnpctimer ""+strcharinfo(0)+"";
+dispbottom "5 Cash Points will be given to you every 15mins [ No Vending / Pub Chat / AFK ]";
+initnpctimer;
+end;
+    
+OnTimer30000:
+//Check if Vending (normal or @at)
+if(checkvending() >= 1 || checkchatting() == 1) {
+	set @vend, 1;
+    end;
+} else {
+	set @vend, 0;
+}
+//Check if Idle
+getmapxy( .@map$, .@x, .@y, 0 );
+if(@map$ == .@map$ && @x == .@x && @y == .@y) {
+    set @afk, @afk + 1;
+} else { //If move timer resets
+    set @afk, 0;
+}
+set @map$, .@map$; set @x, .@x; set @y, .@y;
+if(@afk == 30) {
+    dispbottom "The hourly points event stopped because you were idle or not moving for 5 minutes. Please relog if you wish to start again.";
+    stopnpctimer;
+    end;
+}
+end;
+
+OnTimer60000:
+set @minute, @minute + 1;
+
+//Check for 1 Minute
+if( ( @minute == 5 ) && ( @vend == 0) ){
+	set @minute,0;
+	set #CASHPOINTS, #CASHPOINTS + 200;
+    dispbottom "You received 200 Cash Points by staying ingame for 1 hour";
+} else if( ( @minute == 60 ) && ( @vend >= 1) ){
+	set @minute,0;
+	set #CASHPOINTS, #CASHPOINTS + 0;
+	dispbottom "You received 0 Cash Points";
+}
+set @left, @minute - 5;
+dispbottom ""+@left+" minutes left to get your hourly cash points (20).";
+
+stopnpctimer;
+initnpctimer;
+end;
+
+}

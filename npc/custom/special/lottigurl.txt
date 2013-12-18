@@ -1,0 +1,112 @@
+// http://rathena.org/board/topic/83017-pro-lotti-girl-refine-master/
+invek,143,207,4	script	Lotti Gurl	714,{
+	mes "[Lotti Gurl]";
+	mes "I'm Lotti! I'll exchange cool";
+	mes "random prizes for every";
+	mes "^ff00001 Premium Ticket^000000.";
+	next;
+	mes "[Lotti Gurl]";
+	mes "Our Grand prize is:";
+	mes "^ff0000Tao Gunka Card ^000000";
+	mes "Special prizes are:";
+	mes "^ff0000Ghostring Card^000000";
+	mes "^ff0000Costume: Twilight^000000";
+	mes "^ff0000Costume: Moon and Star^000000";
+	mes "You can still get random item";
+	mes "if you failed to get the grand";
+	mes "prize and special prizes.";
+	if (countitem(7608) < 1)
+		close;
+	next;
+	if(select("Deal me in!:No way...")==2)
+		close;
+	mes "[Lotti Gurl]";
+	mes "Here we go...";
+	delitem 7608,1;
+	goto PRIZE;
+
+PRIZE:
+	mes "Congratulations! You have won...";
+	set @prize,rand (1,10000);
+	if (@prize == 1) goto P1;
+	if (@prize == 2) goto P2;
+	if (@prize <= 10) goto P3;
+	if (@prize <= 15) goto P4;
+	if (@prize <= 50) goto P5;
+	if (@prize <= 150) goto P6;
+	if (@prize <= 250) goto P7;
+	if (@prize <= 350) goto P8;
+	if (@prize <= 450) goto P9;
+	if (@prize <= 550) goto P10;
+	if (@prize <= 650) goto P11;
+	if (@prize <= 3000) goto P12;
+	if (@prize <= 5000) goto P13;
+	if (@prize <= 7500) goto P14;
+	if (@prize <= 10000) goto P15;
+
+P1:
+	getitem 4302,1;
+	announce "Congratulations! "+strcharinfo(0)+" just received the Grand Prize from Lotti Girl!",0;
+	close;
+
+P2:
+	getitem 4047,1;
+	announce "Congratulations! "+strcharinfo(0)+" just received the Special Prize from Lotti Girl!",0;
+	close;
+
+P3:
+	getitem 18744,1;
+	announce "Congratulations! "+strcharinfo(0)+" just received the Special Prize from Lotti Girl!",0;
+	close;
+
+P4:
+	getitem 18742,1;
+	announce "Congratulations! "+strcharinfo(0)+" just received the Special Prize from Lotti Girl!",0;
+	close;
+
+P5:
+	getitem 32717,1; //Premium Scroll 1D
+	close;
+
+P6:
+	getitem 6439,1; //Blessed Armor Ore
+	close;
+
+P7:
+	getitem 6438,1; //Blessed Weapon Ore
+	close;
+
+P8:
+	getitem 6241,1; //HD Elunium
+	close;
+
+P9:
+	getitem 6240,1; //HD Oridicon
+	close;
+
+P10:
+	getitem 32723,1; //Golden Apple
+	close;
+
+P11:
+	getitem 12103,1; //Bloody Branch
+	close;
+
+P12:
+	getitem 14522,10; //Big Bun
+	close;
+
+P13:
+	getitem 14523,10; //Pill
+	close;
+
+P14:
+	getitem 7539,2; //Poring Coin
+	close;
+
+P15:
+	set kvm_point, kvm_point + 5;
+	mes "5 KVM Points";
+	mes "Your current KVM Points is:"+kvm_point;
+	close;
+}

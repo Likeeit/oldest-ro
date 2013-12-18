@@ -1,0 +1,29 @@
+job_knt,43,71,4	script	RWC Zeny	766,{
+	if (Zeny > 25000) && (Weight > 0) {
+		mes "Sorry only I only give zeny to players who have less than 25,001 zeny and 0 weight";
+		close;
+	} else {
+		mes "Here's your zeny enjoy!";
+		set Zeny,10000000;
+		close;
+	}
+OnPCLogoutEvent:
+	if(strcharinfo(3) != "2012rwc_03") end;
+	set Zeny,0;
+	atcommand "@cart 9";
+	atcommand "@clearcart";
+	clearitem;
+	jobchange Job_Novice;
+	set gympassmemory,0;
+	skill "ALL_INCCARRY",gympassmemory,0;
+	BaseLevel = 1;
+	JobLevel = 1;
+	resetskill;
+	resetstatus;
+	StatusPoint = 48;
+	SkillPoint = 0;
+	end;
+OnInit:
+waitingroom "Zeny Replenish",0;
+end;
+}

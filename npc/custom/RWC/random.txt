@@ -1,0 +1,49 @@
+job_knt,45,45,5	script	Cross Guardian	403,{
+	mes "This is the RWC Grounds"; next;
+	mes "You can stay here as long as you want"; next;
+	mes "But everything in this area belongs to me and only to me"; next;
+	mes "No items shall leave this area unless I allowed it"; next;
+	mes "I have my eyes on you, If you try steal from me, I will assure you"; next;
+	mes "YOU WILL FAIL"; next;
+	mes "But ofcourse, if you want to go to the real world talk just to the Exit Guard"; next;
+	mes "And he will give you, your freebies upon exit"; next;
+	mes "NOTE the freebies is once per account only";
+	close;
+OnInit:
+	.@interval = 5;
+	.@step = 5;
+	while (1) {
+		sleep .@interval * 1000;
+		getmapxy .@map$, .@x, .@y, 1;
+		while ( checkcell( .@map$, .@npc_x = .@x + rand( -.@step, .@step ), .@npc_y = .@y + rand( -.@step, .@step ), cell_chknopass ) );
+			npcwalkto .@npc_x, .@npc_y;
+			npctalk callfunc( "F_Rand",
+			"Welcome to Cross Ragnarok!", // 1
+			"If you need help just type @request [message]!", // 2
+			"Please Write a Review at www.ratemyserver.net!", // 3
+			"Don't forget to SHARE our page every hour for 50 cash points!", // 4
+			"Always update your kRO and Cross Patcher!", // 5
+			"If you want to exit this area, just talk to the Exit Guard", // 6
+			"You can get your starter kit once per account, just talk to the Exit Guard" // 7
+		);
+	}
+	end;
+OnPCLogoutEvent:
+	if(strcharinfo(3) != "job_knt") end;
+	set Zeny,0;
+	atcommand "@cart 9";
+	atcommand "@clearcart";
+	clearitem;
+	jobchange Job_Novice;
+	set gympassmemory,0;
+	skill "ALL_INCCARRY",gympassmemory,0;
+	BaseLevel = 1;
+	JobLevel = 1;
+	resetskill;
+	resetstatus;
+	StatusPoint = 48;
+	SkillPoint = 0;
+	end;
+}
+
+

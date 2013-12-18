@@ -1,0 +1,5 @@
+-	script	Kage Bunshin	-1,{
+	OnInit: 
+	OnDeath:
+	monster "job_knt",43,48,"Kage Bunshin",2308,1,strnpcinfo(3)+"::OnDeath";
+}

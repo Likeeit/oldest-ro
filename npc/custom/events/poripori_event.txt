@@ -1,0 +1,23 @@
+job_knt,30,163,5	script	Poring Event	72,{
+	if(getgroupid() < 100){
+		mes "Hello friend! I love Porings!";
+		close;
+	}
+	
+	OnInit:
+	// List Of Maps
+	setarray .PoriMap$,"morocc","lighthalzen","geffen","payon","alberta","aldebaran","xmas","comodo","yuno","amatsu","gonryun","umbala","niflheim";
+	end;
+
+	OnMinute00:
+		set .@MapPori, rand(getarraysize( .PoriMap$ ));
+		announce "Poring event has been started and spawned in "+.PoriMap$[.@MapPori]+"! Good luck!",0;
+		monster ""+.PoriMap$[.@MapPori]+"",0,0,"Event Poring",1847,1,strnpcinfo(0)+"::OnPoriDead";
+	end;
+
+	OnPoriDead:
+		getitem 7539, 20;
+		set Zeny, Zeny + 50000;
+		announce "[ "+strcharinfo(0)+" ] has killed the Event Poring. Please wait for 1 hour and Poring event will start again.",0;
+	end;
+}

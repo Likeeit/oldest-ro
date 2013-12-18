@@ -1,0 +1,199 @@
+prontera,116,158,5	script	Game Rewarder	98,{
+
+if(getgroupid()< 4){
+	mes "Hello "+strcharinfo(0)+"";
+	close;
+}
+
+set .@date$,gettimestr("%Y-%m-%d",21);
+setarray .@rewardItemGM[1],32766; //Item IDs
+setarray .@rewardamItemGM[1],1; //Item Amounts
+
+set .@rewardMenu$,"";
+
+switch(select("Give Reward:Check Logs:Reset History")){
+
+case 1:
+mes "Hello Game Master!";
+mes "Please select how you give out Items?";
+next;
+switch(select("Per Person:By Guild:By Party")){
+
+	//=================================== INDIVIDUAL
+	case 1:
+	input .@reward_name$;
+
+	set .@reward_char, getcharid(0,""+.@reward_name$+""); //char id
+	set .@reward_acc, getcharid(3,""+.@reward_name$+""); //account id
+
+	set .@status, isloggedin(.@reward_acc,.@reward_char); //check if online or offline
+
+	if(.@status == 0){
+		mes "The character with a name of "+.@reward_name$+" is now offline or you got the wrong character name, please review it..";
+		close;
+	}
+
+	message .@reward_name$,"Please don't log out as Game Master "+strcharinfo(0)+" will give you some reward. Thank you.";
+
+	for( set .@i,1; .@i < getarraysize( .@rewardItemGM ); set .@i,.@i + 1 ){
+		set .@rewardMenu$,.@rewardMenu$ + getitemname( .@rewardItemGM[.@i] )+":";
+	}
+
+	set .@ItemGM,select( .@rewardMenu$ );
+	set .@xstatus, isloggedin(.@reward_acc,.@reward_char); //check again if online or offline
+
+	if(.@xstatus == 0){
+		mes ""+.@reward_name$+" logged out. Terminating mission sir..";
+		close;
+	}
+
+	for( set .@i,1; .@i < getarraysize( .@rewardamItemGM ); set .@i,.@i + 1 ){
+		if( .@i == .@ItemGM ) {
+			set .@rewardItemGMx,.@rewardItemGM[.@i];
+			set .@rewardamItemGMx,.@rewardamItemGM[.@i];
+			getitem .@rewardItemGMx,.@rewardamItemGMx,.@reward_acc;
+		}
+	}
+
+	message .@reward_name$,"You've been rewarded by Game Master "+strcharinfo(0)+" a "+getitemname(.@rewardItemGMx)+"(s).";
+	announce "Game Master "+strcharinfo(0)+" rewarded "+.@reward_name$+" a "+.@rewardamItemGMx+" "+getitemname(.@rewardItemGMx)+"(s).",bc_all,bc_yellow;
+	
+	/* Insert to database for History */
+	query_sql "INSERT INTO `Item_command` (`char_name`, `won_id`, `nameid`, `amount`, `date`) VALUES ('"+strcharinfo(0)+"', '"+.@reward_name$+"', '"+.@rewardItemGMx+"', '"+.@rewardamItemGMx+"', '"+.@date$+"')";
+	close;
+	break;
+	
+	//=================================== GUILD
+	case 2:
+	mes "Please input the Guild Master name:";
+	next;
+	input .@gmGuild$;
+	
+	set .@reward_guildM,getcharid(2,""+.@gmGuild$+""); //get guild ID
+	set .@reward_char, getcharid(0,""+.@gmGuild$+""); //get Char id
+	set .@reward_acc, getcharid(3,""+.@gmGuild$+""); //get account id
+	
+	set .@status, isloggedin(.@reward_acc,.@reward_char); //check if the Guild Master is online or offline
+	if(.@status == 0){
+		mes "The Guild Master with a name of "+.@gmGuild$+" is now offline or you got the wrong name, please review it..";
+		close;
+	}
+	
+	mes "Guild Name - "+getguildname(.@reward_guildM);
+	mes "Guild ID - "+.@reward_guildM;
+	close;
+	break;
+	
+	
+	//=================================== PARTY
+	case 3:
+	mes "Please input the Character name of the Party Member, just one member:";
+	next;
+	input .@gmPartyPips$;
+	
+	set .@reward_partyid,getcharid(1,""+.@gmPartyPips$+""); //get party ID
+	set .@reward_char, getcharid(0,""+.@gmPartyPips$+""); //char id
+	set .@reward_acc, getcharid(3,""+.@gmPartyPips$+""); //account id
+	set .@reward_leaderaid, getpartyleader(.@reward_partyid,1); //get party leader acc id
+	set .@reward_leadercid, getpartyleader(.@reward_partyid,2); //get party leader char id
+	
+	set .@status, isloggedin(.@reward_acc,.@reward_char); //check if the Party Member is online or offline
+	set .@xstatus, isloggedin(.@reward_leaderaid,.@reward_leadercid); //check if the Party Leader is online or offline
+	
+	if(.@status == 0){
+		mes "The Party member with a name of "+.@gmPartyPips$+" is now offline or you got the wrong name, please review it..";
+		close;
+	}
+	
+	if(.@xstatus == 0){
+		mes "The Party leader with a name of "+rid2name(.@reward_leaderaid)+" is now offline or you got the wrong name, please review it..";
+		close;
+	}
+	
+	for( set .@i,1; .@i < getarraysize( .@rewardItemGM ); set .@i,.@i + 1 ){
+		set .@rewardMenu$,.@rewardMenu$ + getitemname( .@rewardItemGM[.@i] )+":";
+	}
+	
+	set .@ItemGM,select( .@rewardMenu$ );
+	
+	getpartymember .@reward_partyid,0; // array name of all party members
+	getpartymember .@reward_partyid,2; // array account id of all party members
+	
+	set .@count, $@partymembercount;
+	copyarray .@accidParty[0], $@partymemberaid[0], $@partymembercount;
+	copyarray .@name$[0], $@partymembername$[0], $@partymembercount;
+	
+	for (set .@i,0; .@i < .@count; set .@i, .@i+1) {
+		message .@name$[.@i],"Please don't log out as Game Master "+strcharinfo(0)+" will give you some reward. Thank you.";
+	}
+	
+	for (set .@i,0; .@i < .@count; set .@i, .@i+1) {
+		mes (.@i +1) + ". ^0000FF" + .@name$[.@i] + "^000000";
+		getitem .@rewardItemGM[.@ItemGM],.@rewardamItemGM[.@ItemGM],.@accidParty[.@i];
+		message .@name$[.@i],"You've been rewarded by Game Master "+strcharinfo(0)+" a "+.@rewardamItemGM[.@ItemGM]+" "+getitemname(.@rewardItemGM[.@ItemGM])+"(s).";
+	}
+	dispbottom "The list of name are those party member who received the rewards, those offline are not included..";
+	announce "Game Master "+strcharinfo(0)+" rewarded "+getpartyname(.@reward_partyid)+"'s Party a "+.@rewardamItemGM[.@ItemGM]+" "+getitemname(.@rewardItemGM[.@ItemGM])+"(s).",bc_all,bc_yellow;
+	
+	query_sql "INSERT INTO `Item_command` (`char_name`, `party_name`, `nameid`, `amount`, `date`) VALUES ('"+strcharinfo(0)+"', '"+getpartyname(.@reward_partyid)+"', '"+.@rewardItemGM[.@ItemGM]+"', '"+.@rewardamItemGM[.@ItemGM]+"', '"+.@date$+"')";
+	//mes "Party Leader - "+rid2name(.@reward_leaderaid);
+	//mes "Party Name - "+getpartyname(.@reward_partyid);
+	//mes "Party ID - "+.@reward_partyid;
+	//mes "Rewarded: "+.@rewardamItemGM[.@ItemGM]+" "+getitemname(.@rewardItemGM[.@ItemGM])+"";
+	close;
+	break;
+}
+break;
+
+case 2:
+switch(select("Individual:Party:Guild")){
+	case 1:
+	query_sql "SELECT `char_name`, `won_id`, `nameid`, `amount`, `date` FROM `Item_command` ORDER BY `date` DESC LIMIT 5", @gmID$, @wonID$, @rewardID, @rewAm, @history$;
+	if(getarraysize(@gmID$) == 0) { goto L_Nodata; end; }
+	mes "^FF0000Name-Receiver-Item-Amount-Date^000000";
+	for (set .@i,0; .@i < getarraysize(@gmID$); set .@i, .@i+1){
+		mes "^FF0000[ "+(.@i+1) + "]. ^000000 ["+ @gmID$[.@i] +"] ["+ @wonID$[.@i] +"] ["+ @rewardID[.@i] +"] ["+ @rewAm[.@i] +"] ["+ @history$[.@i] +"]";
+	}
+	close;
+	break;
+	
+	case 2:
+	query_sql "SELECT `char_name`, `party_name`, `nameid`, `amount`, `date` FROM `Item_command` ORDER BY `party_name` DESC LIMIT 5", @gmID$, @partyID$, @rewardID, @rewAm, @history$;
+	if(getarraysize(@partyID$) == 0) { goto L_Nodata; end; }
+	mes "^FF0000Name-Party-Item-Amount-Date^000000";
+	for (set .@i,0; .@i < getarraysize(@partyID$); set .@i, .@i+1){
+	mes "^FF0000[ "+(.@i+1) + "]. ^000000 ["+ @gmID$[.@i] +"] ["+ @partyID$[.@i] +"] ["+ @rewardID[.@i] +"] ["+ @rewAm[.@i] +"] ["+ @history$[.@i] +"]";
+	}
+	close;
+	break;
+	
+	case 3:
+	query_sql "SELECT `char_name`, `guild_name`, `nameid`, `amount`, `date` FROM `Item_command` ORDER BY `guild_name` DESC LIMIT 5", @gmID$, @guildID$, @rewardID, @rewAm, @history$;
+	if(getarraysize(@guildID$) == 0) { goto L_Nodata; end; }
+	mes "^FF0000Name-Guild-Item-Amount-Date^000000";
+	for (set .@i,0; .@i < getarraysize(@guildID$); set .@i, .@i+1){
+	mes "^FF0000[ "+(.@i+1) + "]. ^000000 ["+ @gmID$[.@i] +"] ["+ @guildID$[.@i] +"] ["+ @rewardID[.@i] +"] ["+ @rewAm[.@i] +"] ["+ @history$[.@i] +"]";
+	}
+	close;
+	break;
+}
+break;
+
+case 3:
+if(getgroupid()< 99) end;
+mes "Are you sure you want to Reset the logs?";
+next;
+if (select("Yes","No")==1){
+	query_sql "TRUNCATE TABLE `Item_command`";
+	dispbottom "Records wiped out...You need to relog in order for this to take effect..";
+}
+close;
+break;
+
+close;
+}
+
+L_Nodata:
+mes "There are no records yet..";
+close;
+}

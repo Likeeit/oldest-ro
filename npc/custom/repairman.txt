@@ -1,0 +1,4 @@
+invek,176,181,4	script	Repairman#ivk	86,{
+	callfunc "repairmain","Repairman";
+	end;
+}

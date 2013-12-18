@@ -1,0 +1,18 @@
+-	script	Daily Reward	-1,{
+	OnPCLoginEvent:
+		if ( gettimetick(2) < #timer ) {
+			dispbottom "You already claimed the rewards";
+			end;
+		}
+		for ( .@i = 0; .@i < .Size; .@i += 2 ) {
+			getitem .Items[.@i], .Items[.@i+1];
+			#timer = gettimetick(2) + ( .time_interval * 86400 );
+			end;
+		}
+
+	OnInit:
+		.time_interval = 1; // n day(s)
+		setarray .Items[0],6242,10; // <item id>,<item amount>
+		.Size = getarraysize(.Items);
+		end;
+}

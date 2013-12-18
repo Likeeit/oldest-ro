@@ -1,0 +1,41 @@
+-	script	jaylordPogi	-1,{
+
+//OnPCLoadMapEvent:
+	//if ( ( strcharinfo(3) == "pvp_n_3-5" ) && ( getgroupid() >= 3 ) || ( getgroupid() <= 10 ) ) {
+		//warp "SavePoint",0,0;
+		//end;
+	//}
+
+	while( strcharinfo(3) == "pvp_n_3-5" ){
+		getmapxy( @map$,@x,@y,0 );
+		sleep2 1000;
+		getmapxy( .@map$, .@x, .@y, 0 );
+		if(@map$ == .@map$ && @x == .@x && @y == .@y) {
+			set @afk, @afk + 1;
+		} else { //If move timer resets
+			set @afk, 0;
+		}
+		 // 120 = 2mins / means 60 seconds per min
+		if( @afk >= 500 ){
+			message strcharinfo(0),"Caught afk for 5 Minutes.";
+			sleep2 3000;
+			warp "SavePoint",0,0;
+		} else if( checkvending() >= 1 || checkchatting() == 1) { // Warp if vending or chatting
+			message strcharinfo(0),"Caught vending/chatting.";
+			sleep2 3000;
+			warp "SavePoint",0,0;
+		}
+	}
+end;
+}
+
+pvp_n_3-5,99,100,5	script	Party Leader	734,{
+	getitem 6423,2;
+	getitem 14376,2;
+	getitem 6439,5;
+	getitem 6438,5;
+	set Zeny, Zeny + 10000000;
+	warp "SavePoint",0,0;
+	end;
+}
+pvp_n_3-5	mapflag	loadevent

@@ -1,0 +1,182 @@
+moc_para01,14,185,5	script	Mid Gear Enchanter	447,{	
+	if(@logout == 1){
+		mes "Please log out before you can use my service. Thank you!";
+		close;
+	}
+
+	mes "Please select the ^FF0000RED^000000 one only.";
+	next;
+	setarray .@bead_position$[1], "Head","Body","Left hand","Right hand","Robe","Shoes","Accessory 1","Accessory 2","^FF0000Head 2^000000","Head 3";
+	set .@menu$,"";
+	for( set .@i,1; .@i <= 10; set .@i,.@i+1 )
+	{
+		if( getequipisequiped(.@i) )
+		
+		set .@menu$, .@menu$ + .@bead_position$[.@i] + " - " + "[" + getequipname(.@i) + "]";
+		
+		set .@menu$, .@menu$ + ":";
+	}
+	
+	set .@part,select(.@menu$); //The array selection
+	set .@beadrefinecnt, getequiprefinerycnt(.@part);
+
+	set @chosen_one,getequipid(.@part); // id of the chosen item
+	set .@beader_name,getcharid(0,""+strcharinfo(0)+""); //char_id of the beader
+	set .@equip_id,getiteminfo(@chosen_one,5); // Type of equipment info
+	
+	//Error if not armor, robe and shoes
+	if((.@part == 1) || (.@part == 2)  || (.@part == 3) || (.@part == 4) || (.@part == 5) || (.@part == 6) || (.@part == 7) ||	(.@part == 8) || (.@part == 10)){
+		mes "I can't Enchant that kind of item except Sloted Midgear [1]";
+		close;
+	}
+	
+	//if refine is greater than 1
+	//if( getequiprefinerycnt(.@part) >= 1 ){
+		//mes "I can't refine item with 1 or higher refinement.";
+		//close;
+	//}
+	
+	//check if it has a slot
+	if(getiteminfo(@chosen_one,10) == 0){
+		mes "I can't enchant non slotted equipments.";
+		close;
+	}
+	
+	//check if it has a card
+	if(getequipcardcnt(.@part) >= 1){
+		mes "You can't do this with a card on it..please decard it and go back here..";
+		close;
+	}
+
+	mes "So it's "+getitemname(@chosen_one)+"?";
+	next;
+	
+	//Not equip
+	if( !getequipisequiped(.@part) ) { 
+	mes "Did you unequip your "+getitemname(@chosen_one)+"? Please log out and redo this..";
+	close; 
+	}
+	
+	
+	
+	//Checks for cards and enchant
+	query_sql "SELECT `char_id`, `nameid`, `equip`, `card0`, `card1`, `card2`, `card3` FROM `inventory` WHERE `char_id` = '"+.@beader_name+"' AND `nameid` = '"+@chosen_one+"' AND `equip` = '"+.@equip_id+"'", @char_idb, @nameidb, @equipb, @card0b , @card1b, @card2b, @card3b;
+	
+	set @logout,1;
+	
+	if(.@equip_id != @equipb){
+		mes "Something wrong..please redo this action..";
+		close;
+	}
+	
+	if((@card0b == 0) && (@card1b == 0) && (@card2b == 0) && (@card3b == 0)){ //3 enchant more
+		set .@card_ok,0;
+		set .@how_many_selects, 4;
+	} else if((@card0b == 0) && (@card1b >= 1) && (@card2b == 0) && (@card3b == 0)){ //2 enchant left
+		set .@card_ok,1;
+		set .@how_many_selects, 3;
+	} else if((@card0b == 0) && (@card1b >= 1) && (@card2b >= 1) && (@card3b == 0)){ //1 enchant left
+		set .@card_ok,2;
+		set .@how_many_selects, 2;
+	} else if((@card0b == 0) && (@card1b >= 1) && (@card2b >= 1) && (@card3b >= 1)){ //Maximum
+		set .@card_ok,3;
+		mes "I think your "+getitemname(@chosen_one)+" reached the maximum amount of enchant.";
+		close;
+	}
+	
+	if(countitem(@chosen_one) > 1){
+		mes "You should carry one "+getitemname(@chosen_one)+", please put the rest in your storage..";
+		close;
+	}
+	
+	set .@tot_select,.@how_many_selects-1;
+	set .@how_many_selects,2;
+
+	mes "Please choose what kind of Bead:";
+	next;
+	setarray .beadID[1],4802,4799,4790,4794,4763,4767,4806;
+	
+	deletearray .@selections[1], getarraysize(.beadID);
+	while (.@how_many_selects > 1)
+	{
+		set .@BeadMenu$,"";
+		
+		for( set .@i,1; .@i < getarraysize( .beadID ); set .@i,.@i + 1 ){
+			set .@BeadMenu$,.@BeadMenu$ + getitemname( .beadID[.@i] )+":";
+		}
+		
+		set .@Bead,select( .@BeadMenu$ );
+		set .@how_many_selects, .@how_many_selects - 1;
+		set .@selections[.@how_many_selects], .beadID[.@Bead];
+		sleep2 1;
+	}
+	
+	if(countitem(.@selections[.@how_many_selects]) < 1) {
+		mes "You don't have "+getitemname(.@selections[.@how_many_selects])+". Sorry.";
+		close; 
+	}
+	
+	// Rate : 1 = 0.01%  /  1000 = 10%  /  10000 = 100%
+	set .@randomer, rand( 10000 );
+
+	mes "There's a high chance that you'll break your "+getitemname(.@selections[.@how_many_selects])+" but not your "+getitemname(@chosen_one)+".";
+	next;
+
+	if(.@tot_select == 3){
+		set .@chance, 8000; //80%
+		for ( set .@i, 1; .@i < getarraysize(.beadID); set .@i, .@i+1 ) {
+			if (.@selections[.@i]) {
+				if(.@randomer <= .@chance){
+					delitem @chosen_one,1;
+					delitem .@selections[.@i],1;
+					atcommand "@item2 "+@chosen_one+" 1 1 "+.@beadrefinecnt+" 0 0 "+.@selections[.@i]+" 0 0";
+					goto L_HelloOneK;
+				} else {
+					delitem .@selections[.@i],1;
+					goto L_GoobyeOneThousand;
+				}
+			}
+		}
+	} else if(.@tot_select == 2){
+		set .@chance, 7000; //70%
+		for ( set .@i, 1; .@i < getarraysize(.beadID); set .@i, .@i+1 ) {
+			if (.@selections[.@i]) {
+				if(.@randomer <= .@chance){
+					delitem @chosen_one,1;
+					delitem .@selections[.@i],1;
+					atcommand "@item2 "+@chosen_one+" 1 1 "+.@beadrefinecnt+" 0 0 "+@card1b+" "+.@selections[.@i]+" 0";
+					goto L_HelloOneK;
+				} else {
+					delitem .@selections[.@i],1;
+					goto L_GoobyeOneThousand;				}
+			}
+		}
+	} else if(.@tot_select == 1){
+		set .@chance, 6000; //60%
+		for ( set .@i, 1; .@i < getarraysize(.beadID); set .@i, .@i+1 ) {
+			if (.@selections[.@i]) {
+				if(.@randomer <= .@chance){
+					delitem @chosen_one,1;
+					delitem .@selections[.@i],1;
+					atcommand "@item2 "+@chosen_one+" 1 1 "+.@beadrefinecnt+" 0 0 "+@card1b+" "+@card2b+" "+.@selections[.@i]+"";
+					goto L_HelloOneK;
+				} else {
+					delitem .@selections[.@i],1;
+					goto L_GoobyeOneThousand;
+				}
+			}
+		}
+	}
+	close;
+
+L_GoobyeOneThousand:
+	mes "Oh my goodness!!!! Wat the??!! You failed!";
+	unitskilluseid getcharid(3),"NPC_SELFDESTRUCTION",1;
+	dispbottom "You just lost your bead";
+	close;
+
+L_HelloOneK:
+	atcommand "@effect 805 22";
+	atcommand "@effect 804 22";
+	close;
+}

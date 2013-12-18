@@ -1,0 +1,78 @@
+//Created by youtube
+
+invek,150,194,0	script	Find the Baphomet	736,{
+
+mes "[ Find The Baphomet ]";
+if(getgmlevel() < 98) {
+    if(.Event==0) mes "There is no Find the Baphomet event.";
+    else {
+        mes "There is a Find the Baphomet event on now!";
+        mes "Location: "+ .Map$;
+        mes "Prize: " + getitemname(.ItemID);
+        mes "Number of Baphomets: " + .Baphomets;
+    }
+    close;
+}
+    mes "Hello "+strcharinfo(0)+"! Please customize this event:";
+Main:
+next;
+mes "[ Find The Baphomet ]";
+    switch(select("Item [" + getitemname(.ItemID) + "]:Start Event:End Event")) {
+        case 1:
+            mes "Which item would you like the Baphomet to drop?";
+            mes "Please input the item ID:";
+            input .ItemID;
+            goto Main;
+        case 2:
+            mes "Starting the event now...";
+            set .Event,1;
+            close2;
+            goto OnStart;
+        
+        case 3:
+            mes "Ending the event now...";
+            if(.Event) announce ""+strcharinfo(0)+" ended Find the Baphomet Event!",bc_all;
+            killmonster  .Map$,"All";
+            set .Event,0;
+        close;
+}
+
+OnMinute20: //CHANGE THIS TO THE MINUTE YOU WOULD LIKE THIS EVENT TO LOAD!
+
+OnStart:
+    announce "Find the Baphomet : It's time to play Find the Baphomet!",0;
+    sleep2 1000;
+    set $@ran, rand(1,11);
+    if ($@ran == 11) set .Map$,"prontera";
+    if ($@ran == 10) set .Map$,"hugel";
+    if ($@ran == 9) set .Map$,"yuno";
+    if ($@ran == 8) set .Map$,"comodo";
+    if ($@ran == 7) set .Map$,"xmas";
+    if ($@ran == 6) set .Map$,"aldebaran";
+    if ($@ran == 5) set .Map$,"izlude";
+    if ($@ran == 4) set .Map$,"payon";
+    if ($@ran == 3) set .Map$,"geffen";
+    if ($@ran == 2) set .Map$,"morocc";
+    if ($@ran == 1) set .Map$,"invek";
+    sleep2 1000;
+    set $@ran2, rand(1,5);
+    if ($@ran2 == 5) set .Baphomets,"5";
+    if ($@ran2 == 4) set .Baphomets,"4";
+    if ($@ran2 == 3) set .Baphomets,"3";
+    if ($@ran2 == 2) set .Baphomets,"2";
+    if ($@ran2 == 1) set .Baphomets,"1";
+    announce "Find the Baphomet : The Baphomet has spawned in "+ .Map$ +"!",0;
+    sleep2 10000;
+    announce "Find the Baphomet : " + .Baphomets + " Baphomets have spawned in "+ .Map$ +"!",0;
+    sleep2 10000;
+    monster .Map$,0,0,"Im not the baphomet!",2325,.Baphomets,"Find the Baphomet::OnMobKilled";
+    end;
+
+OnMobKilled:
+    mapannounce .Map$,"We've got a winner: " + strcharinfo(0) + " killed Baphomet Congrats!",0;
+    set Zeny,Zeny+25000;
+    getitem 7539,2;
+    set .Event,0;
+    end;
+
+}

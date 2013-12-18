@@ -1,0 +1,28 @@
+-	script	autoattack_bind	-1,{
+OnInit:
+	bindatcmd "autoattack", strnpcinfo(3)+"::OnCommand";
+	end;
+
+OnCommand:
+	useatcmd "@autoattack";
+	if (@autoattack == 0) {
+		set @autoattack, 1;
+		attachnpctimer;
+		initnpctimer;
+	}
+	else {
+		set @autoattack, 0;
+		stopnpctimer;
+		detachnpctimer;
+	}
+	end;
+
+OnPCDieEvent: // Maybe this is what you wanted to say with OnDeath?
+OnTimer3600000: // 1 hour, in milliseconds
+	if (@autoattack) {
+		set @autoattack, 0;
+		stopnpctimer;
+		detachnpctimer;
+	}
+	end;
+}

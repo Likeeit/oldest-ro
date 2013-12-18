@@ -1,0 +1,33 @@
+-	shop	pvpskull	-1,501:222
+moc_para01,20,35,4,	script	RWC Voucher	893,{
+	callshop "pvpskull",1;
+	npcshopattach "pvpskull";
+	end;
+	
+	OnBuyItem:
+		for ( set .@j, 0; .@j < getarraysize(.Items); set .@j, .@j + 2 ) {
+			for ( set .@k, 0; .@k < getarraysize(@bought_nameid); set .@k, .@k + 1 ) {
+				if ( @bought_nameid[.@k] == .Items[.@j] ) {
+					if ( checkweight( @bought_nameid[.@k], @bought_quantity[.@k] ) ) {
+						if ( countitem(.currency) < .Items[.@j+1] )
+							dispbottom "You don't have enough " +getitemname(.currency)+ " to purchase this item.";
+						else {
+							delitem .currency, .Items[.@j+1] * @bought_quantity[.@k];
+							getitem @bought_nameid[.@k], @bought_quantity[.@k];
+						}
+					} else dispbottom "You cannot carry out more Items with you";
+				}
+			}
+		}
+		deletearray @bought_quantity, getarraysize(@bought_quantity);
+		deletearray @bought_nameid, getarraysize(@bought_nameid);
+		end;
+
+	OnInit:
+		set .currency, 7922; // voucher
+		setarray .Items, 5606,100,5605,500,5604,750,5603,1000,18509,1000,18625,750,18624,1000,18623,1500,18622,2000,18831,1000,18830,1500,18829,2000,18828,2500; // Usage : <item id>,<price>
+		npcshopitem "pvpskull",0,0;
+		for ( set .@i, 0; .@i < getarraysize(.Items); set .@i, .@i + 2 )
+			npcshopadditem "pvpskull",.Items[.@i], .Items[.@i+1];
+		end;
+}

@@ -1,0 +1,10 @@
+-	script	at_monster	-1,{
+	OnInit:
+		bindatcmd "monster",strnpcinfo(3)+"::OnAtcommand",0,99;
+		end;
+
+	OnAtcommand:
+		atcommand "@monster " +implode(.@atcmd_parameters$, " ");
+		announce "[ "+strcharinfo(0)+" ] spawned "+(.@atcmd_parameters$[1]==""?1:.@atcmd_parameters$[1])+" "+getmonsterinfo(atoi(.@atcmd_parameters$[0]), 0)+" on "+strcharinfo(3)+"!",0;
+		end;
+}

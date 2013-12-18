@@ -1,0 +1,50 @@
+invek,150,57,4	script	Oldest Kafra	918,{
+	if(#xROnewbie == 0) {
+		mes "Good Day Adventurer!"; next;
+		mes "Oh its your first time in this server?"; next;
+		mes "The Administrator of this server is very generous, and He wants me to give you this Old Box"; next;
+		mes "All items inside that box is made specially for you"; next;
+		switch(select("Take It:Maybe Later")) {
+			case 1:
+				set Zeny,25000;
+				getitem 32712,1;
+				announce "Let's Welcome our New player, " + strcharinfo(0) + ".",0;
+				set #xROnewbie, 1;
+				mes "There you go, dont open it if your weight is more than 50%";
+				mes "and dont forget to write us a review on www.rateyserver.net";
+				mes "also share our page every hour to get free cash points"; next;
+					switch(select("Warp to town?:No thanks, I'll walk")) {
+						case 1:
+							savepoint "invek",146,164;
+							warp "invek",146,164;
+							end;
+						case 2:
+							close;
+					}
+			case 2:
+				mes "Okay, talk to me again if you want to get your box";
+				close;
+		}
+	} else {
+		mes "Good Day Adventurer!"; next;
+		mes "Oh its you again";
+		mes "Did you like your stay here?";
+		switch(select("Yeah this server rocks my world:Ofcourse YES!")) {
+			case 1:
+				mes "Then what are you waiting for?";
+				mes "Invite your friends here!"; next;
+					switch(select("Warp to town?:No thanks, I'll walk")) {
+						case 1:
+							savepoint "invek",146,164;
+							warp "invek",146,164;
+							end;
+						case 2:
+							close;
+					}
+			case 2:
+				mes "Then what are you waiting for?";
+				mes "Invite your friends here!";
+				close;
+		}
+	}
+}

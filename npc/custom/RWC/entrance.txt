@@ -1,0 +1,48 @@
+invek,131,161,5	script	RWC Guardian	936,{
+	
+	for ( .@i = 1; .@i < 15; .@i++ ) {
+		if ( getequipid(.@i) != -1 ) {
+			mes "Please unequip all of your equipments.";
+			close;
+		}
+	}
+	getinventorylist;
+	if ( Class == Job_Novice ) && ( BaseLevel == 1 ) && (getcharid(2) == 0) && ( @inventorylist_count == 0 ) && (Zeny == 25000) {
+		mes "Do you want to join the Battle of the Champions?"; next;
+		mes "Are you sure?!"; next;
+		mes "Goodluck!!!";
+		switch(select("Yes:No")) {
+			case 1:
+				set Zeny,0;
+				//set gympassmemory,10;
+				//skill "ALL_INCCARRY",gympassmemory,3;
+				warp "job_knt",43,52;
+				savepoint "job_knt",43,52;
+				end;
+			case 2:
+				mes "Ok bye!";
+				close;
+		}
+	} else {
+		mes "You need to be a Novice, Base/Job Level 1, No Guild, Empty Inventory, Equipment and 25,000 zeny entrance fee";
+		close;
+	}
+OnPCLogoutEvent:
+	if(strcharinfo(3) != "2012rwc_03") end;
+	set Zeny,0;
+	atcommand "@cart 9";
+	atcommand "@clearcart";
+	clearitem;
+	jobchange Job_Novice;
+	set gympassmemory,0;
+	skill "ALL_INCCARRY",gympassmemory,0;
+	BaseLevel = 1;
+	JobLevel = 1;
+	resetskill;
+	resetstatus;
+	StatusPoint = 48;
+	SkillPoint = 0;
+	end;
+OnInit:
+waitingroom "RWC Warper",0;
+}

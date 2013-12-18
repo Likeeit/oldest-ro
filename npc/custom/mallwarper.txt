@@ -1,0 +1,104 @@
+-	script	Mall Warper#0::eto	-1,{
+	mes "[Mall Warper]";
+	mes "Those who are wandering around this strange world with aimless eyes listen up and come to me!";
+	mes "Mall Warper is here to help you and will show you the great merchandise.";
+	next;
+	mes "[Mall Warper]";
+	mes "You have nothing to do but waste your time?";
+	mes "You are eager to buy something good but no one offers you?";
+	mes "Would you like to be buy rare items?";
+	mes "Mall Warper is here to solve your problems.";
+	next;
+	switch (select("Move to Mall of Asia.:Don't want to talk anymore.")) {
+	case 1:
+		mes "[Mall Warper]";
+		mes "Let's go to the Mall of Asia!";
+		set nak_warp,strnpcinfo(2);
+		close2;
+		warp "moc_para01",53,27;
+		end;
+	case 2:
+		mes "[Mall Warper]";
+		mes "If you don't know what to do for your future, don't hesitate to tell me. Just drop by and talk to me! Ok?";
+		close;
+	}
+OnInit:
+	waitingroom "Mall Warper",0;
+	end;
+}
+invek,131,159,5	duplicate(eto)	Mall Warper#1	4_F_NOVICE
+moc_ruins,68,164,3	duplicate(eto)	Mall Warper#2	4_F_NOVICE
+geffen,132,66,3	duplicate(eto)	Mall Warper#3	4_F_NOVICE
+alberta,124,67,3	duplicate(eto)	Mall Warper#4	4_F_NOVICE
+aldebaran,133,119,5	duplicate(eto)	Mall Warper#5	4_F_NOVICE
+izlude_in,68,162,1	duplicate(eto)	Mall Warper#6	4_F_NOVICE
+prt_church,103,78,3	duplicate(eto)	Mall Warper#7	4_F_NOVICE
+geffen_in,160,104,5	duplicate(eto)	Mall Warper#8	4_F_NOVICE
+moc_prydb1,53,126,3	duplicate(eto)	Mall Warper#9	4_F_NOVICE
+alberta_in,75,39,3	duplicate(eto)	Mall Warper#10	4_F_NOVICE
+payon_in02,58,58,1	duplicate(eto)	Mall Warper#11	4_F_NOVICE
+payon,177,111,3	duplicate(eto)	Mall Warper#12	4_F_NOVICE
+que_ng,33,73,3	duplicate(eto)	Mall Warper#13	4_F_NOVICE
+que_ng,144,161,5	duplicate(eto)	Mall Warper#14	4_F_NOVICE
+yuno,144,189,5	duplicate(eto)	Mall Warper#15	4_F_NOVICE
+rachel,125,144,3	duplicate(eto)	Mall Warper#16	4_F_NOVICE
+comodo,202,151,4	duplicate(eto)	Mall Warper#17	4_F_NOVICE
+hugel,93,153,4	duplicate(eto)	Mall Warper#18	4_F_NOVICE
+veins,220,109,4	duplicate(eto)	Mall Warper#19	4_F_NOVICE
+einbroch,250,211,4	duplicate(eto)	Mall Warper#20	4_F_NOVICE
+lighthalzen,164,86,4	duplicate(eto)	Mall Warper#21	4_F_NOVICE
+amatsu,100,145,5	duplicate(eto)	Mall Warper#22	4_F_NOVICE
+ayothaya,221,191,3	duplicate(eto)	Mall Warper#23	4_F_NOVICE
+louyang,224,107,3	duplicate(eto)	Mall Warper#24	4_F_NOVICE
+gonryun,162,122,5	duplicate(eto)	Mall Warper#25	4_F_NOVICE
+moscovia,209,197,5	duplicate(eto)	Mall Warper#26	4_F_NOVICE
+brasilis,191,224,3	duplicate(eto)	Mall Warper#27	4_F_NOVICE
+dewata,192,193,5	duplicate(eto)	Mall Warper#28	4_F_NOVICE
+morocc,161,97,5	duplicate(eto)	Mall Warper#29	4_F_NOVICE
+izlude,131,148,4	duplicate(eto)	Mall Warper#30	4_F_NOVICE
+izlude_a,131,148,4	duplicate(eto)	Mall Warper#30::eto_iz_a	4_F_NOVICE
+izlude_b,131,148,4	duplicate(eto)	Mall Warper#30::eto_iz_b	4_F_NOVICE
+izlude_c,131,148,4	duplicate(eto)	Mall Warper#30::eto_iz_c	4_F_NOVICE
+izlude_d,131,148,4	duplicate(eto)	Mall Warper#30::eto_iz_d	4_F_NOVICE
+umbala,105,158,3	duplicate(eto)	Mall Warper#31	4_F_NOVICE
+malaya,238,206,6	duplicate(eto)	Mall Warper#32	4_F_NOVICE
+
+moc_para01,56,27,0	script	#eden_out	WARPNPC,1,1,{
+OnTouch:
+	switch (nak_warp) {
+		case 1: warp "invek",146,165; end;
+		case 2: warp "moc_ruins",64,161; end;
+		case 3: warp "geffen",120,39; end;
+		case 4: warp "alberta",117,56; end;
+		case 5: warp "aldebaran",168,112; end;
+		case 6: warp "izlude_in",73,165; end;
+		case 7: warp "prt_church",99,78; end;
+		case 8: warp "geffen_in",162,99; end;
+		case 9: warp "moc_prydb1",51,118; end;
+		case 10: warp "alberta_in",73,43; end;
+		case 11: warp "payon_in02",64,60; end;
+		case 12: warp "payon",161,58; end;
+		case 13: warp "que_ng",33,63; end;
+		case 14: warp "que_ng",144,166; end;
+		case 15: warp "yuno",158,125; end;
+		case 16: warp "rachel",115,125; end;
+		case 17: warp "comodo",192,145; end;
+		case 18: warp "hugel",88,148; end;
+		case 19: warp "veins",216,104; end;
+		case 20: warp "einbroch",246,204; end;
+		case 21: warp "lighthalzen",159,95; end;
+		case 22: warp "amatsu",110,150; end;
+		case 23: warp "ayothaya",217,178; end;
+		case 24: warp "louyang",217,103; end;
+		case 25: warp "gonryun",155,120; end;
+		case 26: warp "moscovia",218,198; end;
+		case 27: warp "brasilis",190,220; end;
+		case 28: warp "dewata",192,182; end;
+		case 29: warp "morocc",161,97; end;
+		case 30: warp "izlude",134,118; end;	// Old coordinates: (127,142)
+		case 31: warp "umbala",94,154; end;
+		case 32: warp "malaya",234,199; end;
+		default: warp "prontera",116,72; end;
+	}
+	end;
+}

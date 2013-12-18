@@ -1,0 +1,12 @@
+-	script	clone	-1,{
+
+OnPCLoginEvent:
+	clone "moc_para01", 31, 12, strnpcinfo(3)+"::OnClone", getcharid(0), 0, 1;
+	end;
+OnClone:
+	dispbottom "Another failure experiment kukuku";
+	
+}
+
+//clone "Invek",146,165,"Test::OnEvent",getcharid(0);
+//clone "prontera", 148, 183, strnpcinfo(3)+"::OnClone", getcharid(0), getcharid(0), 1;

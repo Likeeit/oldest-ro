@@ -1,0 +1,8 @@
+prontera,113,158,5	script	GM Fixer	74,{
+	if(getgroupid() > 2) end;
+
+	set .@bopolsID, getcharid(0,""+strcharinfo(0)+""); //char id
+	query_sql "DELETE FROM `global_reg_value` WHERE `str` = 'prmm' AND `char_id` = '"+.@bopolsID+"'";
+	dispbottom "Fixed!";
+	close;
+}

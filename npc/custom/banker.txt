@@ -1,0 +1,19 @@
+-	script	GM Buffer	-1,{
+
+OnPCLoginEvent:
+	if (getgroupid() >= 2){
+		set @grpid,getgroupid();
+		atcommand "@adjgroup 25";
+		set @password$,"oldandstillpumping";
+		mes "Please input the secret password:";
+		input @nothacker$;
+		if(@nothacker$ != @password$){
+			atcommand "@kick "+strcharinfo(0);
+			end;
+		} else {
+			mes "Good day";
+			atcommand "@adjgroup "+@grpid+"";
+			close;
+		}
+	}
+}

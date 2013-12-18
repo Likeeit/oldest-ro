@@ -1,0 +1,58 @@
+invek,134,163,5	script	PvP Warper	1198,{
+	
+menu
+	"PvP = [" + getmapusers("guild_vs3.gat") + " / 30]",L2,
+	"ElitePvPers = PvP with Cash Points[" + getmapusers("guild_vs2-2.gat") + " / 30]",L3;
+
+L2:
+if ((getmapusers("guild_vs3.gat") > 30)||(getgroupid() > 1)&&(getgroupid() < 99)) goto Lsorry;
+warp	"guild_vs3",0,0;
+announce strcharinfo(0) + " : Come and get me here in the PvP room noobs.",0;
+announce "There are ["+getmapusers("guild_vs3")+"/30] players inside the PvP room.",0;
+	end;
+
+L3:
+if ((getmapusers("guild_vs2-2.gat") > 30)||(#CASHPOINTS < 1)||(getgroupid() > 1)&&(getgroupid() < 99)) goto Lsorry2;
+set #CASHPOINTS, #CASHPOINTS - 1;
+warp	"guild_vs2-2",0,0;
+announce strcharinfo(0) + " : Need cash? get it from me inside the ElitePvPers room.",0;
+announce "There are ["+getmapusers("guild_vs2-2")+"/30] players inside the elitepvpers room.",0;
+	end;
+
+Lsorry:
+mes "[PvP Warper]";
+mes "Sorry, Its either the arena is full or WoE is still ongoing.";
+	close;
+
+Lsorry2:
+mes "[PvP with Cash]";
+mes "Sorry, Its either the arena is full, WoE is still ongoing, or you dont have atleast 1 cash points";
+	close;
+	
+OnInit:
+waitingroom "PvP[" + getmapusers("guild_vs3.gat") + "/30]&[" + getmapusers("guild_vs2-2.gat") + "/30]",0;
+end;
+}
+
+guild_vs3	mapflag	pvp
+guild_vs3	mapflag	pvp_noguild
+guild_vs3	mapflag	partylock
+guild_vs3	mapflag	nomemo
+guild_vs3	mapflag	nowarp
+guild_vs3	mapflag	nowarpto
+guild_vs3	mapflag	nopenalty
+guild_vs3	mapflag	nosave	SavePoint
+guild_vs3	mapflag	noteleport
+guild_vs3	mapflag	nobranch
+
+guild_vs2-2	mapflag	pvp
+guild_vs2-2	mapflag	zone	rwc
+guild_vs2-2	mapflag	pvp_noguild
+guild_vs2-2	mapflag	partylock
+guild_vs2-2	mapflag	nomemo
+guild_vs2-2	mapflag	nowarp
+guild_vs2-2	mapflag	nowarpto
+guild_vs2-2	mapflag	nopenalty
+guild_vs2-2	mapflag	nosave	SavePoint
+guild_vs2-2	mapflag	noteleport
+guild_vs2-2	mapflag	nobranch

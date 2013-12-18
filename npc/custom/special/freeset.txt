@@ -1,0 +1,46 @@
+invek,133,208,4	script	Freebies	562,{
+	if(#zFreeset == 1) goto L_FreeFinish;
+	if (BaseLevel<175) goto L_Notenough;
+	//if (BaseLevel>=175) goto L_Notenough;
+	
+	mes "[Hello]";
+	mes "I can give you a freebies based on your liking.";
+	mes "Please choose your freebie set";
+	next;
+		mes "Select one:";
+		next;
+		switch(select("Valkyrie Set and Package:Diabolus Robe Set and Package:Diabolus Armor Set and Package")) {
+			case 1:
+				getitem 32714,1; //Valkset
+				getitem 32713,1;
+				break;
+ 
+			case 2:
+				getitem 32715,1; //Drobeset
+				getitem 32713,1;
+				break;
+ 
+			case 3:
+				getitem 32716,1; //Darmorset
+				getitem 32713,1;
+				break;
+                
+		}
+		announce "Congratulations to " + strcharinfo(0) + " for achieving the max level.",0;
+		set #zFreeset, 1;
+		emotion e_grat;
+		close;
+
+	L_FreeFinish:
+	mes "[Freebies]";
+		mes "Hey I remember you!  I already told you that you may only get a freebie once.";
+		close;
+	
+	L_Notenough:
+	mes "[Freebies]";
+		mes "You must be at Base level 175 to get your freebies";
+		close;
+	OnInit:
+	waitingroom "Freebies here! ",0;
+	end;
+	}

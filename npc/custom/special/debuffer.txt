@@ -1,0 +1,79 @@
+-	script	Debuffer	-1,{
+OnInit:
+	setarray .Map$[0], "sch_gld";
+	set .Size, getarraysize(.Map$);
+	for ( set .@i, 0; .@i < .Size; set .@i, .@i + 1 )
+		setmapflag .Map$[.@i], mf_loadevent;
+	end;
+	
+OnPCLoadMapEvent:
+	getmapxy(@map$, @x, @y, 0);
+	while ( .@j < .Size ) {
+		if ( @map$ == .Map$[.@j] ) {
+			sc_end SC_SECRAMENT;
+			sc_end SC_BLESSING;
+			sc_end SC_INC_AGI;
+			sc_end SC_IMPOSITIO;
+			sc_end SC_ASSUMPTIO;
+			sc_end SC_KAITE;
+			sc_end SC_KAAHI;
+			sc_end SC_KAUPE;
+			sc_end SC_FOOD_STR;
+			sc_end SC_FOOD_AGI;
+			sc_end SC_FOOD_VIT;
+			sc_end SC_FOOD_DEX;
+			sc_end SC_FOOD_INT;
+			sc_end SC_FOOD_LUK;
+			sc_end SC_SOULLINK;
+			sc_end SC_SAVAGE_STEAK;
+			sc_end SC_COCKTAIL_WARG_BLOOD;
+			sc_end SC_MINOR_BBQ;
+			sc_end SC_SIROMA_ICE_TEA;
+			sc_end SC_DROCERA_HERB_STEAMED;
+			sc_end SC_PUTTI_TAILS_NOODLES;
+			sc_end SC_L_LIFEPOTION;
+			set .@j, .@j + 1;
+		}
+	end;
+	}
+}
+
+-	script	Debuffer2	-1,{
+OnInit:
+	setarray .Map$[0], "aru_gld";
+	set .Size, getarraysize(.Map$);
+	for ( set .@i, 0; .@i < .Size; set .@i, .@i + 1 )
+		setmapflag .Map$[.@i], mf_loadevent;
+	end;
+	
+OnPCLoadMapEvent:
+	getmapxy(@map$, @x, @y, 0);
+	while ( .@j < .Size ) {
+		if ( @map$ == .Map$[.@j] ) {
+			sc_end SC_SECRAMENT;
+			sc_end SC_BLESSING;
+			sc_end SC_INC_AGI;
+			sc_end SC_IMPOSITIO;
+			sc_end SC_ASSUMPTIO;
+			sc_end SC_KAITE;
+			sc_end SC_KAAHI;
+			sc_end SC_KAUPE;
+			sc_end SC_FOOD_STR;
+			sc_end SC_FOOD_AGI;
+			sc_end SC_FOOD_VIT;
+			sc_end SC_FOOD_DEX;
+			sc_end SC_FOOD_INT;
+			sc_end SC_FOOD_LUK;
+			sc_end SC_SOULLINK;
+			sc_end SC_SAVAGE_STEAK;
+			sc_end SC_COCKTAIL_WARG_BLOOD;
+			sc_end SC_MINOR_BBQ;
+			sc_end SC_SIROMA_ICE_TEA;
+			sc_end SC_DROCERA_HERB_STEAMED;
+			sc_end SC_PUTTI_TAILS_NOODLES;
+			sc_end SC_L_LIFEPOTION;
+			set .@j, .@j + 1;
+		}
+	end;
+	}
+}

@@ -1,0 +1,6 @@
+-	script	gsavage	-1,{
+	OnInit: 
+	OnDeath:
+	monster "invek",0,0,"Merry Xmas",1840,1,strnpcinfo(3)+"::OnDeath";
+	announce "Xmas event has been started and spawned 1 Golden Savage in invek Good luck!",0;
+}

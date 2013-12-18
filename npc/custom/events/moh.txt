@@ -1,0 +1,25 @@
+prontera,198,181,5	script	Monster Hour	72,{
+	if(getgroupid() < 100){
+		mes "Hello friend! I love Monsters!";
+		close;
+	}
+	
+	OnInit:
+	// List Of Maps
+	setarray .MotHMap$,"morocc","geffen","payon","alberta","izlude","aldebaran","xmas","comodo","yuno","amatsu","gonryun","umbala","niflheim","invek";
+	setarray .MotHMob,1247;
+	end;
+
+	OnMinute20:
+		set .@ma, rand(getarraysize( .MotHMap$ ));
+		set .@mo, rand(getarraysize( .MotHMob ));
+		announce "Monster of the hour event has been started and spawned in "+.MotHMap$[.@ma]+"! Good luck!",0;
+		monster ""+.MotHMap$[.@ma]+"",0,0,"Monster of the Hour",.MotHMob[.@mo],1,strnpcinfo(0)+"::OnMotHDead";
+	end;
+
+	OnMotHDead:
+		//getitem 7539, 1; //enable for poring coin
+		getitem 7539,10;
+		announce "[ "+strcharinfo(0)+" ] killed Antonio. Please wait for 1 hour and Monster of the Hour event will start again.",0;
+	end;
+}

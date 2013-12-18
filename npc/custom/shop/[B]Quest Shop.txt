@@ -1,0 +1,112 @@
+//Made by Lunar
+//Version 1.6
+//6.1.09
+
+-	shop	shop_promoL	-1,501:50
+moc_para01,21,35,4,	script	Limited Offer	108,{
+	set @i,0;
+	mes "[Glorious Weapon Trader]";
+	mes "Which item do you wish to obtain?";
+	mes "Select only one.";
+	callshop "shop_promoL",1;
+	npcshopattach "shop_promoL";
+	end;
+
+OnBuyItem:
+	if(.BuildQuest) {
+		for(set .e,0; !compare(getarg(.e+1)+"", "Zeny"); set .e,.e+2) {}
+		npcshopadditem "shop_promoL",getarg(.e+2),getarg(.e)*compare(getarg(.e+1),"SZeny");
+		setarray .Shop[.i],getarg(.e+2);
+		set .i,.i+1;
+		goto Quest_Setup;
+	}
+	if(.Shop[@i]!=@bought_nameid) for(set @i,1; 1; set @i,@i+1) if(.Shop[@i]==@bought_nameid) { set .i,@i; callsub Quest_Setup; }
+	for(set @i,1; !@e; set @i,@i+1) if(.Shop[@i]==@bought_nameid) { set @e,1; set .i,@i; callsub Quest_Setup; }
+	mes "[Shop Quest NPC]";
+	mes "I require the following:";
+	for(set @i,0; !compare(getarg(@i+1),"Zeny"); set @i,@i+2) mes "^FF0000" + ((countitem(getarg(@i))>=getarg(@i+1))? "^00FF00":"") + "" + getarg(@i+1) + " " + getitemname(getarg(@i)) + " [" + countitem(getarg(@i)) + "/" + getarg(@i+1) + "]";
+	if(getarg(@i)) mes "^FF0000" + ((Zeny>=getarg(@i))? "^00FF00":"") + "" + getarg(@i) + " Zeny";
+	mes "^000000In exchange, I will give you:^0000FF";
+	for(set @i,@i+2; getarg(@i+1,0); set @i,@i+2) mes getarg(@i+1) + " " + getitemname(getarg(@i));
+	switch(select("Exchange:" + (((((getiteminfo(@bought_nameid,5) & 1) || (getiteminfo(@bought_nameid,5) & 256) || (getiteminfo(@bought_nameid,5) & 512)) && @equip==0))? "Preview Item":"") + ":No thanks")) {
+		case 1:
+			for(set @i,0; !compare(getarg(@i+1),"Zeny"); set @i,@i+2) if(countitem(getarg(@i)) < getarg(@i+1)) {
+				next;
+				mes "You have " + countitem(getarg(@i)) + " " + getitemname(getarg(@i)) + ", while I require " + getarg(@i+1) + ".";
+				mes "Please obtain ^FF0000" + (getarg(@i+1)-countitem(getarg(@i))) + " more " + getitemname(getarg(@i)) + "^000000.";
+				close;
+			}
+			if(Zeny < getarg(@i)) {
+				next;
+				mes "You do not have enough Zeny.";
+				mes "Please obtain ^FF0000" + (getarg(@i)-Zeny) + " more Zeny^000000.";
+				close;
+			}
+			for(set @i,0; !compare(getarg(@i+1),"Zeny"); set @i,@i+2) delitem getarg(@i),getarg(@i+1);
+			set Zeny,Zeny-getarg(@i);
+			for(set @i,@i+2; getarg(@i+1,0); set @i,@i+2) getitem getarg(@i),getarg(@i+1);
+			if (compare(getarg(@i,0),"announce")) announce strcharinfo(0) + " has just obtained " + getitemname(@bought_nameid) + " from the Donation Second Weapon1!",bc_all;
+			close;
+		case 2:
+			set @bottomview, getlook(3);
+			set @topview, getlook(4);
+			set @midview, getlook(5);
+			addtimer 1000, strnpcinfo(3)+"::On_Leave";
+			set @equip,getiteminfo(@bought_nameid, 5);
+			set @view, getiteminfo(@bought_nameid, 11);
+			if(@equip != -1 && @view > 0) {
+				if(@equip & 1) atcommand "@changelook 3 " + @view;
+				if(@equip & 256) atcommand "@changelook 1 " + @view;
+				if(@equip & 512) atcommand "@changelook 2 " + @view;
+			}
+			next;
+			goto OnBuyItem;
+		case 3:
+			close;
+	}
+On_Leave:
+	atcommand "@changelook 1 " + @topview;
+	atcommand "@changelook 2 " + @midview;
+	atcommand "@changelook 3 " + @bottomview;
+	set @equip,0;
+	set @view,0;
+	set @topview,0;
+	set @midview,0;
+	set @bottomview,0;
+	end;
+OnInit:
+	npcshopitem "shop_promoL",0,0;
+	set .BuildQuest,1;
+	set .i,1;
+Quest_Setup:
+	switch(.i) {
+		default: set .BuildQuest,0; set .e,0; set .i,0; end;
+			case 1: callsub OnBuyItem,7179,125,125,"SZeny",1577,1,0;
+			case 2: callsub OnBuyItem,7179,125,125,"SZeny",1640,1,0;
+			case 3: callsub OnBuyItem,7179,125,125,"SZeny",1281,1,0;
+			case 4: callsub OnBuyItem,7179,125,125,"SZeny",1826,1,0;
+			case 5: callsub OnBuyItem,7179,125,125,"SZeny",1187,1,0;
+			case 6: callsub OnBuyItem,7179,125,125,"SZeny",1310,1,0;
+			case 7: callsub OnBuyItem,7179,125,125,"SZeny",1641,1,0;
+			case 8: callsub OnBuyItem,7179,125,125,"SZeny",2002,1,0;
+			case 9: callsub OnBuyItem,7179,125,125,"SZeny",1827,1,0;
+			case 10: callsub OnBuyItem,7179,125,125,"SZeny",13416,1,0;
+			case 11: callsub OnBuyItem,7179,125,125,"SZeny",13177,1,0;
+			case 12: callsub OnBuyItem,7179,125,125,"SZeny",13042,1,0;
+			case 13: callsub OnBuyItem,7179,125,125,"SZeny",13179,1,0;
+			case 14: callsub OnBuyItem,7179,125,125,"SZeny",1927,1,0;
+			case 15: callsub OnBuyItem,7179,125,125,"SZeny",13418,1,0;
+			case 16: callsub OnBuyItem,7179,125,125,"SZeny",1743,1,0;
+			case 17: callsub OnBuyItem,7179,125,125,"SZeny",1282,1,0;
+			case 18: callsub OnBuyItem,7179,125,125,"SZeny",1426,1,0;
+			case 19: callsub OnBuyItem,7179,125,125,"SZeny",1981,1,0;
+			case 20: callsub OnBuyItem,7179,125,125,"SZeny",1546,1,0;
+			case 21: callsub OnBuyItem,7179,125,125,"SZeny",13110,1,0;
+			case 22: callsub OnBuyItem,7179,125,125,"SZeny",13417,1,0;
+			case 23: callsub OnBuyItem,7179,125,125,"SZeny",13176,1,0;
+			case 24: callsub OnBuyItem,7179,125,125,"SZeny",13178,1,0;
+			case 25: callsub OnBuyItem,7179,125,125,"SZeny",13307,1,0;
+			case 26: callsub OnBuyItem,7179,125,125,"SZeny",1576,1,0;
+			case 27: callsub OnBuyItem,7179,125,125,"SZeny",1382,1,0;
+		}
+	}

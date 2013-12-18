@@ -1,0 +1,38 @@
+-	script	pvpbet	-1,{
+
+	OnPCKillEvent:
+		if (strcharinfo(3) != "guild_vs2-2" || killedrid == getcharid(0)) {
+			end;
+		}
+		
+		if (lastkilled == killedrid){
+			set lkcount,lkcount+1;
+	 
+			if (lkcount >= 5){
+				dispbottom "You have Lose";
+			} else {
+				set #CASHPOINTS, #CASHPOINTS + 1;
+				message strcharinfo(0),"Your current Cash Points is:"+#CASHPOINTS;
+				dispbottom "You have gained 1 cash point";
+			}
+		} else {
+			set lastkilled,killedrid;
+			set lkcount, 1;
+			set #CASHPOINTS, #CASHPOINTS + 1;
+			message strcharinfo(0),"Your current Cash Points is:"+#CASHPOINTS;
+			dispbottom "You have gained 1 cash point";
+		}
+		
+		end;
+	 
+	OnPCDieEvent:
+		if (strcharinfo(3) != "guild_vs2-2") {
+			end;
+		}
+		
+		dispbottom "You have Lose";
+		sleep2 100;
+		warp "invek", 146, 164;
+		end;
+	
+}

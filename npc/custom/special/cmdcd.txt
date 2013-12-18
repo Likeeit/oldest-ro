@@ -1,0 +1,23 @@
+-	script	atcmd_warpdelay	-1,{
+OnInit:
+	bindatcmd "warp",strnpcinfo(3)+"::OnAtcommand",0,99;
+	bindatcmd "rura",strnpcinfo(3)+"::OnAtcommand",0,99;
+	bindatcmd "mapmove",strnpcinfo(3)+"::OnAtcommand",0,99;
+	end;
+
+OnAtcommand:
+	set .@min,1;	//delay in mins
+	set .@gmlvl,2;	// GM lvl to bypass the delay
+	set .@delay,.@min * 60;
+	if (warpdelay > gettimetick(2) && getgroupid() < .@gmlvl) || (Zeny < 10000 && getgroupid() < .@gmlvl) {
+		set .@delaytime,warpdelay - gettimetick(2);
+		message strcharinfo(0),"You must wait "+.@delaytime+" seconds and 10,000z to use this command again.";
+		end;
+	} else
+	setarray .@param$,.@atcmd_parameters$[0],.@atcmd_parameters$[1],.@atcmd_parameters$[2];
+	set .@map$,implode(.@param$," ");
+	atcommand "@warp "+.@map$+"";
+	set Zeny,Zeny-10000;
+	set warpdelay,gettimetick(2) + .@delay;
+	end;
+}

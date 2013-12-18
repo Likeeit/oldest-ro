@@ -1,0 +1,70 @@
+invek,184,211,4	script	Old Rich Dying Man	777,{
+
+	set .@i, 0;
+	set .@j, 0;
+	set .@d, 0;
+	set .@error, 0;
+	set .@maxZeny, 2000000000;
+	
+	//if ( #timer > gettimetick(2) ) {
+		//mes .npc$;
+		//mes "Please wait for " + callfunc("Time2Str",#timer) + " and you can use me again.";
+		//close;
+	//}
+
+	mes "[Greedy Old Man]";
+	mes "Good day, young one. Im the richest person in Midgard City. Do you believe me?";
+	next;
+	mes "I can share 2,500,000 Zeny to you if you hunt this item for me";
+	next;
+	
+	if(Zeny+.prize > .@maxZeny) {
+		mes "Oppss..you're too rich that you can't even use me..Please put your Zeny in a bank or donate some of it to orphanage.";
+		close;
+	}
+	
+	// Tell the ugly faggot what the requirement is
+	while ( .@i < .Size ) {
+		mes .requirements[.@i + 1] + " - " + getitemname(.requirements[.@i]);
+		set .@i, .@i + 2;
+	}
+	next;
+	mes "You only have";
+	next;
+	// Count the item
+	while ( .@j < .Size ) {
+		if ( countitem(.requirements[.@j]) < .requirements[.@j + 1] ) {
+			mes "" + countitem(.requirements[.@j]) + " " + getitemname(.requirements[.@j]) + " ";
+			set .@error, .@error + 1;
+		}
+		set .@j, .@j + 2;
+		next;
+	}
+	next;
+	// If error is greater than 0 then close this fcking NPC
+	if (.@error > 0) {
+		mes "Please come back with the requirements.";
+		close;
+	}
+	// Delete items
+	while ( .@d < .Size ) {
+		delitem .requirements[.@d],.requirements[.@d + 1];
+		dispbottom "Deleted: " + .requirements[.@d + 1] + " " + getitemname(.requirements[.@d]) + " ";
+		set .@d, .@d + 2;
+	}
+
+	// Give 10m Zeny
+	mes .npc$;
+	mes "Nice nice nice ~ Here's your 2.5m! See you again!";
+	set Zeny, Zeny + .prize;
+	//set #timer, gettimetick(2) + 2400;
+	//dispbottom "You can do the quest every 1 hours.";
+	close;
+
+OnInit:
+	set .npc$, strnpcinfo(1);
+	setarray .requirements[0],7539,15,6498,25,4001,2; // <item id>,<amount> this is for requirements
+	set .prize, 2500000; // Zeny prize
+	set .Size, (.requirements);
+	end;
+}

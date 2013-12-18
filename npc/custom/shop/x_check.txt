@@ -1,0 +1,33 @@
+-	shop	crosscheck	-1,501:222
+moc_para01,12,185,4,	script	Cross Check Trader	965,{
+	callshop "crosscheck",1;
+	npcshopattach "crosscheck";
+	end;
+	
+	OnBuyItem:
+		for ( set .@j, 0; .@j < getarraysize(.Items); set .@j, .@j + 2 ) {
+			for ( set .@k, 0; .@k < getarraysize(@bought_nameid); set .@k, .@k + 1 ) {
+				if ( @bought_nameid[.@k] == .Items[.@j] ) {
+					if ( checkweight( @bought_nameid[.@k], @bought_quantity[.@k] ) ) {
+						if ( countitem(.currency) < .Items[.@j+1] )
+							dispbottom "You don't have enough Money to purchase this item.";
+						else {
+							delitem .currency, .Items[.@j+1] * @bought_quantity[.@k];
+							getitem @bought_nameid[.@k], @bought_quantity[.@k];
+						}
+					} else dispbottom "You cannot carry out more Items with you";
+				}
+			}
+		}
+		deletearray @bought_quantity, getarraysize(@bought_quantity);
+		deletearray @bought_nameid, getarraysize(@bought_nameid);
+		end;
+
+	OnInit:
+		set .currency, 7179; // cross check
+		setarray .Items, 32721,1; // Usage : <item id>,<price>
+		npcshopitem "crosscheck",0,0;
+		for ( set .@i, 0; .@i < getarraysize(.Items); set .@i, .@i + 2 )
+			npcshopadditem "crosscheck",.Items[.@i], .Items[.@i+1];
+		end;
+}

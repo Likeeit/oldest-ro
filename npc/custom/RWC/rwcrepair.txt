@@ -1,0 +1,4 @@
+job_knt,61,46,4	script	Repairman#knt	86,{
+	callfunc "repairmain","Repairman";
+	end;
+}

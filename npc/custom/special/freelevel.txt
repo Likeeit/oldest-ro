@@ -1,0 +1,30 @@
+invek,141,57,5	script	New Child	922,{
+	if ( Class == Job_Novice ) && ( BaseLevel == 1 ) {
+		mes "Hello!"; next;
+		mes "Oh, a newbie?"; next;
+		mes "The Administrator of this server is very awesome!";
+		mes "he gave me this awesome powers that can increase your level 10 times!!"; next;
+		mes "Just say the password and I will use my awesome powers!"; next;
+		switch(select("The server and admin is SO AWESOME!!:Give me a break!")) {
+			case 1:
+				BaseLevel = 10;
+				JobLevel = 10;
+				StatusPoint = 80;
+				SkillPoint = 9;
+				savepoint "invek",146,164;
+				mes "There you go!"; next;
+				mes "Talk to my grandma on your right to get your freebies";
+				close;
+			case 2:
+				mes "Ok, If you change your mind just talk to me again";
+				close;
+		}
+	} else {
+		mes "Hello!";
+		mes "Want freebies? get it from my grandma over there";
+		close;
+	}
+OnInit:
+waitingroom "Welcome To Oldest-RO!",0;
+end;
+}

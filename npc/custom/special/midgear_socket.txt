@@ -1,0 +1,30 @@
+invek,177,163,4	script	Midgear Socketer	74,{
+	setarray .@nonslotted_midgear[1], 2201,2203,2286,5074,5068,2260,5040,5085,5104,5401; // for list of non slotted items
+	setarray .@slotted_midgear[1], 2202,2204,18507,18518,18519,18591,18607,18608,18609,18611; // for list of slotted items
+
+	mes "You need to have 2,000,000z plus 2pcs each of Muscovite, Biotite, Phlogopite and the item of your choice, Example: Elven Ears[0] changed it into Elven Ears[1].";
+	next;
+	mes "Please select what kind of Midgear:";
+	next;
+	set .@SocketMenu$,"";
+	
+	for( set .@i,1; .@i < getarraysize( .@nonslotted_midgear ); set .@i,.@i + 1 ){
+		set .@SocketMenu$,.@SocketMenu$ + getitemname( .@nonslotted_midgear[.@i] )+":";
+	}
+	set .@Socket,select( .@SocketMenu$ );
+	
+	if((countitem(7290) < 2) || (countitem(7292) < 2) || (countitem(7297) < 2) || (Zeny < 2000000) || (.@nonslotted_midgear[.@Socket] < 1)){
+		mes "You don't have the requirements..";
+		mes "You have "+countitem(7290)+" "+getitemname(7290)+" "+countitem(7292)+" "+getitemname(7292)+" "+countitem(7297)+" "+getitemname(7297)+" and "+countitem(.@nonslotted_midgear[.@Socket])+" "+getitemname(.@nonslotted_midgear[.@Socket])+". You need to have a 50 each of Muscovite, Biotite, Phlogopite and "+getitemname(.@nonslotted_midgear[.@Socket])+".";
+		close;
+	}
+	delitem 7290,2;
+	delitem 7292,2;
+	delitem 7297,2;
+	set Zeny,Zeny-2000000;
+	delitem .@nonslotted_midgear[.@Socket],1;
+	
+	getitem .@slotted_midgear[.@Socket],1;
+	dispbottom "Congratulations! You now have 1 "+getitemname(.@slotted_midgear[.@Socket])+"! Thank you!";
+close;
+}

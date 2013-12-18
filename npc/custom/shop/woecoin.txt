@@ -1,0 +1,35 @@
+-	shop	woecoin	-1,501:222
+moc_para01,26,35,4,	script	WoE Coin	752,{
+	callshop "woecoin",1;
+	npcshopattach "woecoin";
+	end;
+	
+	OnBuyItem:
+		for ( set .@j, 0; .@j < getarraysize(.Items); set .@j, .@j + 2 ) {
+			for ( set .@k, 0; .@k < getarraysize(@bought_nameid); set .@k, .@k + 1 ) {
+				if ( @bought_nameid[.@k] == .Items[.@j] ) {
+					if ( checkweight( @bought_nameid[.@k], @bought_quantity[.@k] ) ) {
+						if ( countitem(.currency) < .Items[.@j+1] )
+							dispbottom "You don't have enough WoE Coin to purchase this item.";
+						else {
+							delitem .currency, .Items[.@j+1] * @bought_quantity[.@k];
+							getitem @bought_nameid[.@k], @bought_quantity[.@k];
+						}
+					} else dispbottom "You cannot carry out more Items with you";
+				}
+			}
+		}
+		deletearray @bought_quantity, getarraysize(@bought_quantity);
+		deletearray @bought_nameid, getarraysize(@bought_nameid);
+		end;
+
+	OnInit:
+		set .currency, 7720; // cross check
+		setarray .Items, 32719,2,19501,10,19504,10,19505,15,19506,15,19507,15,19508,10,19509,10,19510,10,19511,10,19512,10,19513,10,19514,10,19515,10,19516,10,19517,10,19518,10,19519,10,19520,10,19521,10,19522,10,19523,10,19524,10,19525,10,19526,10,19527,10,19528,10,19529,20,19530,20,19531,10,19532,20,19533,30,19534,30,19535,30,19536,20,19537,10,19538,10,19539,50,19540,30,19541,10,19542,10,19543,10,19544,10,19545,10,19546,10,19547,10,19548,10,19549,10,19550,10,19551,10,19552,10,19553,10,19573,10,19574,10,19587,10,19589,10,19650,10,19655,10,19707,10,19730,10,19829,10,5453,50,5452,75,5451,100; // Usage : <item id>,<price>
+		npcshopitem "woecoin",0,0;
+		for ( set .@i, 0; .@i < getarraysize(.Items); set .@i, .@i + 2 )
+			npcshopadditem "woecoin",.Items[.@i], .Items[.@i+1];
+		end;
+}
+//Vellum
+//18114,100,13072,100,16021,100,1587,100,1396,100,1293,100,1294,100,1436,100,16020,100,18113,100,2016,100,1395,100,1492,100,1832,100,1586,100,21001,100,21002,500,2576,400,

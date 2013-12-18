@@ -1,0 +1,36 @@
+prontera,147,164,4	script	Hunting Package NPC	562,{
+	if(#ROFreebie == 1) goto L_QuestFinish;
+	if (BaseLevel<150) goto L_Notenough;
+	if (BaseLevel>=175) goto L_Notenough;
+	
+	mes "[Hunting Package NPC]";
+    mes "Welcome to CrossRO, the server you'll love, So start grab your freebies so you could gear up and OWN!!";
+    next;
+	
+	mes "[Hunting Package NPC]";
+	mes "You must be in base level 160-174, NOTE: Lvl 175 can't get the package anymore";
+	mes "NOTE: You can get freebies once.";
+	next;
+
+	getitem 32713,1;
+	getitem 32718,1;
+
+	announce "Hunting Package NPC: Let's Congratulate " + strcharinfo(0) + " For Receiving The Hunting Package.. Its Hunting Time!!!",0;
+		set #ROFreebie, 1;
+		emotion e_grat;
+		close;
+
+	
+	L_QuestFinish:
+	mes "[Hunting Package NPC]";
+		mes "Hey I remember you!  I already told you that you may only get a freebie once.";
+		close;
+		
+	L_Notenough:
+	mes "[Hunting Package NPC]";
+		mes "You must be at Base level 150-174 only, Lvl 175 can't get this anymore sorry";
+		close;
+	OnInit:
+	waitingroom "Hunting Package",0;
+	end;
+	}

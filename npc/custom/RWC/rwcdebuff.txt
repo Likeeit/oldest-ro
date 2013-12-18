@@ -1,0 +1,189 @@
+-	script	RWC Debuffer1	-1,{
+OnInit:
+	setarray .Map$[0], "2012rwc_01";
+	set .Size, getarraysize(.Map$);
+	for ( set .@i, 0; .@i < .Size; set .@i, .@i + 1 )
+		setmapflag .Map$[.@i], mf_loadevent;
+	end;
+	
+OnPCLoadMapEvent:
+	getmapxy(@map$, @x, @y, 0);
+	while ( .@j < .Size ) {
+		if ( @map$ == .Map$[.@j] ) {
+			sc_end SC_ALL;
+			set .@j, .@j + 1;
+		}
+	end;
+	}
+}
+
+-	script	RWC Debuffer2	-1,{
+OnInit:
+	setarray .Map$[0], "2012rwc_02";
+	set .Size, getarraysize(.Map$);
+	for ( set .@i, 0; .@i < .Size; set .@i, .@i + 1 )
+		setmapflag .Map$[.@i], mf_loadevent;
+	end;
+	
+OnPCLoadMapEvent:
+	getmapxy(@map$, @x, @y, 0);
+	while ( .@j < .Size ) {
+		if ( @map$ == .Map$[.@j] ) {
+			sc_end SC_ALL;
+			set .@j, .@j + 1;
+		}
+	end;
+	}
+}
+
+-	script	RWC Debuffe3	-1,{
+OnInit:
+	setarray .Map$[0], "2012rwc_03";
+	set .Size, getarraysize(.Map$);
+	for ( set .@i, 0; .@i < .Size; set .@i, .@i + 1 )
+		setmapflag .Map$[.@i], mf_loadevent;
+	end;
+	
+OnPCLoadMapEvent:
+	getmapxy(@map$, @x, @y, 0);
+	while ( .@j < .Size ) {
+		if ( @map$ == .Map$[.@j] ) {
+			sc_end SC_ALL;
+			set .@j, .@j + 1;
+		}
+	end;
+	}
+}
+
+-	script	RWC Debuffer4	-1,{
+OnInit:
+	setarray .Map$[0], "2012rwc_04";
+	set .Size, getarraysize(.Map$);
+	for ( set .@i, 0; .@i < .Size; set .@i, .@i + 1 )
+		setmapflag .Map$[.@i], mf_loadevent;
+	end;
+	
+OnPCLoadMapEvent:
+	getmapxy(@map$, @x, @y, 0);
+	while ( .@j < .Size ) {
+		if ( @map$ == .Map$[.@j] ) {
+			sc_end SC_ALL;
+			set .@j, .@j + 1;
+		}
+	end;
+	}
+}
+
+-	script	RWC Debuffer5	-1,{
+OnInit:
+	setarray .Map$[0], "2012rwc_05";
+	set .Size, getarraysize(.Map$);
+	for ( set .@i, 0; .@i < .Size; set .@i, .@i + 1 )
+		setmapflag .Map$[.@i], mf_loadevent;
+	end;
+	
+OnPCLoadMapEvent:
+	getmapxy(@map$, @x, @y, 0);
+	while ( .@j < .Size ) {
+		if ( @map$ == .Map$[.@j] ) {
+			sc_end SC_ALL;
+			set .@j, .@j + 1;
+		}
+	end;
+	}
+}
+
+-	script	RWC Debuffer6	-1,{
+OnInit:
+	setarray .Map$[0], "2012rwc_06";
+	set .Size, getarraysize(.Map$);
+	for ( set .@i, 0; .@i < .Size; set .@i, .@i + 1 )
+		setmapflag .Map$[.@i], mf_loadevent;
+	end;
+	
+OnPCLoadMapEvent:
+	getmapxy(@map$, @x, @y, 0);
+	while ( .@j < .Size ) {
+		if ( @map$ == .Map$[.@j] ) {
+			sc_end SC_ALL;
+			set .@j, .@j + 1;
+		}
+	end;
+	}
+}
+
+-	script	RWC Debuffer7	-1,{
+OnInit:
+	setarray .Map$[0], "2012rwc_07";
+	set .Size, getarraysize(.Map$);
+	for ( set .@i, 0; .@i < .Size; set .@i, .@i + 1 )
+		setmapflag .Map$[.@i], mf_loadevent;
+	end;
+	
+OnPCLoadMapEvent:
+	getmapxy(@map$, @x, @y, 0);
+	while ( .@j < .Size ) {
+		if ( @map$ == .Map$[.@j] ) {
+			sc_end SC_ALL;
+			set .@j, .@j + 1;
+		}
+	end;
+	}
+}
+
+-	script	RWC Debuffer8	-1,{
+OnInit:
+	setarray .Map$[0], "2012rwc_08";
+	set .Size, getarraysize(.Map$);
+	for ( set .@i, 0; .@i < .Size; set .@i, .@i + 1 )
+		setmapflag .Map$[.@i], mf_loadevent;
+	end;
+	
+OnPCLoadMapEvent:
+	getmapxy(@map$, @x, @y, 0);
+	while ( .@j < .Size ) {
+		if ( @map$ == .Map$[.@j] ) {
+			sc_end SC_ALL;
+			set .@j, .@j + 1;
+		}
+	end;
+	}
+}
+
+-	script	RWC Debuffer9	-1,{
+OnInit:
+	setarray .Map$[0], "guild_vs2";
+	set .Size, getarraysize(.Map$);
+	for ( set .@i, 0; .@i < .Size; set .@i, .@i + 1 )
+		setmapflag .Map$[.@i], mf_loadevent;
+	end;
+	
+OnPCLoadMapEvent:
+	getmapxy(@map$, @x, @y, 0);
+	while ( .@j < .Size ) {
+		if ( @map$ == .Map$[.@j] ) {
+			sc_end SC_ALL;
+			set .@j, .@j + 1;
+		}
+	end;
+	}
+}
+
+-	script	RWC Debuffer10	-1,{
+OnInit:
+	setarray .Map$[0], "guild_vs5";
+	set .Size, getarraysize(.Map$);
+	for ( set .@i, 0; .@i < .Size; set .@i, .@i + 1 )
+		setmapflag .Map$[.@i], mf_loadevent;
+	end;
+	
+OnPCLoadMapEvent:
+	getmapxy(@map$, @x, @y, 0);
+	while ( .@j < .Size ) {
+		if ( @map$ == .Map$[.@j] ) {
+			sc_end SC_ALL;
+			set .@j, .@j + 1;
+		}
+	end;
+	}
+}

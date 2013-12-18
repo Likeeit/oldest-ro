@@ -1,0 +1,33 @@
+-	shop	poringcoin	-1,501:222
+moc_para01,29,35,4,	script	Poring Coin	948,{
+	callshop "poringcoin",1;
+	npcshopattach "poringcoin";
+	end;
+	
+	OnBuyItem:
+		for ( set .@j, 0; .@j < getarraysize(.Items); set .@j, .@j + 2 ) {
+			for ( set .@k, 0; .@k < getarraysize(@bought_nameid); set .@k, .@k + 1 ) {
+				if ( @bought_nameid[.@k] == .Items[.@j] ) {
+					if ( checkweight( @bought_nameid[.@k], @bought_quantity[.@k] ) ) {
+						if ( countitem(.currency) < .Items[.@j+1] )
+							dispbottom "You don't have enough " +getitemname(.currency)+ " to purchase this item.";
+						else {
+							delitem .currency, .Items[.@j+1] * @bought_quantity[.@k];
+							getitem @bought_nameid[.@k], @bought_quantity[.@k];
+						}
+					} else dispbottom "You cannot carry out more Items with you";
+				}
+			}
+		}
+		deletearray @bought_quantity, getarraysize(@bought_quantity);
+		deletearray @bought_nameid, getarraysize(@bought_nameid);
+		end;
+
+	OnInit:
+		set .currency, 7539; // cross check
+		setarray .Items, 12212,1,12221,10,14545,10,12162,10,12172,10,12182,10,12214,10,12075,10,12080,10,12085,10,12090,10,12095,10,12100,10,7621,15; // Usage : <item id>,<price>
+		npcshopitem "poringcoin",0,0;
+		for ( set .@i, 0; .@i < getarraysize(.Items); set .@i, .@i + 2 )
+			npcshopadditem "poringcoin",.Items[.@i], .Items[.@i+1];
+		end;
+}

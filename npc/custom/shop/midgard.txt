@@ -1,0 +1,33 @@
+-	shop	midgardcoin	-1,501:222
+moc_para01,12,185,4	script	Midgard Coin Trader	833,{
+	callshop "midgardcoin",1;
+	npcshopattach "midgardcoin";
+	end;
+	
+	OnBuyItem:
+		for ( set .@j, 0; .@j < getarraysize(.Items); set .@j, .@j + 2 ) {
+			for ( set .@k, 0; .@k < getarraysize(@bought_nameid); set .@k, .@k + 1 ) {
+				if ( @bought_nameid[.@k] == .Items[.@j] ) {
+					if ( checkweight( @bought_nameid[.@k], @bought_quantity[.@k] ) ) {
+						if ( countitem(.currency) < .Items[.@j+1] )
+							dispbottom "You don't have enough " +getitemname(.currency)+ " to purchase this item.";
+						else {
+							delitem .currency, .Items[.@j+1] * @bought_quantity[.@k];
+							getitem @bought_nameid[.@k], @bought_quantity[.@k];
+						}
+					} else dispbottom "You cannot carry out more Items with you";
+				}
+			}
+		}
+		deletearray @bought_quantity, getarraysize(@bought_quantity);
+		deletearray @bought_nameid, getarraysize(@bought_nameid);
+		end;
+
+	OnInit:
+		set .currency, 6242; // cross check
+		setarray .Items, 4802,15,4799,30,4790,45,4794,45,4763,45,4767,50,4806,50; // Usage : <item id>,<price>
+		npcshopitem "midgardcoin",0,0;
+		for ( set .@i, 0; .@i < getarraysize(.Items); set .@i, .@i + 2 )
+			npcshopadditem "midgardcoin",.Items[.@i], .Items[.@i+1];
+		end;
+}

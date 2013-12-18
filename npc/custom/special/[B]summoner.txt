@@ -1,0 +1,45 @@
+Invek,177,165,3	script	Spawn Monster	75,{
+	if(getgroupid() < 4){
+		message strcharinfo(0),"Only a GM can use me.. Sorry!";
+		close;		
+	}
+
+	mes "Please input monster ID:";
+	input @gm_mons;
+	next;
+	
+	set @gmspawnmob$,strmobinfo(1,@gm_mons);
+	
+	if( (@gmspawnmob$ == "-1") || (@gmspawnmob$ == "") || (@gmspawnmob$ == "0") ) goto J_NotMob;
+	
+	mes "Please input where you'd like to spawn the "+@gmspawnmob$+":";
+	input @gm_monsmap$;
+	next;
+	
+	set @gm_monsmap$,strtolower(@gm_monsmap$);
+	
+	mes "How many "+@gmspawnmob$+" would you like to spawn to "+@gm_monsmap$+"?";
+	input @gm_monstot;
+	next;
+	
+	if(@gm_monstot == 0) goto J_NotMobTot;
+	
+	mes "So you're going to spawn "+@gm_monstot+" "+@gmspawnmob$+" at "+@gm_monsmap$+"?";
+	
+	if (select("Yes:No")==1){
+	
+		monster ""+@gm_monsmap$+"",0,0,""+@gmspawnmob$+"",@gm_mons,@gm_monstot;
+		
+		announce "[ "+strcharinfo(0)+" ] spawned "+@gm_monstot+" "+@gmspawnmob$+" on "+@gm_monsmap$+"!",0;
+	}
+	
+	close;
+	
+J_NotMob:
+	message strcharinfo(0),"Please input a right Monster / Mob ID..";
+	close;
+	
+J_NotMobTot:
+	message strcharinfo(0),"Please input a right amount of Monster / Mob to spawn";
+	close;
+}

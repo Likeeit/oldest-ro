@@ -1,0 +1,78 @@
+/*
+e_tower,82,79,2	script	#102Administrator Mode104	844,{
+	mes "Please enter the password";
+	input .@inputstr$;
+	next;
+	if (.@inputstr$ == "kirby") {
+		switch(select("Generate Purification Stone:Remove Purification Stone:Cancel")) {
+		case 1:
+			mes "Create the Purification Stone that stays for 30 minutes.";
+			donpcevent "Purification Stone#et1::OnEnable";
+			break;
+		case 2:
+			mes "Destroy the Purification Stone immediately";
+			donpcevent "Purification Stone#et1::OnDisable";
+			break;
+		case 3:
+			mes "You have canceled it.";
+			break;
+		}
+		close;
+	}
+	else {
+		mes "Enter the password exactly.";
+		close;
+	}
+}
+*/
+e_tower,69,117,4	script	Purification Stone#et3	406,{
+	disable_items;
+	mes "Purification Stone";
+	if (Zeny > 999999) && (countitem(6127) >= 1) {
+	mes "^0000ffThe records and aftereffects related to the Endless Tower have been removed. You can generate and enter the Endless Tower again.^000000";
+	set etower_timer,0;
+	set Zeny,Zeny-1000000;
+	delitem 6127,1;
+	close;
+	}
+	else {
+		mes "If by any chance, you would want to enter the endless tower again, bring me 20,000,000 Zeny, 1 Purification Stone and you are all set to go.";
+		close;
+	}
+}
+/*
+OnInit:
+	disablenpc "Purification Stone#et3";
+	end;
+
+OnEnable:
+	initnpctimer;
+	end;
+
+OnDisable:
+	stopnpctimer;
+	disablenpc "Purification Stone#et3";
+	end;
+
+OnTimer1000:
+	enablenpc "Purification Stone#et3";
+	end;
+
+OnTimer1740000:
+	mapannounce "e_tower", "The Purification Stone will be destroyed in one minute.",bc_map,"0x00ff99";
+	end;
+
+OnTimer1800000:
+	disablenpc "Purification Stone#et3";
+	end;
+}
+*/
+/*
+e_tower,151,185,4	script	Purification Stone#et2	844,{
+	set etower_timer,0;
+	mes "^0000ffThe records and aftereffects related to the Endless Tower have been removed. You can generate and enter the Endless Tower again.^000000";
+	close;
+	warp "e_tower",75,108;
+	end;
+}
+*/

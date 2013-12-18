@@ -1,0 +1,235 @@
+invek,162,138,4	script	PvM Arena	999,{
+	// Settings configuration
+	set $@pCount, 0; // Do not touch this
+	set .@pMax, 5; // Change for minimum party member
+	set $@pMap$, "pvp_n_3-5"; // Map name for the event
+	set $@pMap2$, "prontera"; // Map to warp if event is done
+	
+	// Mobs for every level
+	setarray $@level0[0], 1725, 1572, 1766;
+	setarray $@level1[0], 1031, 2323, 1767;
+	setarray $@level2[0], 2179, 2174, 2196;
+	setarray $@level3[0], 1786, 1193, 1482;
+	setarray $@level4[0], 1084, 2144, 2019;
+	setarray $@level5[0], 2136, 2363, 2365;
+	setarray $@level6[0], 2183, 2185, 2322;
+	setarray $@level7[0], 2287, 1831, 1658;
+	setarray $@level8[0], 2285, 1653, 1641;
+	setarray $@level9[0], 1922, 2023, 2255;
+	setarray $@level10[0], 2256, 1637, 1832;
+	setarray $@level11[0], 1870, 1924, 1917;
+	setarray $@level12[0], 2237, 2108, 2103;
+	setarray $@level13[0], 2111, 2239, 2109;
+	setarray $@level14[0], 1931, 2112, 2236;
+	
+	setarray $@count0[0], 40, 40, 20;
+	setarray $@count1[0], 40, 40, 20;
+	setarray $@count2[0], 40, 40, 20;
+	setarray $@count3[0], 40, 50, 10;
+	setarray $@count4[0], 45, 45, 10;
+	setarray $@count5[0], 40, 40, 20;
+	setarray $@count6[0], 48, 48, 4;
+	setarray $@count7[0], 50, 49, 1;
+	setarray $@count8[0], 50, 49, 1;
+	setarray $@count9[0], 50, 49, 1;
+	setarray $@count10[0], 50, 49, 1;
+	setarray $@count11[0], 50, 49, 1;
+	setarray $@count12[0], 1, 1, 1;
+	setarray $@count13[0], 1, 1, 1;
+	setarray $@count14[0], 1, 1, 1;
+	
+	mes "Hello Adventurer";
+	mes "Im the PvM Arena Warper";
+	mes "You need to beat the 15 waves of monsters";
+	mes "I you finish you will be rewarder with awesome prizes"; next;
+	mes "DO you want to go?";
+	switch(select("Enter:Nothing")) {
+		case 1:
+			mes "You need to be in a party of atleast 5 members and 1,000,000 Zeny.";
+			next;
+			if(select("Sure:Oh i forgot!")==1) {
+				// save party id
+				set @partyID, getcharid(1,strcharinfo(0));
+				
+				// Get party leader
+				set @pLeader, getpartyleader(@partyID,2);
+				
+				// Check if the character is in a party
+				if(@partyID == 0) {
+					mes "Opps...something wrong, it seems that you're not in a party. Get back once you get your troop ready!";
+					close;
+				}
+				
+				// Get the party name
+				set @partyName$, getpartyname(@partyID);
+				
+				// Get the party member and count and check if it has enough party member
+				getpartymember(@partyID);
+				set @partyCount, $@partymembercount;
+				if (@partyCount < .@pMax) {
+					mes "Only "+.@pMax+" or higher member can join. Get back once you get your troop ready!";
+					close;
+				}
+				
+				if(getmapusers(""+$@pMap$+"") >= 1) { // Check if there's still party inside the map
+					mes "There's still a party inside the map. The event is still on going.";
+					close;
+				}
+
+				// Ready to warp
+				mes "Are you ready?";
+				if (select("Yes:No")==2) {
+					close;
+				}
+				
+				if (Zeny < 1000000) {
+					mes "Sorry, you dont have enough Zeny";
+					close;
+				}
+
+				if(mobcount(""+$@pMap$+"","PartyVsMobz::OnPVMKILLED") > 0) { // Kill remaining mobs and clean it
+					killmonster ""+$@pMap$+"","PartyVsMobz::OnPVMKILLED";
+					cleanmap ""+$@pMap$+"";
+				}
+				
+				if (Zeny > 999999) {
+				set Zeny,Zeny-1000000;
+				warpparty ""+$@pMap$+"",0,0,@partyID; // Warp party to the map
+				disablenpc "Party Leader";
+				}
+
+				set .@loop, 0;
+				set .@timer, 0;
+				while( .@loop == 0 ){
+					sleep2 1000;
+					set .@timer, .@timer +1;
+					
+					if( .@timer == 5 ) {
+						announce "Event will start in 15 seconds!",bc_map | bc_blue;
+					} else if ( .@timer == 10 ) {
+						announce "You need to kill all the monster and finish all 15 rounds.",bc_map | bc_blue;
+					} else if ( .@timer == 20 ) {
+						announce "Event started!",bc_map | bc_blue;
+						goto Lstart;
+						set .@loop, 1;
+					}
+				}
+				end;
+			} else {
+				close;
+			}
+		break;
+		
+		case 2:
+			close;
+		break;
+	}
+
+Lstart:
+	if(getmapusers("pvp_n_3-5") == 0) {
+		set $@pCount, 0;
+		disablenpc "Party Leader";
+		if(mobcount("pvp_n_3-5","PartyVsMobz::OnPVMKILLED") > 0) {
+			killmonster "pvp_n_3-5","PartyVsMobz::OnPVMKILLED";
+			cleanmap "pvp_n_3-5";
+		}
+	} else if($@pCount == 0) {
+		announce "Level 1 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level0); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 1 "+strmobinfo(1,$@level0[.@i])+"",$@level0[.@i],$@count0[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 1) {
+		announce "Level 2 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level1); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 2 "+strmobinfo(1,$@level1[.@i])+"",$@level1[.@i],$@count1[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 2) {
+		announce "Level 3 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level2); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 3 "+strmobinfo(1,$@level2[.@i])+"",$@level2[.@i],$@count2[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 3) {
+		announce "Level 4 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level3); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 4 "+strmobinfo(1,$@level3[.@i])+"",$@level3[.@i],$@count3[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 4) {
+		announce "Level 5 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level4); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 5 "+strmobinfo(1,$@level4[.@i])+"",$@level4[.@i],$@count4[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 5) {
+		announce "Level 6 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level5); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 6 "+strmobinfo(1,$@level5[.@i])+"",$@level5[.@i],$@count5[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 6) {
+		announce "Level 7 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level6); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 7 "+strmobinfo(1,$@level6[.@i])+"",$@level6[.@i],$@count6[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 7) {
+		announce "Level 8 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level7); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 8 "+strmobinfo(1,$@level7[.@i])+"",$@level7[.@i],$@count7[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 8) {
+		announce "Level 9 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level8); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 9 "+strmobinfo(1,$@level8[.@i])+"",$@level8[.@i],$@count8[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 9) {
+		announce "Level 10 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level9); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 10 "+strmobinfo(1,$@level9[.@i])+"",$@level9[.@i],$@count9[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 10) {
+		announce "Level 11 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level10); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 11 "+strmobinfo(1,$@level10[.@i])+"",$@level10[.@i],$@count10[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 11) {
+		announce "Level 12 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level11); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 12 "+strmobinfo(1,$@level11[.@i])+"",$@level11[.@i],$@count11[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 12) {
+		announce "Level 13 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level12); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 13 "+strmobinfo(1,$@level12[.@i])+"",$@level12[.@i],$@count12[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 13) {
+		announce "Level 14 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level13); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 14 "+strmobinfo(1,$@level13[.@i])+"",$@level13[.@i],$@count13[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else if($@pCount == 14) {
+		announce "Level 15 started!",bc_map | bc_blue;
+		for (set .@i,0; .@i < getarraysize($@level14); set .@i, .@i+1){
+			monster ""+$@pMap$+"",0,0,"Level 15 "+strmobinfo(1,$@level14[.@i])+"",$@level14[.@i],$@count14[.@i],"PartyVsMobz::OnPVMKILLED";
+		}
+	} else {
+		announce "You're done here! Thank you for joining! Re-group to the center of the map.",bc_map | bc_blue;
+		enablenpc "Party Leader";
+		set $@pCount, 0;
+		end;
+	}
+end;
+
+OnPVMKILLED:
+	announce " "+mobcount(""+$@pMap$+"","PartyVsMobz::OnPVMKILLED")+": monster left on the area!",bc_map | bc_blue;
+	if(mobcount(""+$@pMap$+"","PartyVsMobz::OnPVMKILLED") == 0) {
+		set $@pCount, $@pCount + 1;
+		goto Lstart;
+	}
+	end;
+}
+
+pvp_n_3-5	mapflag	pvp	off
+pvp_n_3-5	mapflag	nowarp
+pvp_n_3-5	mapflag	nowarpto
+pvp_n_3-5	mapflag	noreturn
+pvp_n_3-5	mapflag	nosave
+pvp_n_3-5	mapflag	nomemo
+pvp_n_3-5	mapflag	zone	Memorial Dungeon
+pvp_n_3-5	mapflag	noloot

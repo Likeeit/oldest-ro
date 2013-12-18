@@ -1,0 +1,26 @@
+prontera,139,164,4	script	Starter Kit	562,{
+	if(#xROnewbie == 1) goto L_QuestFinish;
+	
+	mes "[Starter Kit]";
+    mes "Welcome to CrossRO, the server you'll love, So start grab your freebies so you could gear up and OWN!!";
+    next;
+	
+	mes "[Start Kit]";
+	mes "NOTE: You can get Newbie Freebies per character.";
+	next;
+	
+	getitem 32712,1;
+	
+	announce "Let's Welcome our New player, " + strcharinfo(0) + ".",0;
+		set #xROnewbie, 1;
+		close;
+	
+	
+	L_QuestFinish:
+	mes "[Starter Kit]";
+		mes "Hey I remember you!  I already told you that you may only get a Startter Kit once.";
+		close;
+	OnInit:
+	waitingroom "Starter Kit",0;
+	end;
+	}

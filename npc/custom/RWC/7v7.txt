@@ -1,0 +1,348 @@
+job_knt,65,53,4	script	RWC Registration	899,{
+	if (getgmlevel() >= 99){
+		menu "standard menu",standard,"reset",lend;
+	}
+	
+standard:
+	set $@members,7; // number of party members change this to your party size you want
+	set $@start,0;
+	
+	getpartymember(getcharid(1));
+	set @partymembercount,$@partymembercount;
+	if ( $@start == 1 ) {
+		mes "The Sign Ups are currently unavailable because a match is in progress. Don't hesitate to try again in a few minutes!";
+		close;
+	}
+	if ( @partymembercount == $@members ) {
+		if ( $@TeamID1 == getcharid(1) ) {
+			mes "Do you wish to sign out your team?";    
+			next;    
+			if (select("I Give up ~.","Never Say Quit !!")==2) close;    
+			announce "Team 1 : [ " + getpartyname($@TeamID1) + " ] has sign out. We need another Party to sign up now!",0;    
+			set $@TeamID1, 0;
+			close;    
+		}
+		if ( $@TeamID2 == getcharid(1) ) {    
+			mes "Do you wish to sign out your team?";    
+			next;    
+			if (select("I Give up ~.","Never Say Quit !!")==2) close;
+			announce "Team 2 : [ " + getpartyname($@TeamID2) + " ] has sign out. We need another Party to sign up now!",0;    
+			set $@TeamID2, 0;    
+			close;    
+		}
+		mes "[  Team War  ]";
+		mes "Hello "+strcharinfo(0)+" what do you want?";
+		next;
+		if (($@TeamID1!=0) && ($@TeamID2!=0)) {
+			mes "The Sign Ups are currently unavailable because a match is in progress. Don't hesitate to try again in a few minutes!";
+			close;
+		}
+		if ( getpartyleader(getcharid(1),2) != getcharid(0) ) {
+			mes "Only party leader have the right to sign up / out from the game with me..";
+			close;
+		}
+		mes "[  Team War  ]";
+		mes "Choose your team to register.";
+		switch(select("^ff0000Red Team ^000000 - [" + getpartyname($@TeamID1) + "] :^0000ffBlue Team^000000 - [" + getpartyname($@TeamID2) + "]")) {
+		case 1:    
+			if ($@TeamID1==0 || getpartyname($@TeamID1)=="null") {
+			
+				getpartymember(getcharid(1)),1;
+				getpartymember(getcharid(1)),2;
+				copyarray $@partymembercidt1[0],$@partymembercid[0],$@members;
+				copyarray $@partymemberaidt1[0],$@partymemberaid[0],$@members;
+				
+				for (set .@i,0; .@i<$@members; set .@i,.@i+1) {
+					if(isloggedin($@partymemberaidt1[.@i],$@partymembercidt1[.@i]))  set .@count,.@count+1;
+				}
+				
+				if(.@count < $@members) {
+					mes "You need all your party members to be online to Register";
+					close;
+				}
+				
+				if ( callfunc("party_has_duplicate_job") ) {
+					mes "Too many jobs";
+					close;
+				}
+				set $@TeamID1, getcharid(1);    
+				initnpctimer;    
+				mes "Your Party is now subscribed, good luck!";    
+				announce "Team 1 : [ " +getpartyname($@TeamID1)+ " ] has sign up For the Team War!",0;
+				doevent "RWC Registration::OnSubscriptionTeam";    
+				close;
+			} else {
+				mes "I'm sorry! Another Team has sign up before you...";    
+				close;    
+			}
+			
+		case 2:    mes "[  Team War  ]";
+			if ($@TeamID2==0 || getpartyname($@TeamID2)=="null") {    
+				getpartymember(getcharid(1)),1;
+				getpartymember(getcharid(1)),2;
+				copyarray $@partymembercidt2[0],$@partymembercid[0],$@members;
+				copyarray $@partymemberaidt2[0],$@partymemberaid[0],$@members;
+				for (set .@i,0; .@i<$@members; set .@i,.@i+1) {
+					if(isloggedin($@partymemberaidt2[.@i],$@partymembercidt2[.@i]))
+						set .@count,.@count+1;
+				}
+				
+				if(.@count < $@members) {
+					mes "You need all your party members to be online to Register";
+					close;
+				}
+				
+				if ( callfunc("party_has_duplicate_job") ) {
+					mes "too many jobs";
+					close;
+				}
+				
+				set $@TeamID2, getcharid(1);    
+				initnpctimer;    
+				mes "Your Party is now subscribed, good luck!";    
+				announce "Team 2 : [ " +getpartyname($@TeamID2)+ " ] has sign up For the Team War!",0;
+				doevent "RWC Registration::OnSubscriptionTeam";    
+				close;    
+			} else {    
+				mes "I'm sorry! Another Team has sign up before you...";    
+				close;
+			}
+		}
+	} else {
+		mes "[RWC Handler]";
+		mes "Please contact your party leader.";
+		mes "Your team must have a party consisting of "+$@members+" members.";
+		close;
+	}
+
+OnSubscriptionTeam:
+	getpartymember($@TeamID2),1;
+	getpartymember($@TeamID2),2;
+	copyarray $@partymembercidtc2[0],$@partymembercid[0],$@members;
+	copyarray $@partymemberaidc2[0],$@partymemberaid[0],$@members;
+	for (set .@i,0; .@i<$@members; set .@i,.@i+1) {
+		if(isloggedin($@partymemberaidc2[.@i],$@partymembercidtc2[.@i])) set .@countx,.@countx+1;
+	}
+	if (.@countx < $@members) {
+		announce "Team War : "+getpartyname($@TeamID2)+"are not all online the match has been canceled",bc_blue|bc_map;
+		announce "Team War : registration for 2 new teams are now available",bc_blue|bc_map;
+		goto lend;
+	}
+	if ( $@TeamID2 && $@partymembercount != $@members ) {
+		announce getpartyname($@TeamID2) +" has extra party members !",bc_blue|bc_map;
+		goto lend;
+	}
+	
+	getpartymember($@TeamID1),1;
+	getpartymember($@TeamID1),2;
+	copyarray $@partymembercidtc1[0],$@partymembercid[0],$@members;
+	copyarray $@partymemberaidc1[0],$@partymemberaid[0],$@members;
+	for (set .@i,0; .@i<$@members; set .@i,.@i+1) {
+		if(isloggedin($@partymemberaidc1[.@i],$@partymembercidtc1[.@i])) set .@countz,.@countz+1;
+	}
+	if (.@countz < $@members) {
+		announce "Team War : "+getpartyname($@TeamID1)+"are not all online the match has been canceled",0;
+		announce "Team War : registration for 2 new teams are now available",bc_blue|bc_map;
+		goto lend;
+	}
+	if ( $@TeamID1 &&  $@partymembercount != $@members ) {
+		announce getpartyname($@TeamID1) +" has extra party members !",bc_blue|bc_map;
+		goto lend;
+	}
+	
+	if ($@TeamID1!=0 && $@TeamID2!=0) {
+		announce "Team War : We have 2 Teams signed up now : "+getpartyname($@TeamID1)+" and "+getpartyname($@TeamID2)+".",0;
+		set @win1, 0;
+		set @win2, 0;
+		goto OnStart;
+	}
+	end;
+
+OnTimer50000:
+	if (($@TeamID1!=0) && ($@TeamID2!=0)) {
+		stopnpctimer;
+		end;
+	}
+	stopnpctimer;
+	set $@TeamID1, 0;
+	set $@TeamID2, 0;
+	announce "Team War : we lack teams to start registration for two teams are now available",0;
+	end;
+
+OnStart:
+	warpparty "2012rwc_03",46,79,$@TeamID1;
+	warpparty "2012rwc_03",154,79,$@TeamID2;
+	set $@start,1;
+	initnpctimer;
+	enablenpc "WALL3#1";
+	enablenpc "WALL3#2";
+	enablenpc "WALL3#3";
+	enablenpc "WALL3#4";
+	enablenpc "WALL3#5";
+	enablenpc "WALL3#6";
+	enablenpc "WALL3#7";
+	enablenpc "WALL3#8";
+	setwall "2012rwc_03",59,78,4,0,0,"rwc3_a";
+	setwall "2012rwc_03",141,78,4,0,0,"rwc3_b";
+	end;
+
+lend:
+	stopnpctimer;
+	set $@TeamID1,0;
+	set $@TeamID2,0;
+	set $@start,0;
+	set @win1,0;
+	set @win2,0;
+	set @partymembercount,$@members;
+	disablenpc "WALL3#1";
+	disablenpc "WALL3#2";
+	disablenpc "WALL3#3";
+	disablenpc "WALL3#4";
+	disablenpc "WALL3#5";
+	disablenpc "WALL3#6";
+	disablenpc "WALL3#7";
+	disablenpc "WALL3#8";
+	delwall "rwc3_a";
+	delwall "rwc3_b";
+	close;
+
+OnTimer30000:
+	stopnpctimer;
+	disablenpc "WALL3#1";
+	disablenpc "WALL3#2";
+	disablenpc "WALL3#3";
+	disablenpc "WALL3#4";
+	disablenpc "WALL3#5";
+	disablenpc "WALL3#6";
+	disablenpc "WALL3#7";
+	disablenpc "WALL3#8";
+	delwall "rwc3_a";
+	delwall "rwc3_b";
+	announce "Fight!!!",0;
+	end;
+
+OnTimer250000:
+	announce "Team War : No Party won due to time limit!",0;
+	mapwarp "2012rwc_03","job_knt",43,52;
+	goto lend;
+	end;
+
+OnPCDieEvent:
+OnPCLogoutEvent:
+	if(strcharinfo(3) != "2012rwc_03") end;
+	set Zeny,10000000;
+	warp "job_knt",43,52;
+	for(set .@i, 0; .@i < $@members; set .@i, .@i + 1) {
+		if ( $@partymembercidt1[.@i] == getcharid(0)) {
+			deletearray $@partymembercidt1[.@i], 1;
+			deletearray $@partymemberaidt1[.@i], 1;
+			if( getarraysize($@partymembercidt1) == 0 ) {
+				set @win2,getarraysize($@partymembercidt2);
+				goto OnWin;
+			}
+		}
+		if ( $@partymembercidt2[.@i] == getcharid(0) ) {
+			deletearray $@partymembercidt2[.@i], 1;
+			deletearray $@partymemberaidt2[.@i], 1;
+			if( getarraysize($@partymembercidt2)  == 0 ) {
+				set @win1,getarraysize($@partymembercidt1);
+				goto OnWin;
+			}
+		}
+	}
+	end;
+OnWin:
+	if (@win1==0) {
+		warpparty "job_knt",43,52,$@TeamID1;
+		warpparty "job_knt",43,52,$@TeamID2;
+		announce "Team War :"+getpartyname($@TeamID2)+" won",0;
+		for ( .@i = 0; .@i < @win2; .@i++ )
+			getitem 7922, rand(1,2), $@partymemberaidt2[.@i];
+		goto lend;
+	}
+	if (@win2==0) {
+		warpparty "job_knt",43,52,$@TeamID1;
+		warpparty "job_knt",43,52,$@TeamID2;
+		announce "Team War :"+getpartyname($@TeamID1)+" won",0;
+		for ( .@i = 0; .@i < @win1; .@i++ )
+			getitem 7922, rand(1,2), $@partymemberaidt1[.@i];
+		goto lend;
+	}
+	end;
+OnInit:
+waitingroom "7 vs 7",0;
+end;
+}
+function	script	party_has_duplicate_job	{
+
+	set .@party_id, getarg( 0, getcharid(1) );
+
+	// Loading party members variables
+	getpartymember .@party_id, 1;
+	getpartymember .@party_id, 2;
+
+	// Keep rid attached.
+	set .@rid, playerattached();
+
+	// Check all members
+	for ( set .@i,0; .@i<$@partymembercount; set .@i, .@i+1 ) {
+		// Online user
+		if ( isloggedin( $@partymemberaid[.@i], $@partymembercid[.@i]) )
+		{
+			// Attach the member to access "Class"
+			attachrid( $@partymemberaid[.@i] );
+			if ( compare( .@tmp_class$ + "|", "|" + Class + "|" ) )
+			{
+				if ( .@rid )
+					attachrid(.@rid);
+				else
+					detachrid;
+				return 1;
+			}
+			set .@tmp_class$, .@tmp_class$ + "|" + Class;
+		}
+
+		// Offline user (use sql)
+		else {
+			set .@sql$, .@sql$ + ( .@sql_i ? "OR " : "" ) + "`char_id`='" + $@partymembercid[.@i] + "' ";
+			set .@sql_i, .@sql_i + 1;
+		}
+	}
+
+	// SQL for offline users
+	if ( getstrlen(.@sql$) )
+	{
+		// get class from offline members
+		set .@count, query_sql("SELECT `class` FROM `char` WHERE " + .@sql$, .@class );
+
+		// Check the class.
+		for ( set .@i, 0; .@i<.@count; set .@i, .@i+1 ) {
+			if ( compare( .@tmp_class$ + "|", "|" + .@class[.@i] + "|" ) )
+			{
+				if ( .@rid )
+					attachrid(.@rid);
+				else
+					detachrid;
+				return 1;
+			}
+			set .@tmp_class$, .@tmp_class$ + "|" + .@class[.@i];
+		}
+	}
+		// Restore RID.
+	if ( .@rid )
+		attachrid(.@rid);
+	else
+		detachrid;
+	return 0;
+}
+
+job_knt,45,146,0	script	WALL3	1905,{
+}
+2012rwc_03,58,78,0	duplicate(WALL3)	WALL3#1	1905
+2012rwc_03,58,79,0	duplicate(WALL3)	WALL3#2	1905
+2012rwc_03,58,80,0	duplicate(WALL3)	WALL3#3	1905
+2012rwc_03,58,81,0	duplicate(WALL3)	WALL3#4	1905
+2012rwc_03,141,81,0	duplicate(WALL3)	WALL3#5	1905
+2012rwc_03,141,80,0	duplicate(WALL3)	WALL3#6	1905
+2012rwc_03,141,79,0	duplicate(WALL3)	WALL3#7	1905
+2012rwc_03,141,78,0	duplicate(WALL3)	WALL3#8	1905

@@ -1,0 +1,35 @@
+-	shop	dynamicshop	-1,501:222
+moc_para01,23,35,4,	script	Pods	718,{
+	callshop "dynamicshop",1;
+	npcshopattach "dynamicshop";
+	end;
+	
+	OnBuyItem:
+		for ( set .@j, 0; .@j < getarraysize(.Items); set .@j, .@j + 2 ) {
+			for ( set .@k, 0; .@k < getarraysize(@bought_nameid); set .@k, .@k + 1 ) {
+				if ( @bought_nameid[.@k] == .Items[.@j] ) {
+					if ( checkweight( @bought_nameid[.@k], @bought_quantity[.@k] ) ) {
+						if ( countitem(.currency) < .Items[.@j+1] )
+							dispbottom "You don't have enough " +getitemname(.currency)+ " to purchase this item.";
+						else {
+							delitem .currency, .Items[.@j+1] * @bought_quantity[.@k];
+							getitem @bought_nameid[.@k], @bought_quantity[.@k];
+						}
+					} else dispbottom "You cannot carry out more Items with you";
+				}
+			}
+		}
+		deletearray @bought_quantity, getarraysize(@bought_quantity);
+		deletearray @bought_nameid, getarraysize(@bought_nameid);
+		end;
+
+	OnInit:
+		set .currency, 32722; // pods
+		setarray .Items, 32720,5,6438,3,6439,3,13550,1,32724,1,32725,200,32726,200,32727,200,2576,200,32728,100,32729,100,32730,100,32731,100,32732,100,32733,100,32734,100,32735,100,32736,100,32737,100,32738,100,32739,100,32740,100,32741,100,32742,100,32743,100,20707,100,20500,125,2589,150; // Usage : <item id>,<price>
+		npcshopitem "dynamicshop",0,0;
+		for ( set .@i, 0; .@i < getarraysize(.Items); set .@i, .@i + 2 )
+			npcshopadditem "dynamicshop",.Items[.@i], .Items[.@i+1];
+		end;
+}
+
+//glorious weapons		setarray .Items, 1577,100,1640,100,1281,100,1826,100,1187,100,1310,100,1641,100,2002,100,1827,100,13416,100,13177,100,13042,100,13179,100,1927,100,13418,100,1743,100,1282,100,1426,100,1981,100,1546,100,13110,100,13417,100,13176,100,13178,100,13307,100,1576,100,1382,125; // Usage : <item id>,<price>

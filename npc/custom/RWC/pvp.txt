@@ -1,0 +1,49 @@
+job_knt,61,49,4	script	PvP	1198,{
+	
+menu
+	"PvP = [" + getmapusers("guild_vs5.gat") + " / 60]",L3;
+
+L3:
+if ((getmapusers("guild_vs5.gat") > 59)&&(getgmlevel() < 1)) goto Lsorry;
+
+warp	"guild_vs5",0,0;
+	end;
+Lsorry:
+mes "[PvP Warper]";
+mes "Sorry, The Arena is Full.";
+	end;
+
+S_full:
+	mes " ";
+	mes "I'm sorry, this arena is full.  Please try again later...";
+	close;
+	end;
+OnPCLogoutEvent:
+	if(strcharinfo(3) != "guild_vs5") end;
+	set Zeny,0;
+	atcommand "@cart 9";
+	atcommand "@clearcart";
+	clearitem;
+	jobchange Job_Novice;
+	set gympassmemory,0;
+	skill "ALL_INCCARRY",gympassmemory,0;
+	BaseLevel = 1;
+	JobLevel = 1;
+	resetskill;
+	resetstatus;
+	StatusPoint = 48;
+	SkillPoint = 0;
+	end;
+OnInit:
+waitingroom "PvP Room",0;
+end;
+}
+
+guild_vs5	mapflag	pvp
+guild_vs5	mapflag	nowarp
+guild_vs5	mapflag	nowarpto
+guild_vs5	mapflag	nomemo
+guild_vs5	mapflag	nopenalty
+guild_vs5	mapflag	nosave	SavePoint
+guild_vs5	mapflag	noteleport
+guild_vs5	mapflag	nobranch

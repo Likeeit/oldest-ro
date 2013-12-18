@@ -1,0 +1,206 @@
+	//Made by Karul
+//==========Start/Announcer NPC
+invek,164,138,3	script	Margaretha Catcher Event	793,{
+
+set .@name$,"^9932CC[High Priest Margaretha] ^000000";
+
+if(getgmlevel() < 80) { 
+	mes .@name$;
+	mes "Sorry you are no Level 80 GM";
+	close;
+	} else {
+	L_Main:
+	mes .@name$;
+	mes "What do you want to do?";
+	switch(select("Item [" + getitemname($@SatanReward)  + "]:Start Event")) {
+			case 1: next;
+					mes .@name$;
+					mes "What item do you want as the reward?";
+					input $@SatanReward;
+					next;
+					mes .@name$;
+					mes "How many of that item(s) do you want to give?";
+					input $@SatanRewardItems;
+					next;
+					mes .@name$;
+					mes "This is your amount:";
+					mes ""+$@SatanRewardItems+"";
+					next;
+					goto L_Main;
+			case 2: next;
+					mes .@name$;
+					mes "Starting Event...";
+					close2;
+					Announce "High Priest Margaretha Catcher Event is being held!",bc_all;
+					sleep 5000;
+					Announce "The warp portal has appeared in prontera!",bc_all;
+					enablenpc "satanevent";
+					initnpctimer;
+					end;
+					
+					OnTimer30000:
+							Announce "Thirty Seconds Have Passed By!",bc_all;
+							sleep 5000;
+							Announce "Hurry and go to prontera if you want to join!",bc_all;
+							end;
+							
+					OnTimer40000:
+							Announce "Twenty seconds left!",bc_all;
+							end;
+							
+					OnTimer50000:
+							Announce "Ten seconds left!",bc_all;
+							end;
+							
+					OnTimer55000:
+							Announce "5!",bc_all;
+							sleep 1000;
+							Announce "4!",bc_all;
+							sleep 1000;
+							Announce "3!",bc_all;
+							sleep 1000;
+							Announce "2!",bc_all;
+							sleep 1000;
+							Announce "1!",bc_all;
+							sleep 1000;
+							Announce "0!",bc_all;
+							sleep 1000;
+							disablenpc "satanevent";
+							donpcevent "Rewarder::OnEnable";
+							stopnpctimer;
+							end;
+		}
+	}
+OnInit:
+        disablenpc "satanevent";
+        hideonnpc "Rewarder";
+
+OnMinute05: // SET THE 30 TO THE MINUTE YOU WANT THE EVENT TO START EACH HOUR.
+
+}
+
+//=================Warp NPC
+invek,144,152,0	warp	satanevent	1,1,guild_vs2-2,49,49
+
+//=================Reward NPC
+guild_vs2-2,49,49,5	script	Rewarder	793,{
+
+set .@sname$,"[Rewarder]";
+
+	mes .@sname$;
+	if(SATAN == 1) goto L_SATAN;
+	mes "Please tell me your name.";
+	next;
+	input .@charname$;
+	if(.@charname$ != strcharinfo(0)) {
+		mes .@name$;
+		mes "Are you sure that is your character name?";
+		close;
+	}
+	mes .@name$;
+	mes "Congratulations You Have Won!";
+	Announce "Margaretha Catcher: All laugh at, "+.@name$+". - This player tried to cheat the system. Muhahahahaha!",0;
+	warp "prontera",155,182;
+	end;
+	
+L_SATAN:
+	mes .@sname$;
+	mes "Please tell me your name.";
+	next;
+	input .@charname$;
+	if(.@charname$ != strcharinfo(0)) {
+		mes .@name$;
+		mes "Are you sure that is your character name?";
+		close;
+	}
+	mes .@name$;
+	mes "Congratulations You Have Won!";
+	Announce "Wow " + .@charname$ + "! has won 250,000 Zeny and " + $@SatanRewardItems + " " + getitemname($@SatanReward)  + "(s)!",bc_all;
+	getitem 7539,25;
+	set Zeny,Zeny+250000;
+	warp "invek",146,165;
+	hideonnpc "Rewarder";
+	end;
+	
+OnEnable:
+	set .@aname$,"[Rewarder]";
+	
+	mapannounce "guild_vs2-2","" + .@aname$ + ": I will be summoning 100 different kinds of High Priest Margaretha.",16;
+	sleep 5000;
+	mapannounce "guild_vs2-2","" + .@aname$ + ": Only one of these High Priest Margaretha are the real one.",16;
+	sleep 5000;
+	mapannounce "guild_vs2-2","" + .@aname$ + ": The correct one will be called 'High Priest Margaretha'.",16;
+	sleep 5000;
+	mapannounce "guild_vs2-2","" + .@aname$ + ": Kill the wrong one, you're out. Kill the right one, you win.",16;
+	sleep 5000;
+	mapannounce "guild_vs2-2","" + .@aname$ + ": Now let's play!",16;
+	goto L_Start;
+	end;
+
+L_Start:
+	set .@aname$,"[Rewarder]";
+
+	mapannounce "guild_vs2-2","" + .@aname$ + ": 5!",16;
+	sleep 1000;
+	mapannounce "guild_vs2-2","" + .@aname$ + ": 4!",16;
+	sleep 1000;
+	mapannounce "guild_vs2-2","" + .@aname$ + ": 3!",16;
+	sleep 1000;
+	mapannounce "guild_vs2-2","" + .@aname$ + ": 2!",16;
+	sleep 1000;
+	mapannounce "guild_vs2-2","" + .@aname$ + ": 1!",16;
+	sleep 1000;
+	mapannounce "guild_vs2-2","" + .@aname$ + ": GO!",16;
+	sleep 1000;
+	areamonster "guild_vs2-2",39,63,63,45,"High Priest Margaretha",1802,1,"satanwin::OnMobKilled";
+	areamonster "guild_vs2-2",63,63,37,46,"Hi Priest Margaretha",1802,10,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",39,63,63,45,"High Priest Margareth",1802,10,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",63,63,37,46,"High Priest Magaretha",1802,10,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",39,63,63,45,"High Priest Magalita",1802,10,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",63,63,37,46,"I am High Priest Margaretha",1802,5,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",39,63,63,45,"Hi Pris Margareth",1802,1,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",63,63,37,46,"Cardinal Margaretha",1802,1,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",39,63,63,45,"Cardinal Magaleta",1802,1,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",63,63,37,46,"Priest Margaretha",1802,10,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",39,63,63,45,"High Margaetha",1802,10,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",63,63,37,46,"Hig Priest Margartha",1802,10,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",39,63,63,45,"Hgh Priest Mararetha",1802,10,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",63,63,37,46,"High Piest Magaretha",1802,10,"satanlose::OnMobKilled";
+	areamonster "guild_vs2-2",39,63,63,45,"High Prist Margretha",1802,1,"satanlose::OnMobKilled";
+	end;
+}
+
+//========Killed the right one
+-	script	satanwin	-1,{
+
+	set .@aname$,"[Rewarder]";
+
+OnMobKilled:
+	dispbottom "High Priest Margaretha: You found me.";
+	set SATAN,1;
+	atcommand "@doommap";
+	killmonster "guild_vs2-2","All";
+	mapannounce "guild_vs2-2","Rewarder : Come to me and tell me your name.",16;
+	hideoffnpc "Rewarder";
+	end;
+}
+
+//========Killed the wrong one
+-	script	satanlose	-1,{
+
+OnMobKilled:
+	dispbottom "High Priest Margaretha: You haven't found my twin!";
+	warp "invek",146,165;
+	end;
+}
+
+// -- Mapflags (If Wanted)
+guild_vs2-2	mapflag	nowarp
+guild_vs2-2	mapflag	nowarpto
+guild_vs2-2	mapflag	noteleport
+guild_vs2-2	mapflag	nosave
+guild_vs2-2	mapflag	nomemo
+guild_vs2-2	mapflag	nobranch
+guild_vs2-2	mapflag	noloot
+guild_vs2-2	mapflag	noskill
+guild_vs2-2	mapflag	nopenalty

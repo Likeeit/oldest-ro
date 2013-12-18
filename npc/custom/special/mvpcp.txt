@@ -1,0 +1,34 @@
+-	script	mvpcp	-,{
+
+	OnNPCKillEvent:
+		//Get cashpoint if monster killed is listed
+		for (.@i = 0; .@i < getarraysize(.monster); .@i++)
+		{
+			if(killedrid == .monster[.@i])
+			{
+				.@mvpcash = rand(.min, .max);
+				set #CASHPOINTS, #CASHPOINTS += .@mvpcash;
+				announce "[ "+strcharinfo(0)+" ] has killed a MVP and received "+ .@mvpcash +" cash point",0;
+				message strcharinfo(0), "You received "+ .@mvpcash +" for killing "+ getmonsterinfo(.monster[.@i], 0) +"!";
+			}
+		}
+		
+		end;
+	
+	OnWhisperGlobal:
+        // Whisper anything to initialize settings
+		message strcharinfo(0), strnpcinfo(1) +" : 'OnInit' label has been intialized.";
+    
+	OnInit:
+        // List of monster IDs
+		setarray .monster[0], 1511,1874,1647,1785,1630,2320,2317,1039,2068,2319,2238,2240,2236,1272,1719,1046,1389,1112,1115,1418,1871,1252,1768,2165,1086,1885,2241,1649,1651,1832,1492,1734,1251,2202,1779,1688,2156,1646,1373,1147,1059,1150,2022,1087,1190,1038,2235,1157,1159,2237,2087,1623,1650,2239,1583,1708,1312,1751,1685,1648,1917,1658;
+        
+        // Set zeny range
+		.min = 1;        // Minimum
+		.max = 4;        // Maximum
+		
+		end;
+        
+}
+//MVP NAME
+//"+ getmonsterinfo(.monster[.@i], 0) +"!

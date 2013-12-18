@@ -1,0 +1,77 @@
+job_knt,22,53,5	script	Exit Guard	417,{
+	if(#xROnewbie == 0) {
+		mes "Are you sure you want to exit?"; next;
+		mes "Before you exit, I will take everything you borrow"; next;
+		switch(select("Yes:No")) {
+			case 1:
+				atcommand "@cart 9";
+				atcommand "@clearcart";
+				clearitem;
+				jobchange Job_Novice;
+				set gympassmemory,0;
+				skill "ALL_INCCARRY",gympassmemory,0;
+				BaseLevel = 1;
+				JobLevel = 1;
+				resetskill;
+				resetstatus;
+				StatusPoint = 48;
+				SkillPoint = 0;
+				set Zeny,25000;
+				getitem 32712,1;
+				getitem 32717,1;
+				announce "Let's Welcome our New player, " + strcharinfo(0) + ".",0;
+				set #xROnewbie, 1;
+				warp "invek",146,164;
+				savepoint "invek",146,164;
+				end;
+			case 2:
+				mes "Ok enjoy your stay here";
+				close;
+		}
+	} else {
+		mes "Are you sure you want to exit??"; next;
+		mes "Before you exit, I will take everything you borrow"; next;
+		switch(select("Yes:No")) {
+			case 1:
+				atcommand "@cart 9";
+				atcommand "@clearcart";
+				clearitem;
+				jobchange Job_Novice;
+				set gympassmemory,0;
+				skill "ALL_INCCARRY",gympassmemory,0;
+				BaseLevel = 1;
+				JobLevel = 1;
+				resetskill;
+				resetstatus;
+				StatusPoint = 48;
+				SkillPoint = 0;
+				set Zeny,25000;
+				announce "Let's Welcome our New player, " + strcharinfo(0) + ".",0;
+				warp "invek",146,164;
+				savepoint "invek",146,164;
+				end;
+			case 2:
+				mes "Ok enjoy your stay here";
+				close;
+		}
+	}
+OnPCLogoutEvent:
+	if(strcharinfo(3) != "guild_vs2") end;
+	set Zeny,0;
+	atcommand "@cart 9";
+	atcommand "@clearcart";
+	clearitem;
+	jobchange Job_Novice;
+	set gympassmemory,0;
+	skill "ALL_INCCARRY",gympassmemory,0;
+	BaseLevel = 1;
+	JobLevel = 1;
+	resetskill;
+	resetstatus;
+	StatusPoint = 48;
+	SkillPoint = 0;
+	end;
+OnInit:
+waitingroom "Exit!!!",0;
+end;
+}

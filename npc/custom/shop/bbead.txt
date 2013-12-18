@@ -1,0 +1,33 @@
+-	shop	BBead	-1,501:222
+moc_para01,34,185,4,	script	Umbala Bead Trader	794,{
+	callshop "BBead",1;
+	npcshopattach "BBead";
+	end;
+	
+	OnBuyItem:
+		for ( set .@j, 0; .@j < getarraysize(.Items); set .@j, .@j + 2 ) {
+			for ( set .@k, 0; .@k < getarraysize(@bought_nameid); set .@k, .@k + 1 ) {
+				if ( @bought_nameid[.@k] == .Items[.@j] ) {
+					if ( checkweight( @bought_nameid[.@k], @bought_quantity[.@k] ) ) {
+						if ( countitem(.currency) < .Items[.@j+1] )
+							dispbottom "You don't have enough " +getitemname(.currency)+ " to purchase this item.";
+						else {
+							delitem .currency, .Items[.@j+1] * @bought_quantity[.@k];
+							getitem @bought_nameid[.@k], @bought_quantity[.@k];
+						}
+					} else dispbottom "You cannot carry out more Items with you";
+				}
+			}
+		}
+		deletearray @bought_quantity, getarraysize(@bought_quantity);
+		deletearray @bought_nameid, getarraysize(@bought_nameid);
+		end;
+
+	OnInit:
+		set .currency, 32722; // pods
+		setarray .Items, 4844,100,4842,150,4852,150,4825,200,4831,200,4841,200,18505,300; // Usage : <item id>,<price>
+		npcshopitem "BBead",0,0;
+		for ( set .@i, 0; .@i < getarraysize(.Items); set .@i, .@i + 2 )
+			npcshopadditem "BBead",.Items[.@i], .Items[.@i+1];
+		end;
+}

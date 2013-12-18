@@ -1,0 +1,311 @@
+//rwc_2012 v1.1
+moc_para01,14,185,5	script	Goldberg#0	878,{
+function ordinal_suffix;
+function f_itm_menu;
+set .npc$, "["+strnpcinfo(1)+"]"; //NPC Name
+set .mode, atoi(strnpcinfo(2));
+	disable_items;
+	if(!.mode) {
+		mes .npc$;
+		mes "Hello there!";
+		mes "I can enchant or remove enchantments";
+		mes "from your 2012 RWC accessory items!"; next;
+	} else if(.mode<3) {
+		mes .npc$;
+		mes "Hello there!";
+		mes "I can add a slot to your RWC";
+		mes "2012 accessory items!";
+		mes "^FF0000Any enchantments over the first";
+		mes	"slot will be lost in the process!^000000"; next;
+	} else {
+		mes .npc$;
+		mes "Hello there!";
+		mes "I can slot or enchant your RWC";
+		mes "2012 accessory items!";
+		mes "^FF0000Any enchantments over the first";
+		mes	"slot will be lost in the process!^000000"; next;
+	}
+		switch(select(((.mode)?"Chamber Accessory"+((.mode>1)?":Enchant:Remove Enchantments":""):"Enchant:Remove Enchantments")+":Cancel")) {
+			case 1:
+				if(!.mode) {
+					mes .npc$;
+					mes "Which RWC Accessory item would you like to enchant?"; next;
+					f_itm_menu();
+					goto L_Slots;
+				} else {
+					mes .npc$;
+					mes "Which RWC Accessory do you want me to slot?"; next;
+					f_itm_menu();
+					break;
+				}
+			case 2:
+				if(!.mode) {
+					mes .npc$;
+					mes "Select the RWC Accessory you would like me to remove the enchantments from."; next;
+					f_itm_menu();
+					goto L_RMV;
+				} else if (.mode>1) {
+					mes .npc$;
+					mes "Which RWC Accessory item would you like to enchant?"; next;
+					f_itm_menu();
+					goto L_Slots;
+				}
+			case 3:
+				if (.mode>1) {
+					mes .npc$;
+					mes "Select the RWC Accessory you would like me to remove the enchantments from."; next;
+					f_itm_menu();
+					goto L_RMV;
+				}
+			case 4:
+				goto L_Exit;
+		}
+	
+	if(!compare(.slot$,""+@eq_id)) {
+		mes .npc$;
+		mes "That item cannot be slotted.";
+		close;
+	}
+	while(.@i++<=4)
+		setd(".@o_crd"+.@i, getequipcardid(@eq_loc,.@i-1));
+	mes .npc$;
+	mes "Are you sure you wish to continue?";
+	mes "^FF0000There is a "+.pert+"% chance that";
+	mes "the slotting process will fail and";
+	mes "your item will break.^000000"; next;
+	if(select("Yes:No")&2) goto L_Exit;
+	if (Zeny < 10000000) || (countitem(6242) < 1) {
+		mes .npc$;
+		mes "Sorry but you need 1 Midgard Coin and 10,000,000 Zeny to use my service";
+		close;
+	}
+	if(rand(100)>=.pert) {
+		delitem2 @eq_id, 1, 1, @eq_rf, 0, .@o_crd1, .@o_crd2, .@o_crd3, .@o_crd4;
+		getitem2 (@eq_id+1), 1, 1, @eq_rf, 0, 0, .@o_crd2, .@o_crd3, .@o_crd4;
+		misceffect 101;
+		sleep2 1300;
+		misceffect .efet;
+		set Zeny,Zeny-10000000;
+		delitem(.ench,1);
+		mes .npc$;
+		mes "Perfection!!";
+		emotion e_no1,0;
+	} else {
+		delitem2 @eq_id, 1, 1, @eq_rf, 0, .@o_crd1, .@o_crd2, .@o_crd3, .@o_crd4;
+		misceffect 101;
+		sleep2 1300;
+		misceffect .afet;
+		set Zeny,Zeny-10000000;
+		delitem(.ench,1);
+		mes .npc$;
+		mes "The metal was too weak and the drill went right through... I'm Sorry!";
+		emotion e_sob,0;
+	}
+	close;
+	
+L_Slots:
+	set .@menu$, ""; set .@a, 0;
+	while(set(.@a,.@a+1)<=4) {
+		setd(".@o_crd"+.@a, getequipcardid(@eq_loc,.@a-1));
+		if(getequipcardid(@eq_loc,.@a-1))
+			set .@menu$, .@menu$+ ordinal_suffix(.@a)+" Slot - [^a92435"+getitemname(getequipcardid(@eq_loc,.@a-1))+"^000000]:";
+		else if(getitemslots(@eq_id)-.@a>=0)
+			set .@menu$, .@menu$+ ordinal_suffix(.@a)+" Slot - [Chambered]:";
+		else
+			set .@menu$, .@menu$+ ordinal_suffix(.@a)+" Slot - [^30ad25"+((getd(".@crd"+.@a))?"^800080"+getd(".@typ"+.@a+"$"):"Empty")+"^000000]:";
+	} set .@menu$, .@menu$+"[^0000FFEnchant!^000000]";
+
+	mes .npc$;
+	mes "Select a slot.";
+	mes "Choose '^0000FFEnchant^000000' when you're done!";	next;
+	set .@menu, select(.@menu$)-1;
+	if(getequipcardid(@eq_loc,.@menu)&&getitemslots(@eq_id)-(.@menu+1)<0) {
+		if(.remv) {
+			mes .npc$;
+			mes "Would you like me to remove this enchantment?"; next;
+			if(select("Yes:No")&2) goto L_Exit;
+			delitem2 @eq_id, 1, 1, @eq_rf, 0, .@o_crd1, .@o_crd2, .@o_crd3, .@o_crd4;
+			setd(".@o_crd"+(.@menu+1), 0);
+			getitem2 @eq_id, 1, 1, @eq_rf, 0, .@o_crd1, .@o_crd2, .@o_crd3, .@o_crd4;
+			goto L_Slots;
+		} else {
+			mes .npc$;
+			mes "Sorry I can't do anything with this slot without a "+getitemname(.cure)+"."; next;
+			goto L_Slots;
+		}
+	} else if(getitemslots(@eq_id)-(.@menu+1)>=0) {
+		mes .npc$;
+		mes "I cannot do anything with Chambered slots!"; next;
+		goto L_Slots;
+	}
+	
+	if((.@menu+1)>4) {
+		if(!(.@crd1+.@crd2+.@crd3+.@crd4)) {
+			mes .npc$;
+			mes "You haven't done anything!";
+			next;
+			goto L_Slots;
+		}
+		mes .npc$;
+		mes "Are you sure you wish to continue?";
+		mes "^FF0000There is a "+.perc+"% chance that";
+		mes "the enchantment will fail and";
+		mes "your item will break.^000000"; next;
+		if(select("Yes:No")&2) goto L_Exit;
+		if (Zeny < 100000000) || (countitem(6242) < 10) {
+			mes .npc$;
+			mes "Sorry but you need 10 Midgard Coin and 100,000,000 Zeny to use my service"; next;
+			close;
+		}
+		if(rand(100)>=.perc) {
+			delitem2 @eq_id, 1, 1, @eq_rf, 0, .@o_crd1, .@o_crd2, .@o_crd3, .@o_crd4;
+			getitem2 @eq_id, 1, 1, @eq_rf, 0, .@crd1, .@crd2, .@crd3, .@crd4;
+			misceffect 101;
+			sleep2 1300;
+			misceffect .efet;
+			set Zeny,Zeny-100000000;
+			delitem(.ench,10);
+			mes .npc$;
+			mes "Wow, that's one strong item!";
+		} else {
+			delitem2 @eq_id, 1, 1, @eq_rf, 0, .@o_crd1, .@o_crd2, .@o_crd3, .@o_crd4;
+			misceffect 101;
+			sleep2 1300;
+			misceffect .afet;
+			set Zeny,Zeny-100000000;
+			delitem(.ench,10);
+			mes .npc$;
+			mes "I'm sorry, the item wasn't able to support the enchantment and broke!";
+		}
+		close;
+	}
+	
+	set(.@g$,"");
+	if(@eq_id!=2966&&.@menu>1&&@eq_id!=2967) {
+		set(.@g$,"1");
+	} else if(.@menu>1) set(.@g$,"0");
+	
+	select(getd(".menu"+.@g$+(.@menu+1)+"$"));
+	set .itm,	((.@menu<1&&@menu>.t_len)?.itm04[(getarraysize(.itm04)-1)]:4700+((.@menu*10)+rand(.limi)));
+	setd(".@crd"+(.@menu+1),getd(".itm"+.@g$+((.@menu>1)?@menu+"["+rand(getarraysize(getd(".itm"+.@g$+@menu)))+"]":"")));
+	setd(".@typ"+(.@menu+1)+"$",getd(".ary"+.@g$+(.@menu+1)+"$["+(@menu-1)+"]"));
+	goto L_Slots;
+	
+L_RMV:
+	if(!countitem(.cure)) || (Zeny < 10000000) {
+		mes .npc$;
+		mes "I'm sorry but you need 10,000,000 Zeny at least one "+getitemname(.cure)+" before we may continue.";
+		close;
+	}
+	while(.@i++<=4)
+		setd(".@o_crd"+.@i, getequipcardid(@eq_loc,.@i-1));
+	if(!((getitemslots(@eq_id)?0:.@o_crd1)+.@o_crd2+.@o_crd3+.@o_crd4)) {
+		mes .npc$;
+		mes "There isn't anything I can remove on that accessory.";
+		close;
+	}
+	mes .npc$;
+	mes "Are you sure that you want to remove your enchantments?";
+	mes "^FF0000This option won't effect your chambered card slot.^000000"; next;
+	if(select("Yes:No")&2) goto L_Exit;
+	misceffect 103;
+	set Zeny,Zeny-10000000;
+	delitem(.cure,1);
+	delitem2 @eq_id, 1, 1, @eq_rf, 0, .@o_crd1, .@o_crd2, .@o_crd3, .@o_crd4;
+	getitem2 @eq_id, 1, 1, @eq_rf, 0, (getitemslots(@eq_id)?.@o_crd1:0), 0, 0, 0;
+	mes .npc$;
+	mes "Your enchantments where removed!";
+	close;
+	
+L_Exit:
+	mes .npc$;
+	mes .message$[rand(getarraysize(.message$))];
+	close;
+	
+	function	ordinal_suffix	{
+		set(.@i,getarg(0));
+		set(.@j,.@i%10);
+		if (.@j == 1 && .@i != 11)
+			return .@i + "st";
+		if (.@j == 2 && .@i != 12)
+			return .@i + "nd";
+		if (.@j == 3 && .@i != 13)
+			return .@i + "rd";
+		return .@i + "th";
+	}
+
+	function	f_itm_menu	{	
+		while(set(.@a,.@a+1)<=.e_len) {
+			if(compare(.e_itl$[.@a-1],""+getequipid(.e_loc[.@a-1])))
+				set .@menu$, .@menu$+.eqp$[.@a-1]+"- [^0000FF"+getitemname(getequipid(.e_loc[.@a-1]))+"^000000]:";
+			else set .@menu$, .@menu$+"^adb4be"+.eqp$[.@a-1]+"- [Empty]^000000:";
+		}
+		set @menu, select(.@menu$)-1;
+		set @eq_loc, .e_loc[@menu];
+		set @eq_id, getequipid(@eq_loc);
+		set @eq_rf, getequiprefinerycnt(@eq_loc);
+		
+		if(!compare(.e_itm$,""+@eq_id )) {
+			mes .npc$;
+			mes "Sorry I don't recognize that equipment.";
+			close;
+		}
+	} return;
+	
+//NPC Constants
+	OnInit:
+		//=-=-=-=-=-=-=Configuration=-=-=-=-=-=-=
+		set      .perc  ,    50; //enchantment fail percent
+		set      .pert  ,    50; //slotting fail percent
+		set      .efet  ,    154; //Success Effect Number
+		set      .afet  ,    155; //Fail Effect Number
+		set      .remv  ,    0; //Allows the NPC to remove enchantments without Item. (1=On/0=Off)
+		set      .ench  ,    6242; //Item used to remove enchantments
+		set      .cure  ,    6665; //Item used to remove enchantments
+		set      .limi  ,    3; //Limit for status orb enchantments.
+		setarray .message$,     //List of random closing messages.
+			"Maybe next time then.",
+			"Alright, thanks anyway!",
+			"Alright maybe next time then.",
+			"Uhm, ok- See you around then.",
+			"Wise choice, although you'll probably"+
+			"never get anywhere with that attitude.";
+			
+		set .slot$, "2966|2968"; //Items that can be slotted.
+		
+		setarray .ary1$, "Strength(STR)", "Intelligence(INT)", "Dexterity(DEX)", "Agility(AGI)", "Vitality(VIT)", "Luck(LUK)";
+		copyarray .ary2$[0],.ary1$[0],128;
+		set .t_len, getarraysize(.ary2$);
+		set .ary2$[.t_len], "Health Points";
+
+		setarray .ary03$, "Fighting Spirit", "Physical Attack Percent(ATK%)", "Maximum Health Points(MHP%)", "Health Points";
+		setarray .itm01  ,	4811, 4810, 4809; //Fighting Spirit
+		setarray .itm02  ,	4819, 4766, 4767; //ATK(%)
+		setarray .itm03  ,	4861, 4862, 4867; //MHP
+		setarray .itm04  ,	4795, 4796, 4797; //HP
+		copyarray .ary04$[0],.ary03$[0],128;
+
+		setarray .ary13$, "Magic Attack Percent(MATK%)", "Casting Rate & Damage(Spell)", "Special Points(SP)";
+		setarray .itm11  ,	4760, 4761, 4806; //MATK(%)
+		setarray .itm12  ,	4815, 4814, 4813; //Spell
+		setarray .itm13  ,	4870, 4800, 4871; //SP
+		copyarray .ary14$[0],.ary13$[0],128;
+
+		setarray .eqp$  ,    "Accessory1", "Accessory2"; //Menu3
+		set      .e_len ,    getarraysize(.eqp$);
+		setarray .e_itl$,    "2966|2967|2968|2969",
+		                     "2966|2967|2968|2969"; //Equip Items
+		setarray .e_loc ,    7, 8; //Equip Locations
+		set      .e_itm$,    implode(.e_itl$,",");
+		set      .menu1$,    implode(.ary1$,":");
+		set      .menu2$,    .menu1$+":"+.ary03$[3];
+		set      .menu03$,   implode(.ary03$,":");
+		set      .menu04$,   .menu03$;
+		set      .menu13$,   implode(.ary13$,":");
+		set      .menu14$,   .menu13$;
+		//=-=-=-=-=-=-=-=-Skorm-=-=-=-=-=-=-=-=-=
+}
+
+moc_para01,12,185,4	duplicate(Goldberg#0)	Driller#1	87
+
+//prontera,147,63,5	duplicate(Goldberg#0)	Goldentheifberg#3	87

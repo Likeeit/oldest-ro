@@ -20,6 +20,11 @@ invek,146,193,0	script	Cluckers	4_NFCOCK,{
 
 	set .@GMAccess,4;	// GM level required to access NPC
 
+OnMinute58:
+	announce "[Cluck! Cluck! Boom!] is about to start in the great city of invek!",bc_blue;
+	initnpctimer;
+	end;
+
 	if (.startcluck) {
 		specialeffect2 2;
 		switch(rand(15)) {

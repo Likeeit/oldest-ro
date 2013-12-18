@@ -16,7 +16,6 @@
 
 OnInit:
 	disablenpc "poringevent";
-	disablenpc "Poring Catcher#evnt2";
 	end;
 
 OnMinute50: // SET THE 30 TO THE MINUTE YOU WANT THE EVENT TO START EACH HOUR.
@@ -86,20 +85,15 @@ poring_w01,100,127,4	script	Poring Catcher#evnt2	715,{
 
 	mes "[Poring Catcher]";
 	if(PORING == 1) goto L_PORING;
-	mes "Please tell me your name";
-	next;
-	input .@name$;
-	if(.@name$ != strcharinfo(0)) {
-		mes "[Poring Catcher]";
-		mes "Are you sure thats your character name?";
-		close;
-	}
 	mes "[Poring Catcher]";
-	mes "Congrats. You've won.";
-	close2;
-	announce "Poring Catcher : All laugh at, "+.@name$+". - This player tried to cheat the system. Muhahahahaha!",0;
-	warp "invek",146,164;
-	end;
+	mes "Do you want to exit the event map?"; next;
+	switch(select("Yes, Let me Exit:No I want to Stay")) {
+		case 1:
+			warp "invek",146,164;
+			end;
+		case 2:
+			close;
+	}
 
 L_PORING:
 	mes "Please tell me your name";
@@ -123,7 +117,6 @@ L_PORING:
 
 	set PORING, 0;
 	warp "invek",146,164;
-	disablenpc "Poring Catcher#evnt2";
 	end;
 	
 OnEnable:
@@ -179,7 +172,6 @@ OnMobKilled:
 	atcommand "@doommap";
 	killmonster "poring_w01","All";
 	mapannounce "poring_w01","Poring Catcher : Come to me and tell me your name.",0;
-	enablenpc "Poring Catcher#evnt2";
 	end;
 }
 

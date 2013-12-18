@@ -1,4 +1,4 @@
-invek,167,162,0	script	Counting Game	437,{
+izlude,128,114,4	script	Counting Game	437,{
 mes "This is a Monsters Counting Game";
 mes "I will summon some Monsters here, and you have to count the Correct Amount of Monsters i summoned.";
 mes "^FF0000Only Count for the Monsters i mentioned^000000";
@@ -83,7 +83,7 @@ OnInit:
 //	Min. GM Level to access GM Panel
 set .GMLevel,80;
 //	Game Location
-set .Map$,"invek";
+set .Map$,"izlude";
 //	Monster ID Lists
 setarray .MonsterList[0],1084,1085;
 //	Winners Answer Delay ( Not advised for High Value )
@@ -93,7 +93,7 @@ set .Spam,3;
 //	How many rounds
 set .MaxRound,10;
 //	Area Coordination	<x1>,<y1>,<x2>,<y2>;
-setarray .Coordinate,164,165,170,172;
+setarray .Coordinate,131,111,125,124;
 //	Rewards ...
 setarray .Reward$[0],
 			"Zeny","25000",

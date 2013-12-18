@@ -24,20 +24,20 @@
 bat_room,142,227,4	script	Lieutenant Huvas	4_M_KY_KNT,{
 	end;
 OnInit:
-	waitingroom "Battle Station",11,"start#bat_b02::OnReadyCheck",1,0,80;
+	waitingroom "Battle Station",8,"start#bat_b02::OnReadyCheck",1,0,80;
 	end;
 OnEnterBG:
-	set $@FlaviusBG2_id1, waitingroom2bg("bat_b02",10,290,"start#bat_b02::OnGuillaumeQuit","");
+	set $@FlaviusBG2_id1, waitingroom2bg("bat_b02",7,290,"start#bat_b02::OnGuillaumeQuit","");
 	end;
 }
 
 bat_room,142,204,0	script	Lieutenant Yukon	4_M_CRU_KNT,{
 	end;
 OnInit:
-	waitingroom "Battle Station",11,"start#bat_b02::OnReadyCheck",1,0,80;
+	waitingroom "Battle Station",8,"start#bat_b02::OnReadyCheck",1,0,80;
 	end;
 OnEnterBG:
-	set $@FlaviusBG2_id2, waitingroom2bg("bat_b02",390,10,"start#bat_b02::OnCroixQuit","");
+	set $@FlaviusBG2_id2, waitingroom2bg("bat_b02",390,7,"start#bat_b02::OnCroixQuit","");
 	end;
 }
 
@@ -86,7 +86,7 @@ OnReadyCheck:
 		donpcevent "#bat_b02_timer::OnStop";
 		end;
 	}
-	if( .@Guillaume < 10 || .@Croix < 10 )
+	if( .@Guillaume < 7 || .@Croix < 7 )
 		end;
 	set $@FlaviusBG2, 1;
 	set $@FlaviusBG2_Victory, 0;
@@ -401,7 +401,7 @@ bat_b02,10,294,3	script	Guillaume Vintenar#b02_a	4_M_RASWORD,{
 				mes "Let's enjoy our glorious victory!";
 				mes ""+strcharinfo(0)+", it's a sign reflecting victory.";
 				close2;
-				getitem 7829,9; //BF_Badge2
+				getitem 7829,100; //BF_Badge2
 			}
 			else {
 				mes "[Axl Rose]";
@@ -421,7 +421,7 @@ bat_b02,10,294,3	script	Guillaume Vintenar#b02_a	4_M_RASWORD,{
 				mes "This is a reward for your great dedication by Guillaume Marollo!";
 				mes "Just take this defeat as a lesson, next time you will definitely win.";
 				close2;
-				getitem 7829,3; //BF_Badge2
+				getitem 7829,25; //BF_Badge2
 			}
 			else {
 				mes "[Axl Rose]";
@@ -453,7 +453,7 @@ bat_b02,389,14,3	script	Croix Vintenar#b02_b	4_M_RASWORD,{
 				mes "Let's enjoy our glorious victory!";
 				mes ""+strcharinfo(0)+", it's a sign reflecting victory.";
 				close2;
-				getitem 7829,9; //BF_Badge2
+				getitem 7829,100; //BF_Badge2
 			}
 			else {
 				mes "[Swandery]";
@@ -473,7 +473,7 @@ bat_b02,389,14,3	script	Croix Vintenar#b02_b	4_M_RASWORD,{
 				mes "Even though we didn't win, we did our best.";
 				mes "This is a Royal gift from Croix, and please don't forget this battle. We will win the next one.";
 				close2;
-				getitem 7829,3; //BF_Badge2
+				getitem 7829,25; //BF_Badge2
 			}
 			else {
 				mes "[Swandery]";
@@ -586,7 +586,7 @@ bat_b02,10,294,3	script	Vintenar#bat_b02_aover	4_M_KY_HEAD,{
 				mes "Let's enjoy our glorious victory!";
 				mes ""+strcharinfo(0)+", it's a sign reflecting victory.";
 				close2;
-				getitem 7829,9; //BF_Badge2
+				getitem 7829,100; //BF_Badge2
 			}
 			else {
 				mes "[Axl Rose]";
@@ -606,7 +606,7 @@ bat_b02,10,294,3	script	Vintenar#bat_b02_aover	4_M_KY_HEAD,{
 				mes "This is a reward for your great dedication by Guillaume Marollo!";
 				mes "Just take this defeat as a lesson, next time you will definitely win.";
 				close2;
-				getitem 7829,3; //BF_Badge2
+				getitem 7829,25; //BF_Badge2
 			}
 			else {
 				mes "[Axl Rose]";
@@ -626,7 +626,7 @@ bat_b02,10,294,3	script	Vintenar#bat_b02_aover	4_M_KY_HEAD,{
 				mes "This is a reward for your great dedication by Guillaume Marollo!";
 				mes "Just take this defeat as a lesson, next time you will definitely win.";
 				close2;
-				getitem 7829,3; //BF_Badge2
+				getitem 7829,25; //BF_Badge2
 			}
 			else {
 				mes "[Axl Rose]";
@@ -664,7 +664,7 @@ bat_b02,389,14,3	script	Vintenar#bat_b02_bover	4_M_CRU_HEAD,{
 				mes "Even though we didn't win, we did our best.";
 				mes "This is a Royal gift from Croix, and please don't forget this battle. We will win the next one.";
 				close2;
-				getitem 7829,3; //BF_Badge2
+				getitem 7829,25; //BF_Badge2
 			}
 			else {
 				mes "[Swandery]";
@@ -684,7 +684,7 @@ bat_b02,389,14,3	script	Vintenar#bat_b02_bover	4_M_CRU_HEAD,{
 				mes "Even though we didn't win, we did our best.";
 				mes "This is a Royal gift from Croix, and please don't forget this battle. We will win the next one.";
 				close2;
-				getitem 7829,3; //BF_Badge2
+				getitem 7829,25; //BF_Badge2
 			}
 			else {
 				mes "[Swandery]";
@@ -704,7 +704,7 @@ bat_b02,389,14,3	script	Vintenar#bat_b02_bover	4_M_CRU_HEAD,{
 				mes "Let's enjoy our glorious victory!";
 				mes ""+strcharinfo(0)+", it's a sign reflecting victory.";
 				close2;
-				getitem 7829,9; //BF_Badge2
+				getitem 7829,100; //BF_Badge2
 			}
 			else {
 				mes "[Swandery]";

@@ -93,7 +93,7 @@ set .Spam,3;
 //	How many rounds
 set .MaxRound,10;
 //	Area Coordination	<x1>,<y1>,<x2>,<y2>;
-setarray .Coordinate,153,134,147,127;
+setarray .Coordinate,153,140,147,127;
 //	Rewards ...
 setarray .Reward$[0],
 			"Zeny","25000",

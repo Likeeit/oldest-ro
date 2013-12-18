@@ -374,20 +374,20 @@ bat_c01,51,130,5	script	KVM Officer#KVM01A	4_M_KY_HEAD,{
 	{
 		if( $@KvM01BG_Victory == Bat_Team )
 		{ // Victory
-			set kvm_point,kvm_point + 5;
+			set kvm_point,kvm_point + 100;
 			mes "[KVM Officer]";
 			mes "Good Game.";
 			mes "May the glory of KVM be with you.";
-			mes "You aquire the winning points: 5";
+			mes "You aquire the winning points: 20";
 			close2;
 		}
 		else
 		{ // 
-			set kvm_point,kvm_point + 1;
+			set kvm_point,kvm_point + 25;
 			mes "[KVM Officer]";
 			mes "I am so sorry.";
 			mes "I wish you better luck next time.";
-			mes "You aquire the losing points: 1";
+			mes "You aquire the losing points: 5";
 			close2;
 		}
 		bg_leave;
@@ -403,20 +403,20 @@ bat_c01,148,53,1	script	KVM Officer#KVM01B	4_M_CRU_HEAD,{
 	{
 		if( $@KvM01BG_Victory == Bat_Team )
 		{ // Victory
-			set kvm_point,kvm_point + 5;
+			set kvm_point,kvm_point + 100;
 			mes "[KVM Officer]";
 			mes "Good Game.";
 			mes "May the glory of KVM be with you.";
-			mes "You aquire the winning points: 5";
+			mes "You aquire the winning points: 20";
 			close2;
 		}
 		else
 		{ // 
-			set kvm_point,kvm_point + 1;
+			set kvm_point,kvm_point + 25;
 			mes "[KVM Officer]";
 			mes "I am so sorry.";
 			mes "I wish you better luck next time.";
-			mes "You aquire the losing points: 1";
+			mes "You aquire the losing points: 5";
 			close2;
 		}
 		bg_leave;

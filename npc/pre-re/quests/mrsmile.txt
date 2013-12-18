@@ -9,6 +9,11 @@
 //= Trade Clover, Fluff and Jellopy for a Mr. Smile mask.
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Updated Pre-Renewal to match the new Izlude and added Izlude Duplicates to Pre-Renewal. [Milamber]
 //============================================================
 
-izlude,129,118,4	duplicate(SmileHelper)	Smile Assistance#iz	4_F_03
+izlude,125,175,4	duplicate(SmileHelper)	Smile Assistance#iz	4_F_03
+izlude_a,125,175,4	duplicate(SmileHelper)	Smile Assistance#iz_a	4_F_03
+izlude_b,125,175,4	duplicate(SmileHelper)	Smile Assistance#iz_b	4_F_03
+izlude_c,125,175,4	duplicate(SmileHelper)	Smile Assistance#iz_c	4_F_03
+izlude_d,125,175,4	duplicate(SmileHelper)	Smile Assistance#iz_d	4_F_03

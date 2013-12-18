@@ -7,5 +7,13 @@
 //===== Additional Comments: =================================
 //= Official NPCs.
 //============================================================
+//= 1.0 First Version.
+//= 1.1 Updated Pre-Renewal to match the new Izlude and added Izlude Duplicates to Pre-Renewal. [Milamber]
+//============================================================
 
-izlude,206,55,3	duplicate(Airship_Staff_izlude)	Airship Staff#izlude	4_F_01
+izlude,202,75,3	duplicate(Airship_Staff_izlude)	Airship Staff#izlude	4_F_01
+izlude_a,202,75,3	duplicate(Airship_Staff_izlude)	Airship Staff#izlude_a	4_F_01
+izlude_b,202,75,3	duplicate(Airship_Staff_izlude)	Airship Staff#izlude_b	4_F_01
+izlude_c,202,75,3	duplicate(Airship_Staff_izlude)	Airship Staff#izlude_c	4_F_01
+izlude_d,202,75,3	duplicate(Airship_Staff_izlude)	Airship Staff#izlude_d	4_F_01
+

@@ -277,6 +277,7 @@ geffen,109,66,3	duplicate(BatRecruit)	Maroll Battle Recruiter::BatRecruit4	4_F_J
 payon,189,105,3	duplicate(BatRecruit)	Maroll Battle Recruiter::BatRecruit5	4_F_JOB_KNIGHT
 lighthalzen,153,86,5	duplicate(BatRecruit)	Maroll Battle Recruiter::BatRecruit6	4_F_JOB_KNIGHT
 rachel,149,138,3	duplicate(BatRecruit)	Maroll Battle Recruiter::BatRecruit7	4_F_JOB_KNIGHT
+invek,125,153,5	duplicate(BatRecruit)	Maroll Battle Recruiter::BatRecruit8	4_F_JOB_KNIGHT
 
 // Additional warps
 // Empty

@@ -8,6 +8,11 @@
 //= Edgar's Offer
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Updated Pre-Renewal to match the new Izlude and added Izlude Duplicates to Pre-Renewal. [Milamber]
 //============================================================
 
-izlude,182,186,2	duplicate(Edgar_izlude)	Edgar#izlude	1_M_03
+izlude,179,219,2	duplicate(Edgar_izlude)	Edgar#izlude	1_M_03
+izlude_a,179,219,2	duplicate(Edgar_izlude)	Edgar#izlude_a	1_M_03
+izlude_b,179,219,2	duplicate(Edgar_izlude)	Edgar#izlude_b	1_M_03
+izlude_c,179,219,2	duplicate(Edgar_izlude)	Edgar#izlude_c	1_M_03
+izlude_d,179,219,2	duplicate(Edgar_izlude)	Edgar#izlude_d	1_M_03

@@ -1,4 +1,4 @@
-izlude,128,114,4	script	Counting Game	437,{
+izlude,128,133,4	script	Counting Game	437,{
 mes "This is a Monsters Counting Game";
 mes "I will summon some Monsters here, and you have to count the Correct Amount of Monsters i summoned.";
 mes "^FF0000Only Count for the Monsters i mentioned^000000";
@@ -93,7 +93,7 @@ set .Spam,3;
 //	How many rounds
 set .MaxRound,10;
 //	Area Coordination	<x1>,<y1>,<x2>,<y2>;
-setarray .Coordinate,125,103,131,110;
+setarray .Coordinate,125,122,131,130;
 //	Rewards ...
 setarray .Reward$[0],
 			"Zeny","25000",

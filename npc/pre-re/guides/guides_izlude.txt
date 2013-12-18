@@ -15,9 +15,10 @@
 //= 1.5 Rescripted to official 10.3 standards. [L0ne_W0lf]
 //= 1.5a Fixed some errors with the loop[Samuray22]
 //	-Thanks to $ephiroth.
+//= 1.6 Updated Pre-Renewal to match the new Izlude and added Izlude Duplicates to Pre-Renewal. [Milamber]
 //============================================================
 
-izlude,121,87,6	script	Guide#iz	8W_SOLDIER,{
+-	script	::GuideIzlude	-1,{
 	cutin "prt_soldier",2;
 	mes "[Izlude Guide]";
 	mes "Welcome to Izlude,";
@@ -157,3 +158,15 @@ izlude,121,87,6	script	Guide#iz	8W_SOLDIER,{
 	cutin "prt_soldier",255;
 	end;
 }
+
+izlude,129,175,4	duplicate(GuideIzlude)	Guide#01izlude	8W_SOLDIER
+izlude_a,129,175,4	duplicate(GuideIzlude)	Guide#01izlude_a	8W_SOLDIER
+izlude_b,129,175,4	duplicate(GuideIzlude)	Guide#01izlude_b	8W_SOLDIER
+izlude_c,129,175,4	duplicate(GuideIzlude)	Guide#01izlude_c	8W_SOLDIER
+izlude_d,129,175,4	duplicate(GuideIzlude)	Guide#01izlude_d	8W_SOLDIER
+
+izlude,133,113,4	duplicate(GuideIzlude)	Guide#02izlude	8W_SOLDIER
+izlude_a,133,113,4	duplicate(GuideIzlude)	Guide#02izlude_a	8W_SOLDIER
+izlude_b,133,113,4	duplicate(GuideIzlude)	Guide#02izlude_b	8W_SOLDIER
+izlude_c,133,113,4	duplicate(GuideIzlude)	Guide#02izlude_c	8W_SOLDIER
+izlude_d,133,113,4	duplicate(GuideIzlude)	Guide#02izlude_d	8W_SOLDIER

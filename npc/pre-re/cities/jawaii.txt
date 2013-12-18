@@ -9,6 +9,11 @@
 //= Jawaii town NPCs.
 //===== Additional Comments: =================================
 //= 1.0 First Version.
+//= 1.0 Updated Pre-Renewal to match the new Izlude and added Izlude Duplicates to Pre-Renewal. [Milamber]
 //============================================================
 
-izlude,171,185,3	duplicate(Honeymoon_Helper_Izlude)	Honeymoon Helper#Izlude	1_F_LIBRARYGIRL
+izlude,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Honeymoon Helper#Izlude	1_F_LIBRARYGIRL
+izlude_a,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Honeymoon Helper#Iz_a	1_F_LIBRARYGIRL
+izlude_b,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Honeymoon Helper#Iz_b	1_F_LIBRARYGIRL
+izlude_c,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Honeymoon Helper#Iz_c	1_F_LIBRARYGIRL
+izlude_d,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Honeymoon Helper#Iz_d	1_F_LIBRARYGIRL

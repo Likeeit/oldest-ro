@@ -30,8 +30,8 @@ PRIZE:
 	set @prize,rand (1,10000);
 	if (@prize == 1) goto P1;
 	if (@prize == 2) goto P2;
-	if (@prize <= 10) goto P3;
-	if (@prize <= 15) goto P4;
+	if (@prize <= 5) goto P3;
+	if (@prize <= 9) goto P4;
 	if (@prize <= 50) goto P5;
 	if (@prize <= 150) goto P6;
 	if (@prize <= 250) goto P7;
@@ -47,66 +47,85 @@ PRIZE:
 P1:
 	getitem 4302,1;
 	announce "Congratulations! "+strcharinfo(0)+" just received the Grand Prize from Lotti Girl!",0;
+	specialeffect2 248;
+	atcommand "@effect 805 22";
+	atcommand "@effect 804 22";
 	close;
 
 P2:
 	getitem 4047,1;
 	announce "Congratulations! "+strcharinfo(0)+" just received the Special Prize from Lotti Girl!",0;
+	specialeffect2 248;
+	atcommand "@effect 805 22";
+	atcommand "@effect 804 22";
 	close;
 
 P3:
 	getitem 18744,1;
 	announce "Congratulations! "+strcharinfo(0)+" just received the Special Prize from Lotti Girl!",0;
+	specialeffect2 248;
 	close;
 
 P4:
 	getitem 18742,1;
 	announce "Congratulations! "+strcharinfo(0)+" just received the Special Prize from Lotti Girl!",0;
+	specialeffect2 248;
 	close;
 
 P5:
 	getitem 32717,1; //Premium Scroll 1D
+	specialeffect2 248;
 	close;
 
 P6:
 	getitem 6439,1; //Blessed Armor Ore
+	specialeffect2 248;
 	close;
 
 P7:
 	getitem 6438,1; //Blessed Weapon Ore
+	specialeffect2 248;
 	close;
 
 P8:
 	getitem 6241,1; //HD Elunium
+	specialeffect2 248;
 	close;
 
 P9:
 	getitem 6240,1; //HD Oridicon
+	specialeffect2 248;
 	close;
 
 P10:
 	getitem 32723,1; //Golden Apple
+	specialeffect2 248;
 	close;
 
 P11:
 	getitem 12103,1; //Bloody Branch
+	specialeffect2 248;
 	close;
 
 P12:
 	getitem 14522,10; //Big Bun
+	specialeffect2 248;
 	close;
 
 P13:
 	getitem 14523,10; //Pill
+	specialeffect2 248;
 	close;
 
 P14:
 	getitem 7539,2; //Poring Coin
+	specialeffect2 248;
 	close;
 
 P15:
 	set kvm_point, kvm_point + 5;
 	mes "5 KVM Points";
 	mes "Your current KVM Points is:"+kvm_point;
+	specialeffect2 248;
 	close;
 }

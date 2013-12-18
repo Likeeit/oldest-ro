@@ -133,7 +133,6 @@
 
 // Poring Coin items
 7538,499,99	// Sand for Work
-7539,499,99	// Poring Coin
 
 // Brazillian Event items
 7547,499,99	// Soccer Ball

@@ -15,8 +15,14 @@
 //=  arg(4): Cost of Rent a Pushcart service
 //===== Additional Comments: =================================
 //= 1.0 First version.
+//= 1.1 Updated Pre-Renewal to match the new Izlude and added Izlude Duplicates to Pre-Renewal. [Milamber]
 //============================================================
 
 // Izlude
 //============================================================
-izlude,134,87,3	duplicate(kaf_izlude)	Kafra Employee#iz	4_F_KAFRA1
+izlude,128,148,6	duplicate(kaf_izlude)	Kafra Employee#iz	4_F_KAFRA1
+izlude_a,128,148,6	duplicate(kaf_izlude)	Kafra Employee#iz_a	4_F_KAFRA1
+izlude_b,128,148,6	duplicate(kaf_izlude)	Kafra Employee#iz_b	4_F_KAFRA1
+izlude_c,128,148,6	duplicate(kaf_izlude)	Kafra Employee#iz_c	4_F_KAFRA1
+izlude_d,128,148,6	duplicate(kaf_izlude)	Kafra Employee#iz_d	4_F_KAFRA1
+

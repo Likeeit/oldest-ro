@@ -1,0 +1,25 @@
+job_knt,45,45,5	script	Oldest Guardian	403,{
+	mes "This is the Beta Shop Only"; next;
+	mes "You can buy anything here";
+	close;
+OnInit:
+	.@interval = 5;
+	.@step = 5;
+	while (1) {
+		sleep .@interval * 1000;
+		getmapxy .@map$, .@x, .@y, 1;
+		while ( checkcell( .@map$, .@npc_x = .@x + rand( -.@step, .@step ), .@npc_y = .@y + rand( -.@step, .@step ), cell_chknopass ) );
+			npcwalkto .@npc_x, .@npc_y;
+			npctalk callfunc( "F_Rand",
+			"Welcome to Oldest Ragnarok!", // 1
+			"If you need help just type @request [message]!", // 2
+			"Please Write a Review at www.ratemyserver.net!", // 3
+			"Don't forget to SHARE our page every hour for 50 cash points!", // 4
+			"Always update your kRO and Oldest Patcher!", // 5
+			"You can buy almost everything you need here", // 6
+			"Please report any bug you will find" // 7
+		);
+	}
+}
+
+

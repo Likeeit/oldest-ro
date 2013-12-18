@@ -4,10 +4,7 @@ moc_para01,30,10,0	script	BETA NPC	936,{
 	mes "Goodluck!!!";
 	switch(select("Yes:No")) {
 		case 1:
-			//set gympassmemory,10;
-			//skill "ALL_INCCARRY",gympassmemory,3;
 			warp "job_knt",43,52;
-			savepoint "job_knt",43,52;
 			end;
 		case 2:
 			mes "Ok bye!";

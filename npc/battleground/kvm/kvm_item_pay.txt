@@ -309,5 +309,5 @@ PurchaseItem:
 	}
 	close;
 }
-moc_para01,13,35,4	duplicate(KVM Logistic Officer)	KVM Logistic Officer#mol	4_M_JOB_KNIGHT2
+moc_para01,14,35,4	duplicate(KVM Logistic Officer)	KVM Logistic Officer#mol	4_M_JOB_KNIGHT2
 bat_room,151,144,3	duplicate(KVM Logistic Officer)	KVM Logistic Officer#bgr	4_M_JOB_KNIGHT2

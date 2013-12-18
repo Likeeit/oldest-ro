@@ -85,7 +85,7 @@ set .GMLevel,80;
 //	Game Location
 set .Map$,"invek";
 //	Monster ID Lists
-setarray .MonsterList[0],1084,1085;
+setarray .MonsterList[0],6047,6048;
 //	Winners Answer Delay ( Not advised for High Value )
 set .delay,10;
 //	Spam Prevention ( Not advised for High Value )

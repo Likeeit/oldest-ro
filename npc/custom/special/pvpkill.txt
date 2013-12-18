@@ -1,21 +1,29 @@
--	script	pvpkill	-1,{
+-	script	announcer	-1,{
+OnPCKillEvent:
+	if( killedrid == getcharid(3) ) end;
+	getmapxy .@map$, .@x, .@y, 0;
+	for( set .@i, 0; .@i < getarraysize(.pvpmap$); set .@i, .@i+1 ) {
+		if( .@map$ == .pvpmap$[.@i] ) {
+			mapannounce .@map$, rid2name(killedrid) +" "+.announcements$[rand(getarraysize(.announcements$))] +" "+ rid2name(getcharid(3)), 0;
+			set @killcount, @killcount+1;
+				switch( @killcount ) {
+					case 5:
+						announce rid2name(getcharid(3)) +" is very angry at PVP", 0; end;
+					case 10:
+						announce rid2name(getcharid(3)) +" shows no mercy", 0; end;
+					case 20:
+						announce rid2name(getcharid(3)) +" is God-like", 0; end;
+					case 30:
+						announce rid2name(getcharid(3)) +" is hungry for blood", 0; end;
+						default:
+						end;
+				}
+		}
+	}
+end;
 
 OnInit:
-setarray $pvpmap$[0],"guild_vs3";
-
-OnPCKillEvent:
-getmapxy .@map$, .@x, .@y, 0;
-	for( set .@i, 0; .@i < getarraysize($pvpmap$); set .@i, .@i +1 )
-if (@map$ == $pvpmap$[.@]) {
-	set @killstreak, @killstreak + 1;
-	if (@killstreak < 3) {announce ""+strcharinfo(0)+" had just killed "+rid2name(killedrid)+" at "+strcharinfo(3)+".",bc_all;}
-	if (@killstreak >= 3) {announce ""+strcharinfo(0)+" had just killed "+rid2name(killedrid)+" at "+strcharinfo(3)+".["+@killstreak+"]",bc_all;}
-}
-OnPCDieEvent:
-getmapxy @map$,@x,@y,0;
-	for( set .@i, 0; .@i < getarraysize($pvpmap$); set .@i, .@i +1 )
-if (@map$ == $pvpmap$[.@i]) {
-	if (@killstreak >= 3) {announce ""+rid2name(killedrid)+" had just ended "+strcharinfo(0)+"'s ["+@killstreak+"] streak at "+strcharinfo(3)+".",bc_all;}
-	set @killstreak,0;
-	}
+	setarray .pvpmap$[0],"guild_vs3","guild_vs2-2";
+	setarray .announcements$[0],"was killed by","was violated by","was owned by";
+	end;
 }

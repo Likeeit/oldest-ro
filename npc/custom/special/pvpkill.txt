@@ -1,7 +1,7 @@
--	script	C_login	-1,{
+-	script	pvpkill	-1,{
 
 OnInit:
-setarray $pvpmap$[0],"guild_vs3","guild_vs2-2";
+setarray $pvpmap$[0],"guild_vs3";
 
 OnPCKillEvent:
 getmapxy .@map$, .@x, .@y, 0;

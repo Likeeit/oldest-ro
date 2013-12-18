@@ -1,0 +1,19 @@
+moc_para01,30,10,0	script	BETA NPC	936,{
+	mes "Do you want to enter the Beta RWC Event?"; next;
+	mes "Are you sure?!"; next;
+	mes "Goodluck!!!";
+	switch(select("Yes:No")) {
+		case 1:
+			set Zeny,0;
+			//set gympassmemory,10;
+			//skill "ALL_INCCARRY",gympassmemory,3;
+			warp "job_knt",43,52;
+			savepoint "job_knt",43,52;
+			end;
+		case 2:
+			mes "Ok bye!";
+			close;
+	}
+OnInit:
+waitingroom "BETA ONLY",0;
+}

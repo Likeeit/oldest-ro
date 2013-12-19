@@ -35,7 +35,7 @@ OnInit:
 	{
 		delwaitingroom strnpcinfo(3);
 		waitingroom "PvP[" + getmapusers("guild_vs3") + "/30]&[" + getmapusers("guild_vs2-2") + "/30]",0;
-		sleep 1000; //Update rate (ms)
+		sleep 100; //Update rate (ms)
 	}
 	end;
 }

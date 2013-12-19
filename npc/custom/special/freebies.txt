@@ -47,4 +47,7 @@ invek,150,57,4	script	Oldest Kafra	918,{
 				close;
 		}
 	}
+OnInit:
+waitingroom "Oldest-RO",0;
+end;
 }

@@ -25,6 +25,6 @@ invek,141,57,5	script	New Child	922,{
 		close;
 	}
 OnInit:
-waitingroom "Welcome To Oldest-RO!",0;
+waitingroom "Welcome To",0;
 end;
 }

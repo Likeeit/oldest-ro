@@ -30,10 +30,15 @@ mes "Sorry, Its either the arena is full, WoE is still ongoing, or you dont have
 	close;
 	
 OnInit:
-waitingroom "PvP[" + getmapusers("guild_vs3") + "/30]&[" + getmapusers("guild_vs2-2") + "/30]",0;
-end;
+	waitingroom "PvP[" + getmapusers("guild_vs3") + "/30]&[" + getmapusers("guild_vs2-2") + "/30]",0;
+	while(1)
+	{
+		delwaitingroom strnpcinfo(3);
+		waitingroom "PvP[" + getmapusers("guild_vs3") + "/30]&[" + getmapusers("guild_vs2-2") + "/30]",0;
+		sleep 1000; //Update rate (ms)
+	}
+	end;
 }
-
 guild_vs3	mapflag	pvp
 guild_vs3	mapflag	pvp_noguild
 guild_vs3	mapflag	partylock

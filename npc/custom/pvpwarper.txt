@@ -9,6 +9,7 @@ if ((getmapusers("guild_vs3.gat") > 30)||(getgroupid() > 1)&&(getgroupid() < 99)
 warp	"guild_vs3",0,0;
 announce strcharinfo(0) + " : Come and get me here in the PvP room noobs.",0;
 announce "There are ["+getmapusers("guild_vs3")+"/30] players inside the PvP room.",0;
+atcommand "@killmonster2";
 	end;
 
 L3:
@@ -17,6 +18,7 @@ set #CASHPOINTS, #CASHPOINTS - 200;
 warp	"guild_vs2-2",0,0;
 announce strcharinfo(0) + " : Need cash? get it from me inside the ElitePvPers room.",0;
 announce "There are ["+getmapusers("guild_vs2-2")+"/30] players inside the elitepvpers room.",0;
+atcommand "@killmonster2";
 	end;
 
 Lsorry:

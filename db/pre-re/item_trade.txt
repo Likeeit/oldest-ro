@@ -1781,3 +1781,4 @@
 32712,475,99 //Newbie Package
 7922,475,99 //RWC Voucher
 18505,511,99 //Umbala Spirit
+32719,475,99 //Woe Supply Box

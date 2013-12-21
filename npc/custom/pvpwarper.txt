@@ -8,8 +8,8 @@ L2:
 if ((getmapusers("guild_vs3.gat") > 30)||(getgroupid() > 1)&&(getgroupid() < 99)) goto Lsorry;
 warp	"guild_vs3",0,0;
 announce strcharinfo(0) + " : Come and get me here in the PvP room noobs.",0;
+sleep 500;
 announce "There are ["+getmapusers("guild_vs3")+"/30] players inside the PvP room.",0;
-atcommand "@killmonster2";
 	end;
 
 L3:
@@ -17,8 +17,8 @@ if ((getmapusers("guild_vs2-2.gat") > 30)||(#CASHPOINTS < 200)||(getgroupid() > 
 set #CASHPOINTS, #CASHPOINTS - 200;
 warp	"guild_vs2-2",0,0;
 announce strcharinfo(0) + " : Need cash? get it from me inside the ElitePvPers room.",0;
+sleep 500;
 announce "There are ["+getmapusers("guild_vs2-2")+"/30] players inside the elitepvpers room.",0;
-atcommand "@killmonster2";
 	end;
 
 Lsorry:
@@ -37,7 +37,7 @@ OnInit:
 	{
 		delwaitingroom strnpcinfo(3);
 		waitingroom "PvP[" + getmapusers("guild_vs3") + "/30]&[" + getmapusers("guild_vs2-2") + "/30]",0;
-		sleep 100; //Update rate (ms)
+		sleep 500; //Update rate (ms)
 	}
 	end;
 }
